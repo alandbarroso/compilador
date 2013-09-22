@@ -1,0 +1,181 @@
+% verso e anverso:
+% \documentclass[12pt,openright,twoside,a4paper,english]{abntex2}
+% apenas verso:	
+\documentclass[12pt,oneside,a4paper,english]{abntex2} 
+
+\usepackage{cmap}				% Mapear caracteres especiais no PDF
+\usepackage{lmodern}			% Usa a fonte Latin Modern			
+\usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
+\usepackage{lastpage}			% Usado pela Ficha catalográfica
+\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+\usepackage{color}				% Controle das cores
+\usepackage{graphicx}			% Inclusão de gráficos
+\usepackage{pdfpages}
+\usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
+\usepackage[alf]{abntex2cite}	% Citações padrão ABNT
+
+% Configurações do pacote backref
+% Usado sem a opção hyperpageref de backref
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+% Texto padrão antes do número das páginas
+\renewcommand{\backref}{}
+% Define os textos da citação
+\renewcommand*{\backrefalt}[4]{
+	\ifcase #1 %
+		Nenhuma citação no texto.%
+	\or
+		Citado na página #2.%
+	\else
+		Citado #1 vezes nas páginas #2.%
+	\fi}%
+% ---
+\makeatletter
+\renewcommand{\folhadeaprovacao}{
+\begin{center}
+	{\ABNTEXchapterfont\large\imprimirautor\par}
+	
+	\vspace*{\fill}\vspace*{\fill}\vspace*{\fill}\vspace*{\fill}
+	{\ABNTEXchapterfont\bfseries\Large\imprimirtitulo}
+	\vspace*{\fill}
+	
+	\abntex@ifnotempty{\imprimirpreambulo}{%
+	\hspace{0.45\textwidth}
+	\begin{minipage}{.5\textwidth}
+		\SingleSpacing
+		\imprimirpreambulo\par
+	\end{minipage}%
+	
+	\vspace*{\fill}
+	
+	}%
+	
+	{\abntex@ifnotempty{\imprimirinstituicao}{
+	\par
+	\par\imprimirinstituicao
+	\vspace*{\fill}}}
+	\assinatura{\textbf{\imprimirorientador} \\ Orientador}
+	\assinatura{\textbf{\imprimircoorientador} \\ Co-orientadora}
+	\vspace*{\fill}
+	{\large\imprimirlocal}
+	\par
+	{\large\imprimirdata}
+	\vspace*{1cm}
+\end{center}
+}
+\makeatother
+% ---
+
+\definecolor{blue}{RGB}{41,5,195} % alterando o aspecto da cor azul
+
+\makeatletter
+\hypersetup{
+     	%pagebackref=true,
+		pdftitle={\@title}, 
+		pdfauthor={\@author},
+    	pdfsubject={\@title},
+	    pdfcreator={\imprimirpreambulo},
+		pdfkeywords={Trabalho de Conclusão de Curso}{TCC}{Coordenação}{Gerenciamento de Desastres}{Sistemas Multiagentes}, 
+		colorlinks=true,       		% false: boxed links; true: colored links
+    	linkcolor=blue,          	% color of internal links
+    	citecolor=blue,        		% color of links to bibliography
+    	filecolor=magenta,      		% color of file links
+		urlcolor=blue,
+		bookmarksdepth=4
+}
+\makeatother
+
+\autor{Alan D. Barroso, Felipe de C. Santana, Victor Lassance}
+\title{Uso de Técnicas de Coordenação entre Agentes para Operações de Resgate em Ambientes de Desastre Urbano}
+\orientador{Jaime S. Sichman}
+\coorientador[Co-orientadora:]{Anarosa A. F. Brandão}
+\preambulo{Texto apresentado à Escola Politécnica da Universidade de São Paulo como requisito para a conclusão do curso de graduação em Engenharia de Computação, junto ao Departamento de Engenharia de Computação e Sistemas Digitais (PCS).}
+\instituicao{%
+	Universidade de São Paulo
+	\par
+	Escola Politécnica
+	\par
+	Engenharia de Computação - Curso Cooperativo}
+\local{São Paulo}
+\data{2013}
+\tipotrabalho{Trabalho de Conclusão de Curso}
+
+\setlength{\parindent}{1.3cm} % O tamanho do parágrafo
+\setlength{\parskip}{0.2cm}  % Controle do espaçamento entre um parágrafo e outro
+
+\makeindex
+
+\begin{document}
+
+\frenchspacing % Retira espaço extra obsoleto entre as frases.
+
+\imprimircapa
+%\imprimirfolhaderosto
+\folhadeaprovacao
+
+\clearpage
+\begin{resumo}
+	\input{chapters/A-resumo}
+\end{resumo}
+
+\begin{resumo}[Abstract]
+	\begin{otherlanguage*}{english}
+		\input{chapters/B-abstract}
+	\end{otherlanguage*}
+\end{resumo}
+
+
+\tableofcontents
+
+\textual
+
+\chapter{Introdução}
+\label{chap:introducao}
+	\input{chapters/1-introducao/*-introducao}
+
+\chapter{Aspectos Conceituais}
+\label{chap:aspectos-conceituais}
+	\input{chapters/2-aspectos-conceituais/*-aspectos-conceituais}
+
+\chapter{Aspectos Práticos}
+\label{chap:aspectos-praticos}
+	\input{chapters/3-aspectos-praticos/*-aspectos-praticos}
+
+\chapter{Metodologia}
+\label{chap:metodologia}
+	\input{chapters/4-metodologia/*-metodologia}
+
+\chapter{Visitas a Entidades de Resgate}
+\label{chap:visitas}
+	\input{chapters/5-visitas/*-visitas}
+
+\chapter{Especificação do Projeto}
+\label{chap:especificacao}
+	\input{chapters/6-especificacao/*-especificacao}
+
+\chapter{Participação em Competições e Workshops}
+\label{chap:competicoes}
+	\input{chapters/7-competicoes/*-competicoes}
+
+\bibliography{Monografia-TCC-Grupo-3}
+
+\begin{apendicesenv} % Inicia os apêndices
+
+% Imprime uma página indicando o início dos apêndices
+\partapendices
+
+\chapter{Resumo estendido submetido para o WESAAC 2013}
+\label{app:wesaac}
+\includepdf[pages={-}]{apendice/WESAAC_2013.pdf}
+
+\chapter{Descrição em inglês da equipe LTI na RoboCup Rescue 2013}
+\label{app:tdp-robocup}
+\includepdf[pages={-}]{apendice/TDP_RoboCup_2013.pdf}
+
+\chapter{Descrição da equipe LTI na CBR 2013 - Categoria RoboCup Rescue Simulation Agents}
+\label{app:tdp-cbr}
+\includepdf[pages={-}]{apendice/TDP_CBR_Etapa_Brasileira.pdf}
+
+\end{apendicesenv}
+
+\end{document}
