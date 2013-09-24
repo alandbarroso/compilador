@@ -23,7 +23,7 @@ void update_line_column();
 /*
  * Get the class, based in the string returned
  */
-TokenClass get_class(char* str);
+TokenClass get_class(char* state_name);
 
 /*
  * Append a char to a string
@@ -45,6 +45,9 @@ char LAST_CHAR = 0;
 char CURRENT_CHAR = 0;
 
 int FILE_ENDED = 0;
+
+char CLASS_NAME[][4] = { "INT", "FLT", "IDN", "OPR", "CHR", "STR", "KEY", "VAR", "ERR" }; // Use the state name to determine the class
+int NB_CLASS_NAME = 9; // The number of state names
 
 StateMachine* LEX_MACHINE;
 
@@ -163,7 +166,7 @@ Token* get_token()
 void print_token(Token* t)
 {
 	printf("Token\n");
-	printf("Class: %d\n", t->class);
+	printf("Class: %s\n", CLASS_NAME[t->class]);
 	printf("Value: %s\n", t->value);
 	printf("Position: line %d, column %d\n", t->line, t->column);
 }
@@ -181,35 +184,20 @@ void update_line_column()
 	}
 }
 
-TokenClass get_class(char* str)
+TokenClass get_class(char* state_name)
 {
-	TokenClass class;
+	TokenClass class = -1;
+	int i;
 
-	if(!strcmp("INT", str))
+	for(i = 0; i < NB_CLASS_NAME; i++)
 	{
-		class = INT;
+		if(!strcmp(CLASS_NAME[i], state_name))
+		{
+			class = i;
+		}
 	}
-	else if(!strcmp("FLT", str))
-	{
-		class = FLT;
-	}
-	else if(!strcmp("IDN", str))
-	{
-		class = IDN;
-	}
-	else if(!strcmp("OPR", str))
-	{
-		class = OPR;
-	}
-	else if(!strcmp("CHR", str))
-	{
-		class = CHR;
-	}
-	else if(!strcmp("STR", str))
-	{
-		class = STR;
-	}
-	else
+
+	if(class == -1)
 	{
 		class = ERR;
 	}

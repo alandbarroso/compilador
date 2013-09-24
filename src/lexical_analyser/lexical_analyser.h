@@ -11,17 +11,20 @@
 #include <stdio.h>
 #include "../state_machine/state_machine.h"
 
-extern FILE* SOURCE_CODE;
+extern FILE* SOURCE_CODE; // Source to work
 
-extern int LINE;
-extern int COLUMN;
+extern int LINE; // Current line read
+extern int COLUMN; // Current column read
 
-extern char LAST_CHAR;
-extern char CURRENT_CHAR;
+extern char LAST_CHAR; // Last char read
+extern char CURRENT_CHAR; // Current char read
 
-extern int FILE_ENDED;
+extern int FILE_ENDED; // Indicates if the file has finished
 
-extern StateMachine* LEX_MACHINE;
+extern char CLASS_NAME[][4]; // Use the state name to determine the class
+extern int NB_CLASS_NAME; // The number of state names
+
+extern StateMachine* LEX_MACHINE; // The lex machine used
 
 typedef enum{
 	INT,
@@ -30,6 +33,8 @@ typedef enum{
 	OPR,
 	CHR,
 	STR,
+	KEY,
+	VAR,
 	ERR
 } TokenClass;
 
