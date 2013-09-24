@@ -132,7 +132,7 @@ Token* get_token()
 	// We complete the token using the information from the state where we are
 	if(current_state != NULL && !(current_state->ignoring)) // If the current state is not null and not a ignoring state
 	{
-		token->class = get_class(current_state->token);
+		token->class = get_class(current_state->name);
 
 		token->value = (char*) malloc((strlen(buffer) + 1) * sizeof(char));
 		strcpy(token->value, buffer);

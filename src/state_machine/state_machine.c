@@ -38,25 +38,25 @@ StateMachine* initialize_state_machine(FILE* f)
 		s.accepting = 0;
 		s.ignoring = 0;
 
-		s.token = (char*) malloc(sizeof(char));
-		s.token[0] = '\0';
+		s.name = (char*) malloc(sizeof(char));
+		s.name[0] = '\0';
 
 		machine->states[i] = s;
 	}
 
-	// We then get the accepting states and the tokens returned
+	// We then get the accepting states and the names returned
 	fscanf(f, "%d", &nb_accepting_states);
 	for(i = 0; i < nb_accepting_states; i++)
 	{
 		int state_index;
-		char state_token[128];
+		char state_name[128];
 
-		// We read the state index and the token from the file
-		fscanf(f, "%d %s", &state_index, state_token);
+		// We read the state index and the name from the file
+		fscanf(f, "%d %s", &state_index, state_name);
 
 		machine->states[state_index].accepting = 1;
-		machine->states[state_index].token = (char*) malloc((strlen(state_token) + 1)* sizeof(char));
-		strcpy(machine->states[state_index].token, state_token);
+		machine->states[state_index].name = (char*) malloc((strlen(state_name) + 1)* sizeof(char));
+		strcpy(machine->states[state_index].name, state_name);
 	}
 
 	// We try to get the ignoring states
@@ -65,7 +65,7 @@ StateMachine* initialize_state_machine(FILE* f)
 	{
 		int state_index;
 
-		// We read the state index and the token from the file
+		// We read the state index and the name from the file
 		fscanf(f, "%d", &state_index);
 
 		machine->states[state_index].ignoring = 1;
@@ -141,7 +141,7 @@ void print_state_machine(StateMachine* machine)
 
 		if(machine->states[i].accepting)
 		{
-			printf(" -> accepting state! Returns %s", machine->states[i].token);
+			printf(" -> accepting state! Returns %s", machine->states[i].name);
 		}
 
 		printf("\n");
