@@ -14,7 +14,8 @@ typedef struct
 {
 	int index; // Index of the state machine
 	int accepting; // Indicates if it is an accepting state
-	char token[3]; // Only if accepting state
+	int ignoring; // Indicates if the contents of this states should be recorded
+	char* token; // Only if accepting state
 } State;
 
 typedef struct

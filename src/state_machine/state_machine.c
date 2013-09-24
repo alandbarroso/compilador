@@ -17,6 +17,7 @@ StateMachine* initialize_state_machine(FILE* f)
 	StateMachine* machine;
 
 	int nb_accepting_states;
+	int nb_ignoring_states;
 
 	// Aux vars
 	int i; // iterator
@@ -35,6 +36,10 @@ StateMachine* initialize_state_machine(FILE* f)
 		State s;
 		s.index = i;
 		s.accepting = 0;
+		s.ignoring = 0;
+
+		s.token = (char*) malloc(sizeof(char));
+		s.token[0] = '\0';
 
 		machine->states[i] = s;
 	}
@@ -44,13 +49,26 @@ StateMachine* initialize_state_machine(FILE* f)
 	for(i = 0; i < nb_accepting_states; i++)
 	{
 		int state_index;
-		char state_token[3];
+		char state_token[128];
 
 		// We read the state index and the token from the file
 		fscanf(f, "%d %s", &state_index, state_token);
 
 		machine->states[state_index].accepting = 1;
+		machine->states[state_index].token = (char*) malloc((strlen(state_token) + 1)* sizeof(char));
 		strcpy(machine->states[state_index].token, state_token);
+	}
+
+	// We try to get the ignoring states
+	fscanf(f, "%d", &nb_ignoring_states);
+	for(i = 0; i < nb_ignoring_states; i++)
+	{
+		int state_index;
+
+		// We read the state index and the token from the file
+		fscanf(f, "%d", &state_index);
+
+		machine->states[state_index].ignoring = 1;
 	}
 
 	// Finally we get the transitions
