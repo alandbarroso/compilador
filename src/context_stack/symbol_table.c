@@ -1,5 +1,5 @@
 /*
- *  keyword_analyser.c
+ *  var_analyser.c
  *
  *  Created on: Sep 24, 2013
  *      Author: Kenji
@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "../linked_list/linked_list.h"
-#include "keyword_analyser.h"
+#include "symbol_table.h"
 
 /*
  * ------------------------------------------------------
@@ -23,7 +23,7 @@
 		- 1: equal
 
  */
- int equals_keyword (ElementType e1, ElementType e2){
+ int equals_var (ElementType e1, ElementType e2){
  	if(!strcmp(e1.id, e2.id))
  		return 1;
  	
@@ -37,7 +37,7 @@
  * ------------------------------------------------------
  */
 
-List* KEYWORDS_LIST;
+List* VARS_LIST;
 
 /*
  * ------------------------------------------------------
@@ -45,44 +45,18 @@ List* KEYWORDS_LIST;
  * ------------------------------------------------------
  */
 
-/*
- * Reads keywords file and populates linked list
- * 
- */
-void init_keyword(){
-	FILE* init_file;
-	char keyword[32];
-
-	init_file = fopen("context_stack/keywords", "r");
-
-	
-	KEYWORDS_LIST = NULL;
-
-	while((fscanf(init_file, "%s", keyword)) != EOF){
-		ElementType elemaux;
-
-		// Populates the linked list
-		elemaux.id = (char*) malloc((strlen(keyword) + 1) * sizeof(char));
-		strcpy(elemaux.id, keyword);
-
-		if(KEYWORDS_LIST==NULL){
-			KEYWORDS_LIST = create_list(elemaux, &equals_keyword);
-		} else{
-			add_to_list(KEYWORDS_LIST, elemaux);
-		}
-	 }
-	
-	fclose(init_file);
+void init_var(){
+	VARS_LIST = NULL;
 }
 
-int search_keyword(char* idn)
+int search_var(char* idn)
 {
 	ElementType elemaux;
 
 	elemaux.id = (char*) malloc((strlen(idn) + 1) * sizeof(char));
 	strcpy(elemaux.id, idn);
 
-	if(search_in_list(KEYWORDS_LIST, elemaux) == NULL)
+	if(search_in_list(VARS_LIST, elemaux) == NULL)
 	{
 		free(elemaux.id);
 		return 0;
@@ -91,5 +65,28 @@ int search_keyword(char* idn)
 	{
 		free(elemaux.id);
 		return 1;
+	}
+}
+
+void insert_var(char *idn)
+{
+	ElementType elemaux;
+
+	elemaux.id = (char*) malloc((strlen(idn) + 1) * sizeof(char));
+	strcpy(elemaux.id, idn);
+
+	if(VARS_LIST == NULL)
+	{
+		VARS_LIST = create_list(elemaux, &equals_var);
+	} else
+	{
+		if(!search_var(idn))
+		{
+			add_to_list(VARS_LIST, elemaux);
+		}
+		else
+		{
+			free(elemaux.id);
+		}
 	}
 }

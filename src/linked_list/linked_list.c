@@ -75,13 +75,19 @@ ListElement* search_in_list(List* list, ElementType val)
 
 void print_list(List* list)
 {
-    ListElement* element = list->head;
-
     printf("\n -------Printing list Start------- \n");
-    while(element != NULL)
+    if(list != NULL)
     {
-        printf("\n [%s] \n",element->val.id);
-        element = element->next;
+        ListElement* element = list->head;
+        while(element != NULL)
+        {
+            printf("\n [%s] \n",element->val.id);
+            element = element->next;
+        }
+    }
+    else
+    {
+        printf("\n Empty list!!! \n");
     }
     printf("\n -------Printing list End------- \n");
 

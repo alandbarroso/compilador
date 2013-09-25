@@ -9,6 +9,7 @@
 #include <string.h>
 #include "lexical_analyser.h"
 #include "../context_stack/keyword_analyser.h"
+#include "../context_stack/symbol_table.h"
 
 /*
  * ------------------------------------------------------
@@ -76,7 +77,11 @@ void init_lex(FILE *f)
 
 	init_keyword();
 
+	init_var();
+
 	print_list(KEYWORDS_LIST);
+
+	printf("\n");
 }
 
 Token* get_token()
@@ -211,9 +216,14 @@ TokenClass get_class(char* state_name, char* buffer)
 	{
 
 		if(search_keyword(buffer))
+		{
 			class = KEY;
-		else
+		}
+		else{
 			class = VAR;
+
+			insert_var(buffer);
+		}
 	}
 
 	return class;

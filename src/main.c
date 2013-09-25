@@ -6,6 +6,9 @@
  */
 #include <stdio.h>
 #include "lexical_analyser/lexical_analyser.h"
+#include "linked_list/linked_list.h"
+#include "context_stack/keyword_analyser.h"
+#include "context_stack/symbol_table.h"
 
 int main(int argc, char *argv[])
 {
@@ -41,6 +44,8 @@ int main(int argc, char *argv[])
 			{
 				printf("End of file\n");
 
+				print_list(VARS_LIST);
+				
 				return 0;
 			}
 		}
