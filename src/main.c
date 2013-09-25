@@ -20,35 +20,22 @@ int main(int argc, char *argv[])
 
 		printf("LEX initialized!\n");
 
-		while(!FILE_ENDED)
+		Token* t;
+
+		for(t = get_token(); t->class != EOA; t = get_token())
 		{
-			Token* t;
+			print_token(t);
 
-			t = get_token();
-
-			if(t->class != EOA)
+			if(t->class == ERR)
 			{
-				print_token(t);
+				printf("Lexical error at: line %d, column %d\n", t->line, t->column);
+				printf("Exiting...\n");
 
-				if(t->class == ERR)
-				{
-					printf("Lexical error at: line %d, column %d\n", t->line, t->column);
-					printf("Exiting...\n");
-
-					return 1;
-				}
-			}
-			else
-			{
-				print_token(t);
-				
-				printf("End of file\n");
-
-				print_list(VARS_LIST);
-				
-				return 0;
+				return 1;
 			}
 		}
+
+		print_token(t);
 	}
 	else
 	{
