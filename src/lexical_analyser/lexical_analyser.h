@@ -47,7 +47,8 @@ typedef struct{
 
 /*
  * Initialize the LEX_MACHINE with the contents of the file 'lex_machine'
- * and reads the first char of the file f
+ * and reads the first char of the file
+ * Also initialize the keyword table
  */
 void init_lex(FILE *f);
 

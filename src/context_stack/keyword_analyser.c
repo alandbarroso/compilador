@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "../linked_list/linked_list.h"
 #include "keyword_analyser.h"
 
 /*
@@ -24,17 +25,10 @@
  */
  int equals (ElementType e1, ElementType e2){
  	if(!strcmp(e1.id, e2.id))
- 		return 0;
- 	if(e1.value != e2.value)
- 		return 0;
- 	if(e1.type != e2.type)
- 		return 0;
- 	return 1;
+ 		return 1;
+ 	
+ 	return 0;
  }
-
-/*
- * Update the line and column
- */
 
 
 /*
@@ -43,7 +37,7 @@
  * ------------------------------------------------------
  */
 
-List *keywords_list;
+List* KEYWORDS_LIST;
 
 /*
  * ------------------------------------------------------
@@ -59,10 +53,10 @@ void init_keyword(){
 	FILE* init_file;
 	char keyword[32];
 
-	init_file = fopen("keywords", "r");
+	init_file = fopen("context_stack/keywords", "r");
 
 	
-	keywords_list = NULL;
+	KEYWORDS_LIST = NULL;
 
 	while((fscanf(init_file, "%s", keyword)) != EOF){
 		printf("%s\n", keyword);
@@ -70,15 +64,33 @@ void init_keyword(){
 		ElementType elemaux;
 
 		// Populates the linked list
-		elemaux->id = (char*) malloc((strlen(keyword) + 1) * sizeof(char));
-		strcpy(elemaux->id, keyword);
+		elemaux.id = (char*) malloc((strlen(keyword) + 1) * sizeof(char));
+		strcpy(elemaux.id, keyword);
 
-		if(keywords_list==NULL){
-			keywords_list = createlist(elemaux, &equals);
+		if(KEYWORDS_LIST==NULL){
+			KEYWORDS_LIST = create_list(elemaux, &equals);
 		} else{
-			add_to_list(keywords_list, elemaux);
+			add_to_list(KEYWORDS_LIST, elemaux);
 		}
 	 }
 	
 	fclose(init_file);
+}
+
+int search_keyword(char* idn)
+{
+	ElementType elemaux;
+
+	// Populates the linked list
+	elemaux.id = (char*) malloc((strlen(idn) + 1) * sizeof(char));
+	strcpy(elemaux.id, idn);
+
+	if(search_in_list(KEYWORDS_LIST, elemaux) == NULL)
+	{
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
 }

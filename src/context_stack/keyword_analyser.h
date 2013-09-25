@@ -9,21 +9,12 @@
 #define KEYWORD_ANALYSER_H_
 
 #include <stdio.h>
-#include "../context_stack/linked_list.h"
+#include "../linked_list/linked_list.h"
 
-extern List *keywords_list;
+extern List* KEYWORDS_LIST;
 
-typedef enum{
-	INT,
-	FLT,
-	CHR
-} Type;
+void init_keyword();
 
-
-typedef struct{
-	char* id; 
-	int value;
-	Type type; 
-} ElementType;
+int search_keyword(char* idn);
 
 #endif /* KEYWORD_ANALYSER_H_ */

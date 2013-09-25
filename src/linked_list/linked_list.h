@@ -8,7 +8,15 @@
 #ifndef LINKED_LIST_H_
 #define LINKED_LIST_H_
 
-typedef int ElementType;
+ #include "../lexical_analyser/lexical_analyser.h"
+
+typedef TokenClass Type;
+
+typedef struct{
+	char* id; 
+	int value;
+	Type type;
+} ElementType;
 
 typedef struct list_element
 {

@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "linked_list.h"
+#include "../context_stack/keyword_analyser.h"
 
 List* create_list(ElementType val, int (*equals_function)(ElementType, ElementType))
 {
@@ -79,7 +80,7 @@ void print_list(List* list)
     printf("\n -------Printing list Start------- \n");
     while(element != NULL)
     {
-        printf("\n [%d] \n",element->val);
+        printf("\n [%s] \n",element->val.id);
         element = element->next;
     }
     printf("\n -------Printing list End------- \n");

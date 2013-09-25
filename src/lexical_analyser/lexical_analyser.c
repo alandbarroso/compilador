@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "lexical_analyser.h"
+#include "../context_stack/keyword_analyser.h"
 
 /*
  * ------------------------------------------------------
@@ -23,7 +24,7 @@ void update_line_column();
 /*
  * Get the class, based in the string returned
  */
-TokenClass get_class(char* state_name);
+TokenClass get_class(char* state_name, char* buffer);
 
 /*
  * Append a char to a string
@@ -72,6 +73,10 @@ void init_lex(FILE *f)
 	CURRENT_CHAR = fgetc(SOURCE_CODE);
 
 	FILE_ENDED = 0;
+
+	init_keyword();
+
+	print_list(KEYWORDS_LIST);
 }
 
 Token* get_token()
@@ -135,7 +140,7 @@ Token* get_token()
 	// We complete the token using the information from the state where we are
 	if(current_state != NULL && !(current_state->ignoring)) // If the current state is not null and not a ignoring state
 	{
-		token->class = get_class(current_state->name);
+		token->class = get_class(current_state->name, buffer);
 
 		token->value = (char*) malloc((strlen(buffer) + 1) * sizeof(char));
 		strcpy(token->value, buffer);
@@ -184,7 +189,7 @@ void update_line_column()
 	}
 }
 
-TokenClass get_class(char* state_name)
+TokenClass get_class(char* state_name, char* buffer)
 {
 	TokenClass class = -1;
 	int i;
@@ -200,6 +205,15 @@ TokenClass get_class(char* state_name)
 	if(class == -1)
 	{
 		class = ERR;
+	}
+
+	if(class == IDN)
+	{
+
+		if(search_keyword(buffer))
+			class = KEY;
+		else
+			class = VAR;
 	}
 
 	return class;
