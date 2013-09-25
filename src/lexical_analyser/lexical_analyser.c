@@ -48,8 +48,8 @@ char CURRENT_CHAR = 0;
 
 int FILE_ENDED = 0;
 
-char CLASS_NAME[][4] = { "INT", "FLT", "IDN", "OPR", "CHR", "STR", "KEY", "VAR", "ERR" }; // Use the state name to determine the class
-int NB_CLASS_NAME = 9; // The number of state names
+char CLASS_NAME[][4] = { "INT", "FLT", "IDN", "OPR", "CHR", "STR", "KEY", "VAR", "ERR", "EOA" }; // Use the state name to determine the class
+int NB_CLASS_NAME = 10; // The number of state names
 
 StateMachine* LEX_MACHINE;
 
@@ -156,7 +156,7 @@ Token* get_token()
 		{
 			FILE_ENDED = 1;
 
-			token = NULL;
+			token->class = EOA;
 		}
 		else
 		{
@@ -175,10 +175,12 @@ Token* get_token()
 
 void print_token(Token* t)
 {
+	printf("-------------------------------\n");
 	printf("Token\n");
 	printf("Class: %s\n", CLASS_NAME[t->class]);
 	printf("Value: %s\n", t->value);
 	printf("Position: line %d, column %d\n", t->line, t->column);
+	printf("-------------------------------\n\n");
 }
 
 void update_line_column()

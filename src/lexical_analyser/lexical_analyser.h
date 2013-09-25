@@ -35,7 +35,8 @@ typedef enum{
 	STR,
 	KEY,
 	VAR,
-	ERR
+	ERR,
+	EOA
 } TokenClass;
 
 typedef struct{

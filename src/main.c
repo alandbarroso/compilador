@@ -26,11 +26,9 @@ int main(int argc, char *argv[])
 
 			t = get_token();
 
-			if(t != NULL)
+			if(t->class != EOA)
 			{
-				printf("-------------------------------\n");
 				print_token(t);
-				printf("-------------------------------\n\n");
 
 				if(t->class == ERR)
 				{
@@ -42,6 +40,8 @@ int main(int argc, char *argv[])
 			}
 			else
 			{
+				print_token(t);
+				
 				printf("End of file\n");
 
 				print_list(VARS_LIST);
