@@ -23,15 +23,7 @@
 		- 1: equal
 
  */
- int equals_keyword (ElementType e1, ElementType e2){
- 	char* s1 = (char*) e1;
- 	char* s2 = (char*) e2;
-
- 	if(!strcmp(s1, s2))
- 		return 1;
- 	
- 	return 0;
- }
+int equals_keyword (ElementType e1, ElementType e2);
 
 
 /*
@@ -52,14 +44,15 @@ List* KEYWORDS_LIST;
  * Reads keywords file and populates linked list
  * 
  */
-void init_keyword(){
+void init_keyword()
+{
 	FILE* init_file;
 	char keyword_aux[32];
 
 	init_file = fopen("context_stack/keywords", "r");
 
 	
-	KEYWORDS_LIST = NULL;
+	KEYWORDS_LIST = create_list(&equals_keyword);
 
 	while((fscanf(init_file, "%s", keyword_aux)) != EOF){
 		char* keyword;
@@ -68,11 +61,7 @@ void init_keyword(){
 		keyword = (char*) malloc((strlen(keyword_aux) + 1) * sizeof(char));
 		strcpy(keyword, keyword_aux);
 
-		if(KEYWORDS_LIST==NULL){
-			KEYWORDS_LIST = create_list(keyword, &equals_keyword);
-		} else{
-			add_to_list(KEYWORDS_LIST, keyword);
-		}
+		add_to_list(KEYWORDS_LIST, keyword);
 	 }
 	
 	fclose(init_file);
@@ -109,4 +98,15 @@ void print_list_keywords(List* list)
     printf("\n -------Printing list End------- \n");
 
     return;
+}
+
+int equals_keyword (ElementType e1, ElementType e2)
+{
+	char* s1 = (char*) e1;
+	char* s2 = (char*) e2;
+
+	if(!strcmp(s1, s2))
+		return 1;
+	
+	return 0;
 }

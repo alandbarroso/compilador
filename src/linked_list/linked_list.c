@@ -8,23 +8,18 @@
 #include <stdlib.h>
 #include "linked_list.h"
 
-List* create_list(ElementType val, int (*equals_function)(ElementType, ElementType))
+List* create_list(int (*equals_function)(ElementType, ElementType))
 {
     List* list = (List*) malloc(sizeof(List));
 
-    ListElement* element = (ListElement*) malloc(sizeof(ListElement)); 
-
-    if(list == NULL || element == NULL)
+    if(list == NULL)
     {
         printf("\n List creation failed \n");
         return NULL;
     }
 
-    element->val = val;
-    element->next = NULL;
-
-    list->head = element;
-    list->tail = element;
+    list->head = NULL;
+    list->tail = NULL;
     list->equals = equals_function;
 
     return list;
@@ -48,9 +43,17 @@ void add_to_list(List* list, ElementType val)
         {
             element->val = val;
             element->next = NULL;
-        
-            list->tail->next = element;
-            list->tail = element;
+            
+            if(list->head == NULL)
+            {
+                list->head = element;
+                list->tail = element;
+            }
+            else
+            {
+                list->tail->next = element;
+                list->tail = element;
+            }
         }
     }
 }

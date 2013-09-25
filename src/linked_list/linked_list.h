@@ -34,7 +34,7 @@ typedef struct
     int (*equals)(ElementType, ElementType);
 } List;
 
-List* create_list(ElementType val, int (*equals_function)(ElementType, ElementType));
+List* create_list(int (*equals_function)(ElementType, ElementType));
 
 void add_to_list(List* list, ElementType val);
 

@@ -43,7 +43,7 @@ List* VARS_LIST;
  */
 
 void init_var(){
-	VARS_LIST = NULL;
+	VARS_LIST = create_list(&equals_var);
 }
 
 int search_var(char* idn)
@@ -64,19 +64,13 @@ void insert_var(char *idn)
 {
 	Symbol *symbol = init_symbol(idn);
 
-	if(VARS_LIST == NULL)
+	if(!search_var(idn))
 	{
-		VARS_LIST = create_list(symbol, &equals_var);
-	} else
+		add_to_list(VARS_LIST, symbol);
+	}
+	else
 	{
-		if(!search_var(idn))
-		{
-			add_to_list(VARS_LIST, symbol);
-		}
-		else
-		{
-			free(symbol);
-		}
+		free(symbol);
 	}
 }
 

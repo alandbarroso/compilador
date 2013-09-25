@@ -35,5 +35,6 @@ int main(int argc, char *argv[])
 	print_list_vars(VARS_LIST);
 
 	printf("End of file\n");
+	'\k';
 	return 0;
 }
