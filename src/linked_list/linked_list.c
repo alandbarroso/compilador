@@ -7,7 +7,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "linked_list.h"
-#include "../context_stack/keyword_analyser.h"
 
 List* create_list(ElementType val, int (*equals_function)(ElementType, ElementType))
 {
@@ -71,27 +70,6 @@ ListElement* search_in_list(List* list, ElementType val)
     }
 
     return NULL;
-}
-
-void print_list(List* list)
-{
-    printf("\n -------Printing list Start------- \n");
-    if(list != NULL)
-    {
-        ListElement* element = list->head;
-        while(element != NULL)
-        {
-            printf("\n [%s] \n",element->val.id);
-            element = element->next;
-        }
-    }
-    else
-    {
-        printf("\n Empty list!!! \n");
-    }
-    printf("\n -------Printing list End------- \n");
-
-    return;
 }
 
 int eq(ElementType a, ElementType b)

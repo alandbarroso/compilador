@@ -24,7 +24,10 @@
 
  */
  int equals_keyword (ElementType e1, ElementType e2){
- 	if(!strcmp(e1.id, e2.id))
+ 	char* s1 = (char*) e1;
+ 	char* s2 = (char*) e2;
+
+ 	if(!strcmp(s1, s2))
  		return 1;
  	
  	return 0;
@@ -51,24 +54,24 @@ List* KEYWORDS_LIST;
  */
 void init_keyword(){
 	FILE* init_file;
-	char keyword[32];
+	char keyword_aux[32];
 
 	init_file = fopen("context_stack/keywords", "r");
 
 	
 	KEYWORDS_LIST = NULL;
 
-	while((fscanf(init_file, "%s", keyword)) != EOF){
-		ElementType elemaux;
+	while((fscanf(init_file, "%s", keyword_aux)) != EOF){
+		char* keyword;
 
 		// Populates the linked list
-		elemaux.id = (char*) malloc((strlen(keyword) + 1) * sizeof(char));
-		strcpy(elemaux.id, keyword);
+		keyword = (char*) malloc((strlen(keyword_aux) + 1) * sizeof(char));
+		strcpy(keyword, keyword_aux);
 
 		if(KEYWORDS_LIST==NULL){
-			KEYWORDS_LIST = create_list(elemaux, &equals_keyword);
+			KEYWORDS_LIST = create_list(keyword, &equals_keyword);
 		} else{
-			add_to_list(KEYWORDS_LIST, elemaux);
+			add_to_list(KEYWORDS_LIST, keyword);
 		}
 	 }
 	
@@ -77,19 +80,33 @@ void init_keyword(){
 
 int search_keyword(char* idn)
 {
-	ElementType elemaux;
-
-	elemaux.id = (char*) malloc((strlen(idn) + 1) * sizeof(char));
-	strcpy(elemaux.id, idn);
-
-	if(search_in_list(KEYWORDS_LIST, elemaux) == NULL)
+	if(search_in_list(KEYWORDS_LIST, idn) == NULL)
 	{
-		free(elemaux.id);
 		return 0;
 	}
 	else
 	{
-		free(elemaux.id);
 		return 1;
 	}
+}
+
+void print_list_keywords(List* list)
+{
+    printf("\n -------Printing list Start------- \n");
+    if(list != NULL)
+    {
+        ListElement* element = list->head;
+        while(element != NULL)
+        {
+            printf("\n [%s] \n",((char*) element->val));
+            element = element->next;
+        }
+    }
+    else
+    {
+        printf("\n Empty list!!! \n");
+    }
+    printf("\n -------Printing list End------- \n");
+
+    return;
 }

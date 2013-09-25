@@ -10,13 +10,15 @@
 
  #include "../lexical_analyser/lexical_analyser.h"
 
-typedef TokenClass Type;
-
+/*
 typedef struct{
 	char* id; 
 	int value;
 	Type type;
 } ElementType;
+*/
+
+typedef void* ElementType;
 
 typedef struct list_element
 {

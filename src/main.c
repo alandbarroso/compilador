@@ -44,6 +44,8 @@ int main(int argc, char *argv[])
 
 	fclose(f);
 
+	print_list_vars(VARS_LIST);
+
 	printf("End of file\n");
 	return 0;
 }

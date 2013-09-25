@@ -79,7 +79,7 @@ void init_lex(FILE *f)
 
 	init_var();
 
-	print_list(KEYWORDS_LIST);
+	print_list_keywords(KEYWORDS_LIST);
 
 	printf("\n");
 }

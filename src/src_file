@@ -1,26 +1,39 @@
-      
-      
-% Teste teste teste 
+int main(int argc, char *argv[])
+{
+	FILE* f = fopen("src_file", "r");
 
+	if(f != NULL)
+	{
+		init_lex(f);
 
-teste %
+		printf("LEX initialized!\n");
 
-int  = 5;
+		Token* t;
 
-"abcedeka\"jhdksjh"
+		for(t = get_token(); t->class != EOA; t = get_token())
+		{
+			print_token(t);
 
-'a'
-'''
-'\n'
+			if(t->class == ERR)
+			{
+				printf("Lexical error at: line %d, column %d\n", t->line, t->column);
+				printf("Exiting...\n");
 
-if a>=b
+				return 1;
+			}
+		}
 
-.0000
+		print_token(t);
+	}
+	else
+	{
+		printf("Error opening file!");
+	}
 
-434.44
+	fclose(f);
 
-"test"
+	print_list_vars(VARS_LIST);
 
-while
-
-
+	printf("End of file\n");
+	return 0;
+}

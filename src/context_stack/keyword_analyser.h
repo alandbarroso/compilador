@@ -17,4 +17,6 @@ void init_keyword();
 
 int search_keyword(char* idn);
 
+void print_list_keywords(List* list);
+
 #endif /* KEYWORD_ANALYSER_H_ */
