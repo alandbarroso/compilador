@@ -81,7 +81,7 @@ int search_keyword(char* idn)
 
 void print_list_keywords(List* list)
 {
-    printf("\n -------Printing list Start------- \n");
+    printf("\n -------Printing Keyword List ------- \n");
     if(list != NULL)
     {
         ListElement* element = list->head;
@@ -95,7 +95,7 @@ void print_list_keywords(List* list)
     {
         printf("\n Empty list!!! \n");
     }
-    printf("\n -------Printing list End------- \n");
+    printf("\n -------Printing List End------- \n");
 
     return;
 }

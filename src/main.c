@@ -12,7 +12,7 @@
 
 int main(int argc, char *argv[])
 {
-	FILE* f = fopen("src_file", "r");
+	FILE* f = fopen("ENTRADA.TXT", "r");
 
 	if(f != NULL)
 	{
