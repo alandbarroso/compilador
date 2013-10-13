@@ -1,0 +1,92 @@
+programa = declaracoes "program" "begin" {declaracao-var} comandos "end" "program".
+
+declaracoes = {declaracao-var} {declaracao-func}.
+
+declaracao-var = tipo vars ";".
+
+tipo = "bool" | "int" | "char" | "float".
+
+vars = declaracao-ponteiro ["," declaracao-ponteiro].
+
+declaracao-var = {"*"} array.
+
+array = identificador {"[" inteiro "]"}.
+
+identificador = letra {letra-dig}.
+
+inteiro = digito {digito}.
+
+declaracao-func = "function" tipo identificador "(" [declaracoes-parametro] ")" "begin" {declaracao-var} {comando-funcao} "end" "function".
+
+declaracoes-parametro = declaracao-parametro {"," declaracao-parametro}.
+
+declaracao-parametro = tipo declaracao-ponteiro.
+
+comando-funcao = comando | comando-retorno.
+
+comando = comando-atribuicao
+		| comando-funcao
+		| comando-condicional
+		| comando-iterativo
+		| comando-entrada
+		| comando-saida.
+
+comando-atribuicao = var operador-atribuicao expressao";".
+
+operador-atribuicao = "=" | "+=" | "-=" | "*=" | "/=".
+
+var = ({"*"} array) | ("&" array).
+
+expressao = expressao-aritmerica | expressao-booleana.
+
+expressao-aritmerica = multiplicacao {("+" | "-") multiplicacao}.
+
+multiplicacao = potenciacao {("*" | "/") potenciacao}.
+
+potenciacao = particula-potenciacao {"^" inteiro}.
+
+particula-potenciacao = ["-"] particula-aritmetica.
+
+particula-aritmetica = "(" expressao-aritmerica ")" | numero | var | chamada-funcao.
+
+numero = inteiro | [inteiro] "." inteiro.
+
+chamada-funcao = identificador "(" [parametros] ")".
+
+parametros = expressao {"," expressao}.
+
+expressao-booleana = e {"or" e}.
+
+e = comparacao-booleana {"and" comparacao-booleana}.
+
+comparacao-booleana = particula-comparacao {operador-booleano particula-comparacao}.
+
+operador-booleano = "==" | "!=".
+
+particula-comparacao = ["!"] particula-booleana.
+
+particula-booleana = "(" expressao-booleana ")" | booleano | comparacao-aritmetica.
+
+booleano = "true" | "false".
+
+comparacao-aritmetica = expressao-aritmerica {operador-aritmetico expressao-aritmerica}.
+
+operador-aritmetico = "<" | ">" | "<=" | ">=".
+
+comando-funcao = chamada-funcao ";".
+
+comando-condicional = "if" "(" expressao-booleana ")" "then" {comando} ["else" {comando}] "end" "if".
+
+comando-iterativo = "while" "(" expressao-booleana ")" "do" {comando} "end" "while".
+
+comando-entrada = "scan" var {"," var} ";".
+
+comando-saida = print parametros ";".
+
+comando-retorno = "return" expressao ";".
+
+letra = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" | "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z".
+
+digito = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9".
+
+letra-dig = (letra | digito) {letra-dig}.
