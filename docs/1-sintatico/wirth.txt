@@ -1,4 +1,4 @@
-programa = declaracoes "program" "begin" {declaracao-var} comandos "end" "program".
+programa = declaracoes "program" "begin" {declaracao-var} {comando} "end" "program".
 
 declaracoes = {declaracao-var} {declaracao-func}.
 
@@ -25,7 +25,7 @@ declaracao-parametro = tipo declaracao-ponteiro.
 comando-funcao = comando | comando-retorno.
 
 comando = comando-atribuicao
-		| comando-funcao
+		| chamada-funcao ";"
 		| comando-condicional
 		| comando-iterativo
 		| comando-entrada
@@ -72,8 +72,6 @@ booleano = "true" | "false".
 comparacao-aritmetica = expressao-aritmerica {operador-aritmetico expressao-aritmerica}.
 
 operador-aritmetico = "<" | ">" | "<=" | ">=".
-
-comando-funcao = chamada-funcao ";".
 
 comando-condicional = "if" "(" expressao-booleana ")" "then" {comando} ["else" {comando}] "end" "if".
 

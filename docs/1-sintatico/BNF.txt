@@ -27,7 +27,7 @@
 <declaracoes-func> ::= <declaracao-func>
 					| <declaracao-func> <declaracoes-func>
 
-<declaracao-func> ::= function <tipo> <identificador> (<declaracoes-parametro>) begin <declaracoes-var> <comandos_funcao> end function
+<declaracao-func> ::= function <tipo> <identificador> (<declaracoes-parametro>) begin <declaracoes-var> <comandos-funcao> end function
 
 <declaracoes-parametro> ::= <declaracao-parametro>
 						| epsilon
@@ -43,7 +43,7 @@
 					| epsilon
 
 <comando> ::= <comando-atribuicao>
-			| <comando-funcao>
+			| <chamada-funcao> ;
 			| <comando-condicional>
 			| <comando-iterativo>
 			| <comando-entrada>
@@ -134,8 +134,6 @@
 						| >
 						| <=
 						| >=
-
-<comando-funcao> ::= <chamada-funcao>;
 
 <comando-condicional> ::= if(<expressao-booleana>) then <comandos> end if
 						| if(<expressao-booleana>) then <comandos> else <comandos> end if
