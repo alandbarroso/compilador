@@ -1,77 +1,111 @@
-<programa> ::= <declaracoes> program begin <declaracoes-var> <comandos> end program
+<programa> ::= <declaracoes_constante> <definicoes_tipo> <definicoes_struct> <declaracoes_var> <declaracoes_func> program begin <declaracoes_var> <comandos> end program
 
-<declaracoes> ::= <declaracoes-var> <declaracoes-func>
+<declaracoes_constante> ::= <declaracao_constante>
+						| <declaracao_constante> <declaracoes_constante>
 
-<declaracoes-var> ::= <declaracao-var>
-					| <declaracao-var> <declaracoes-var>
+<declaracao_constante> ::= const <identificador> = <constante> ;
+						| epsilon
 
-<declaracao-var> ::= <tipo> <vars>;
+<identificador> ::= <letra> | <letra><letra_dig>
+
+<constante> ::= <numero>
+			| <booleano>
+			| <char>
+
+<numero> ::= <inteiro>
+			| <inteiro>.<inteiro>
+			| .<inteiro>
+
+<booleano> ::= true | false
+
+<char> ::= '<letra_dig>' | '\<letra_dig>'
+
+<definicoes_tipo> ::= <definicao_tipo>
+					| <definicao_tipo> <definicoes_tipo>
+
+<definicao_tipo> ::= typedef <identificador> <tipo> ;
 					| epsilon
 
-<tipo> ::= bool | int | char | float
+<tipo> ::= bool | int | char | float | <identificador>
 
-<vars> ::= <declaracao-ponteiro>
-		| <declaracao-ponteiro>, <vars>
+<definicoes_struct> ::= <definicao_struct>
+					| <definicao_struct> <definicoes_struct>
 
-<declaracao-ponteiro> ::= <declaracao-array>
-						| *<declaracao-ponteiro>
+<definicao_struct> ::= struct <identificador> begin <declaracao_var> <declaracoes_var> end struct
+					| epsilon
 
-<declaracao-array> ::= <identificador>
-					| <declaracao-array>[<inteiro>]
+<declaracoes_var> ::= <declaracao_var>
+					| <declaracao_var> <declaracoes_var>
 
-<identificador> ::= <letra> | <letra><letra-dig>
+<declaracao_var> ::= <tipo> <vars> ;
+					| epsilon
+
+<vars> ::= <declaracao_array>
+		| <declaracao_array>, <vars>
+
+<declaracao_array> ::= <identificador>
+					| <declaracao_array>[<inteiro>]
 
 <inteiro> ::= <digito>
 			| <digito><inteiro>
 
-<declaracoes-func> ::= <declaracao-func>
-					| <declaracao-func> <declaracoes-func>
+<declaracoes_func> ::= <declaracao_func>
+					| <declaracao_func> <declaracoes_func>
 
-<declaracao-func> ::= function <tipo> <identificador> (<declaracoes-parametro>) begin <declaracoes-var> <comandos-funcao> end function
+<declaracao_func> ::= function <tipo_funcao> <identificador> (<declaracoes_parametro>) begin <declaracoes_var> <comandos> end function
 
-<declaracoes-parametro> ::= <declaracao-parametro>
+<tipo_funcao> ::= void | <tipo>
+
+<declaracoes_parametro> ::= <declaracao_parametro>
 						| epsilon
 
-<declaracao-parametro> ::= <tipo> <declaracao-ponteiro>
-						| <tipo> <declaracao-ponteiro>, <declaracao-parametro>
+<declaracao_parametro> ::= <tipo> <declaracao_array>
+						| <tipo> byref <declaracao_array>
+						| <tipo> <declaracao_array>, <declaracao_parametro>
+						| <tipo> byref <declaracao_array>, <declaracao_parametro>
 
 <comandos> ::= <comando> <comandos>
 			| epsilon
 
-<comandos-funcao> ::= <comando> <comandos-funcao>
-					| <comando-retorno> <comandos-funcao>
-					| epsilon
+<comando> ::= <comando_atribuicao>
+			| <comando_condicional>
+			| <comando_iterativo>
+			| <comando_entrada>
+			| <comando_saida>
+			| <comando_retorno>
 
-<comando> ::= <comando-atribuicao>
-			| <chamada-funcao> ;
-			| <comando-condicional>
-			| <comando-iterativo>
-			| <comando-entrada>
-			| <comando-saida>
+<comando_atribuicao> ::= <var> <operador_atribuicao> <expressao>;
+						| <expressao>;
 
-<comando-atribuicao> ::= <var> <operador-atribuicao> <expressao>;
-
-<operador-atribuicao> ::= =
+<operador_atribuicao> ::= =
 						| +=
 						| -=
 						| *=
 						| /=
 
-<var> ::= <ponteiro>
-		| <endereco>
-
-<ponteiro> ::= <array>
-			| *<ponteiro>
-
-<endereco> ::= &<array>
+<var> ::= <array>
+		| <array>.<var>
 
 <array> ::= <identificador>
-		| <identificador>[<inteiro>]
+		| <identificador>[<expressao>]
 
-<expressao> ::= <expressao-aritmerica>
-			| <expressao-booleana>
+<expressao> ::= <ou>
 
-<expressao-aritmerica> ::= <soma>
+<ou> ::= <e>
+		| <e> or <ou>
+
+<e> ::= <comparacao>
+	| <e> and <comparacao>
+
+<comparacao_booleana> ::= <soma>
+						| <soma> <operador_comparacao> <soma>
+
+<operador_comparacao> ::= ==
+						| !=
+						| <
+						| >
+						| <=
+						| >=
 
 <soma> ::= <multiplicacao>
 		| <multiplicacao> + <soma>
@@ -81,22 +115,19 @@
 				| <potenciacao> * <multiplicacao>
 				| <potenciacao> / <multiplicacao>
 
-<potenciacao> ::= <particula-potenciacao>
-				| <potenciacao> ^ <inteiro>
+<potenciacao> ::= <operacao_unitaria>
+				| <operacao_unitaria> ^ <potenciacao>
 
-<particula-potenciacao> ::= <particula-aritmetica>
-						| -<particula-aritmetica>
+<operacao_unitaria> ::= <particula>
+					| - <particula>
+					| ! <particula>
 
-<particula-aritmetica> ::= (expressao-aritmerica)
-						| <numero>
-						| <var>
-						| <chamada-funcao>
+<particula> ::= (expressao_aritmerica)
+			| <constante>
+			| <var>
+			| <chamada_funcao>
 
-<numero> ::= <inteiro>
-			| <inteiro>.<inteiro>
-			| .<inteiro>
-
-<chamada-funcao> ::= <identificador>(<parametros>)
+<chamada_funcao> ::= <identificador>(<parametros>)
 
 <parametros> ::= <parametro>
 				| epsilon
@@ -104,58 +135,27 @@
 <parametro> ::= <expressao>
 			| <expressao>, <parametro>
 
-<expressao-booleana> ::= <ou>
+<comando_condicional> ::= if(<expressao>) then <comandos> end if
+						| if(<expressao>) then <comandos> else <comandos> end if
 
-<ou> ::= <e>
-		| <e> or <ou>
+<comando_iterativo> ::= while(<expressao>) do <comandos> end while
 
-<e> ::= <comparacao-booleana>
-	| <e> and <comparacao-booleana>
+<comando_entrada> ::= scan <lista_enderecos>;
 
-<comparacao-booleana> ::= <particula-comparacao>
-						| <particula-comparacao> <operador-booleano> <particula-comparacao>
+<lista_enderecos> ::= <var>
+					| <var>, <lista_enderecos>
 
-<operador-booleano> ::= ==
-					| !=
-
-<particula-comparacao> ::= <particula-booleana>
-						| !<particula-booleana>
-
-<particula-booleana> ::= (<expressao-booleana>)
-						| <booleano>
-						| <comparacao-aritmetica>
-
-<booleano> ::= true | false
-
-<comparacao-aritmetica> ::= <expressao-aritmerica>
-						| <expressao-aritmerica> <operador-aritmetico> <expressao-aritmerica>
-
-<operador-aritmetico> ::= <
-						| >
-						| <=
-						| >=
-
-<comando-condicional> ::= if(<expressao-booleana>) then <comandos> end if
-						| if(<expressao-booleana>) then <comandos> else <comandos> end if
-
-<comando-iterativo> ::= while(<expressao-booleana>) do <comandos> end while
-
-<comando-entrada> ::= scan <lista-enderecos>;
-
-<lista-enderecos> ::= <var>
-					| <var>, <lista-enderecos>
-
-<comando-saida> ::= print <parametro>;
+<comando_saida> ::= print <parametro>;
 
 
-<comando-retorno> ::= return <expressao>;
+<comando_retorno> ::= return <expressao>;
 					| epsilon
 
 <letra> ::= _ | a | b | c | d | e | f | g | h | i | j | k | l | m | n | o | p | q | r | s | t | u | v | w | x | y | z | A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z
 
 <digito> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 
-<letra-dig> ::= <letra> 
+<letra_dig> ::= <letra> 
 			| <digito> 
-			| <letra><letra-dig>
-			| <dig><letra-dig>
+			| <letra><letra_dig>
+			| <dig><letra_dig>
