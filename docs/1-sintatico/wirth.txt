@@ -41,7 +41,7 @@ comando = comando_atribuicao
 		| comando_saida
 		| comando_retorno.
 
-comando_atribuicao = (var operador_atribuicao expressao | expressao) ";".
+comando_atribuicao = (var operador_atribuicao expressao | [expressao]) ";".
 
 operador_atribuicao = "=" | "+=" | "-=" | "*=" | "/=".
 
@@ -73,15 +73,15 @@ chamada_funcao = identificador "(" [parametros] ")".
 
 parametros = expressao {"," expressao}.
 
-comando_condicional = "if" "(" expressao ")" "then" {comando} ["else" {comando}] "end" "if".
+comando_condicional = "if" "(" [expressao] ")" "then" {comando} ["else" {comando}] "end" "if".
 
-comando_iterativo = "while" "(" expressao ")" "do" {comando} "end" "while".
+comando_iterativo = "while" "(" [expressao] ")" "do" {comando} "end" "while".
 
 comando_entrada = "scan" var {"," var} ";".
 
 comando_saida = print parametros ";".
 
-comando_retorno = "return" expressao ";".
+comando_retorno = "return" [expressao] ";".
 
 letra = "_" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" | "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z".
 

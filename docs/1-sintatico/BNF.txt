@@ -74,7 +74,7 @@
 			| <comando_saida>
 			| <comando_retorno>
 
-<comando_atribuicao> ::= <var> <operador_atribuicao> <expressao>;
+<comando_atribuicao> ::= <var> <operador_atribuicao> <ou>;
 						| <expressao>;
 
 <operador_atribuicao> ::= =
@@ -90,6 +90,7 @@
 		| <identificador>[<expressao>]
 
 <expressao> ::= <ou>
+			| epsilon
 
 <ou> ::= <e>
 		| <e> or <ou>
@@ -149,7 +150,6 @@
 
 
 <comando_retorno> ::= return <expressao>;
-					| epsilon
 
 <letra> ::= _ | a | b | c | d | e | f | g | h | i | j | k | l | m | n | o | p | q | r | s | t | u | v | w | x | y | z | A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z
 
