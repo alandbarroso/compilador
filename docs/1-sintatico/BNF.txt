@@ -136,8 +136,8 @@
 <parametro> ::= <expressao>
 			| <expressao>, <parametro>
 
-<comando_condicional> ::= if(<expressao>) then <comandos> end if
-						| if(<expressao>) then <comandos> else <comandos> end if
+<comando_condicional> ::= if(<expressao>) then <declaracoes_var> <comandos> end if
+						| if(<expressao>) then <declaracoes_var> <comandos> else <comandos> end if
 
 <comando_iterativo> ::= while(<expressao>) do <comandos> end while
 

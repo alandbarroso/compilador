@@ -73,9 +73,9 @@ chamada_funcao = identificador "(" [parametros] ")".
 
 parametros = expressao {"," expressao}.
 
-comando_condicional = "if" "(" [expressao] ")" "then" {comando} ["else" {comando}] "end" "if".
+comando_condicional = "if" "(" [expressao] ")" "then" {declaracao_var} {comando} ["else" {declaracao_var} {comando}] "end" "if".
 
-comando_iterativo = "while" "(" [expressao] ")" "do" {comando} "end" "while".
+comando_iterativo = "while" "(" [expressao] ")" "do" {declaracao_var} {comando} "end" "while".
 
 comando_entrada = "scan" var {"," var} ";".
 
