@@ -63,7 +63,7 @@ void init_lex(FILE *f)
 {
 	FILE* init_file;
 
-	init_file = fopen("lexical_analyser/lex_machine", "r");
+	init_file = fopen("lex_machine", "r");
 	LEX_MACHINE = initialize_state_machine(init_file);
 	fclose(init_file);
 

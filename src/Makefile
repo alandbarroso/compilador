@@ -21,11 +21,14 @@ debug: LINKLFAGS += -g
 debug: CFLAGS += -g
 debug: compilador
 
-compilador: $(BIN)/main.o $(BIN)/lexical_analyser.o $(BIN)/state_machine.o $(BIN)/linked_list.o $(BIN)/keyword_analyser.o $(BIN)/symbol_table.o
+compilador: $(BIN)/lexico.o $(BIN)/lexical_analyser.o $(BIN)/state_machine.o $(BIN)/linked_list.o $(BIN)/keyword_analyser.o $(BIN)/symbol_table.o
+	$(CC) $(LINKLFAGS) $? -o compilador
+
+lexico: $(BIN)/lexico.o $(BIN)/lexical_analyser.o $(BIN)/state_machine.o $(BIN)/linked_list.o $(BIN)/keyword_analyser.o $(BIN)/symbol_table.o
 	$(CC) $(LINKLFAGS) $? -o lexico
 
-$(BIN)/main.o: main.c
-	$(CC) $(CFLAGS) $? -o $(BIN)/main.o
+$(BIN)/lexico.o: lexico.c
+	$(CC) $(CFLAGS) $? -o $(BIN)/lexico.o
 
 $(BIN)/lexical_analyser.o: lexical_analyser/lexical_analyser.c
 	$(CC) $(CFLAGS) $? -o $(BIN)/lexical_analyser.o
@@ -43,4 +46,4 @@ $(BIN)/symbol_table.o: context_stack/symbol_table.c
 	$(CC) $(CFLAGS) $? -o $(BIN)/symbol_table.o
 
 clean:
-	rm -rf $(BIN)/*.o lexico
+	rm -rf $(BIN)/*.o lexico compilador

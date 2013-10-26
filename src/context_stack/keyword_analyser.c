@@ -49,7 +49,7 @@ void init_keyword()
 	FILE* init_file;
 	char keyword_aux[32];
 
-	init_file = fopen("context_stack/keywords", "r");
+	init_file = fopen("keywords", "r");
 
 	
 	KEYWORDS_LIST = create_list(&equals_keyword);
