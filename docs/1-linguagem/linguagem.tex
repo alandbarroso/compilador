@@ -1,0 +1,346 @@
+% verso e anverso:
+% \documentclass[12pt,openright,twoside,a4paper,english]{abntex2}
+% apenas verso: 
+\documentclass[12pt,oneside,a4paper,english]{abntex2}
+
+
+\usepackage{cmap}				% Mapear caracteres especiais no PDF
+\usepackage{lmodern}			% Usa a fonte Latin Modern			
+\usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
+\usepackage{lastpage}			% Usado pela Ficha catalográfica
+\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+\usepackage{color}				% Controle das cores
+\usepackage{graphicx}			% Inclusão de gráficos
+\usepackage{pdfpages}
+\usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
+\usepackage[alf]{abntex2cite}	% Citações padrão ABNT
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{float}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstdefinelanguage{rock}
+{
+  morekeywords ={const, typedef, tipo, struct, begin, end, inteiro, function, program, if, then, else, while, do, scan, print, int, float, void, char, bool},
+  sensitive = true,
+  morecomment = [s]{\%}{\%},
+  morestring = [b]",
+}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,                    % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=rock,
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=2,                       % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+
+% Configurações do pacote backref
+% Usado sem a opção hyperpageref de backref
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+% Texto padrão antes do número das páginas
+\renewcommand{\backref}{}
+% Define os textos da citação
+\renewcommand*{\backrefalt}[4]{
+	\ifcase #1 %
+		Nenhuma citação no texto.%
+	\or
+		Citado na página #2.%
+	\else
+		Citado #1 vezes nas páginas #2.%
+	\fi}%
+
+\definecolor{blue}{RGB}{41,5,195} % alterando o aspecto da cor azul
+
+\makeatletter
+\hypersetup{
+     	%pagebackref=true,
+		pdftitle={\@title}, 
+		pdfauthor={\@author},
+    	pdfsubject={\@title},
+		pdfkeywords={Compiladores}, 
+		colorlinks=true,       		% false: boxed links; true: colored links
+    	linkcolor=blue,          	% color of internal links
+    	citecolor=blue,        		% color of links to bibliography
+    	filecolor=magenta,      		% color of file links
+		urlcolor=blue,
+		bookmarksdepth=4
+}
+\makeatother
+
+\autor{Alan D. Barroso, Kenji Sakata Jr}
+\title{Definição da Linguagem}
+\orientador[]{Linguagens e Compiladores \\ PCS2056}
+\instituicao{%
+	Universidade de São Paulo
+	\par
+	Escola Politécnica}
+\local{São Paulo}
+\data{2013}
+
+\setlrmarginsandblock{4cm}{4cm}{*}
+\setulmarginsandblock{4cm}{4cm}{*}
+\checkandfixthelayout
+
+\setlength{\parindent}{1.3cm} % O tamanho do parágrafo
+\setlength{\parskip}{0.2cm}  % Controle do espaçamento entre um parágrafo e outro
+
+\SingleSpacing
+
+\makeindex
+
+\begin{document}
+
+\frenchspacing % Retira espaço extra obsoleto entre as frases.
+
+\imprimirfolhaderosto
+
+\clearpage
+
+\textual
+
+\chapter{Descrição informal da linguagem}
+
+  A linguagem de alto nível criada para a construção deste compilador foi baseada nas linguagens de programção imperativas C e Pascal. Nesta seção iremos explicar informalmente as principais estruturas sintáticas reconhecidas pelo compilador.
+
+  A estrutura básica de um programa em nossa linguagem consiste de seis partes principais:
+
+  \begin{itemize}
+    \item Declarações de constantes
+    \item Declarações de tipos
+    \item Declarações de estruturas
+    \item Declarações de variáveis globais
+    \item Declarações de funções
+    \item Programa principal
+  \end{itemize}
+
+  Cada uma dessas partes, com excessão do programa principal, não são obrigatórias e podem ser omitidas. No entanto, elas devem seguir a exata ordem indicada acima.
+
+  \section{Declaração de constantes}
+
+  As constantes do programa são declaradas da seguinte maneira:
+
+\begin{lstlisting}
+const nome_da_variavel = valor_da_constante;
+\end{lstlisting}
+
+  A constante poder ser um número (inteiro ou ponto flutuante), true, false ou um caracter envolto em apóstrofes.
+
+  \section{Declarações de tipos}
+
+  Os tipos definidos pelo usuário são definidos da seguinte maneira:
+
+\begin{lstlisting}
+typedef tipo novo_nome;
+\end{lstlisting}
+
+  Os novos tipos só podem ser definidos em cima dos tipos básicos da linguagem (bool, int, float, char) ou tipos já definidos acima dele.
+
+  \section{Declaração de estruturas}
+
+  As estruturas são os agregados heterogêneos da linguagem. Nessa linguagem, uma vez declarada uma estrutura, ela é considerada como um tipo a ser usado no resto do programa. Elas são declaradas da seguinte maneira:
+
+\begin{lstlisting}
+struct nome_da_estrutura begin 
+  declaracao_variavel1; 
+  declaracao_variavel2; 
+  ... 
+  declaracao_variavelN; 
+end struct
+\end{lstlisting}
+
+  Uma estrutura deve conter pelo menos uma variável. As declarações de variáveis seguem as mesmas regras que as declarações de variáveis globais.
+
+  \section{Declarações de variáveis globais}
+
+  As declarações de variáveis podem ser de dois tipos, variáveis simples ou agregados homogêneos. As variáveis simples seguem a seguinte estrutura:
+
+\begin{lstlisting}
+  tipo indentificador_variavel;
+\end{lstlisting}
+
+  Já os agregados homogêneos:
+
+\begin{lstlisting}
+tipo indentificador_variavel[inteiro];
+\end{lstlisting}
+
+  É possível adicionar quantas vezes forem necessárias o párticula [inteiro], criando assim matrizes e não somente vetores.
+
+  Os tipos das variáveis podem ser: os tipos básicos da linguagem, os tipos definidos pelo programador ou as estruturas definidas anteriormente. As variáveis definidas nesse trecho são compartilhadas com todo resto do programa.
+
+  \section{Definições de funções}
+
+  As funções nessa linguagem são definidas como abaixo:
+
+\begin{lstlisting}
+function tipo nome_funcao (tipo param1, tipo byref param2, ... tipo paramN) begin
+  %
+    Bloco interno
+  %
+end function
+\end{lstlisting}
+
+  Os tipos das funções podem ser do mesmo tipo que os das variáveis além de um tipo a mais, o tipo void. Funções que possuem um tipo diferente do tipo void devem obrigatoriamente possuir um retorno. Funções do tipo void também podem possuir retorno, mas esse retorno deve ser obrigatóriamente vazio.
+
+  A estrutura interna de uma função segue a mesma estrutura que o programa principal, portanto, seus detalhes serão explicados a seguir.
+
+  \section{Programa Principal}
+
+  Primeiramente, o compilador aceita programas compostos por uma sequência de declarações de variáveis e, em seguida, uma sequência de comandos. O escopo do programa inicia-se com a sequência das palavras-chaves program seguida de begin. O programa acaba com as palavras end program.Tanto para as declarações de variáveis quanto para os comandos, o separador é o ponto e vírgula. 
+
+\begin{lstlisting} 
+program begin
+  %
+    Espaco destinado a declaracao de variaveis.
+  %
+  declaracao_var1; declaracao_var2; ... declaracao_varN;
+
+  %
+    Espaco destinado a declaracao de comandos.
+  %
+  comando1; comando2; ... comandoN; 
+end program
+\end{lstlisting}
+          
+  A declaração de variáveis segue o mesmo estilo que o das variáveis globais.
+
+  Os comandos podem ser dividos em seis tipos:
+  \begin{itemize}
+    \item Comando de atribuição
+    \item Comando de chamada de função
+    \item Comando condicional
+    \item Comando iterativo
+    \item Comando de entrada
+    \item Comando de saída
+    \item Comando de retorno
+  \end{itemize}
+
+  \subsection{Comando de Atribuição}
+                             
+  O comando de atribuição associa o valor de uma expressaão a uma variável, explicitada à esquerda do comando. Note que a variável pode ser uma variável escalar, um ponteiro ou um vetor. 
+
+  A avaliação das expressões segue as convenções usuais, sendo efetuada da esquerda para a direita. As expressões podem ser tanto booleanas quanto aritiméticas.
+
+  No caso das expressões aritiméticas, por definição, as potenciações possuem precedência sobre os produtos e divisões, e estes precedência sobre as somas e subtrações. Note que é possível alterar a prioridade de tais precedências graças ao uso de parênteses. As expressões aritiméticas aceitam números, identificadores de variáveis e o valor de retorno de chamadas de função.
+
+  Analogamente, no caso das expressões booleanas, a operação lógica "e" tem prioridade sobre a operação lógica "ou". As expressões booleanas aceitam tanto booleanos puros (true ou false) quanto o resultado de comparações entre expressões aritiméticas.
+
+  \subsection{Comando de chamada de função}
+                             
+  Funções podem ser consideradas como sub-programas, que recebem um conjunto de parâmetros e que são chamados pelo programa principal para executar uma dada ação. Há dois tipos de função implementadas via mesma estrutura sintática: rotinas e funções. Rotinas têm tipo void e executam seus comandos sem a necessidade de retornar algo no fim de sua execução. Já as funções são tipadas, como por exemplo int ou char, portanto, necessitam de pelo menos um return dentro de seu bloco principal.
+
+  Tanto as funções quanto as rotinas são chamadas através do nome da função requisitada, seguido dos parâmetros que devem ser passados para sua execução entre parênteses. 
+
+\begin{lstlisting}
+nome_funcao(parametro1 , parametro2, ..., parametroN);
+\end{lstlisting}
+
+  \subsection{Comando condicional}
+
+  Refere-se à possibilidade de realizar um salto condicional segundo o resultado de uma expressão booleana. 
+
+  Além das operações lógicas de "e" e "ou", as expressões booleanas consideram a possibilidade de realizar comparações lógicas entre partículas comparativas, através dos operadores "==" (igual a) ou "!=" (diferente de). Tais partículas são ou booleanos ou o resultado de uma comparação entre expressões aritiméticas, efetuadas através dos operadores "$>$" (maior que), "$<$" (menor que), "$>$=" (maior ou igual a) e "$<$=" (menor ou igual a).
+
+  Há duas estruturas sintáticas possíveis para o comando condicional: a simples, na qual somente são executados os comandos referente à expressão booleana após a palavra reservada \"if\" for verdadeira, e a composta. Neste último caso, caso a comparação seja verdadeira, o comando que se encontra entre as palavras \"then\" e \"else\" será executado. Caso contrário, o comando após o \"else\" será executado. 
+
+\begin{lstlisting}
+if expressao_booleana then
+  %
+    Bloco interno
+  %
+else
+  %
+    Bloco interno
+  %
+end if
+\end{lstlisting}
+
+  O bloco interno dos comando condicionais são equivalentes são aos blocos internos de funções e do programa principal.
+
+  \subsection{Comando Iterativo}
+
+  Este comando testa a expressão booleana após a palavra reservada \"while\" para decidir se irá realizar os comandos que segue a palavra “do”. Esta ação solicitada será executada repetidamente até que a condição de teste não mais seja atendida.           
+
+\begin{lstlisting}
+while expressao_booleana do
+  %
+    Bloco interno
+  %
+end while
+\end{lstlisting}
+                             
+  \subsection{Comandos de Entrada e Saída}
+
+  Os comandos de entrada e saída promovem, respectivamente, a entrada e saída de dados com relação a um meio externo. O comando de leitura captura dados e preenche o valor de uma variável, especificada após a palavra \"scan\". Já o comando de impressão permite a impressão do resultado de uma expressão.
+
+\begin{lstlisting}
+scan variavel;
+
+print expressao;
+\end{lstlisting}
+
+\chapter{Exemplo de programa escrito na linguagem definida}
+
+\lstinputlisting{notacoes/program_example}
+
+\chapter{Descrição da linguagem em BNF}
+
+\lstinputlisting{notacoes/BNF.txt}
+
+\chapter{Descrição da linguagem em EBNF}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,                    % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=rock,
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{black},     % string literal style
+  tabsize=2,                       % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+
+\lstinputlisting{notacoes/wirth.txt}
+
+\end{document}
