@@ -1,2 +1,4 @@
-src/bin/*.o
+*.zip
+
+src/bin/*
 src/lexico
