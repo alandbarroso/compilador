@@ -39,9 +39,11 @@ typedef enum{
 	EOA
 } TokenClass;
 
+typedef char* TokenValue;
+
 typedef struct{
 	TokenClass class; // Token class
-	char* value; // Token value
+	TokenValue value; // Token value
 	int line; // Line of the token
 	int column; // Column of first token character
 } Token;

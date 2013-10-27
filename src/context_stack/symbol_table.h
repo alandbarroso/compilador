@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include "../linked_list/linked_list.h"
+#include "../lexical_analyser/lexical_analyser.h"
 
 typedef TokenClass Type;
 

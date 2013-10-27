@@ -8,16 +8,6 @@
 #ifndef LINKED_LIST_H_
 #define LINKED_LIST_H_
 
- #include "../lexical_analyser/lexical_analyser.h"
-
-/*
-typedef struct{
-	char* id; 
-	int value;
-	Type type;
-} ElementType;
-*/
-
 typedef void* ElementType;
 
 typedef struct list_element
