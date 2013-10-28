@@ -75,14 +75,19 @@ ListElement* search_in_list(List* list, ElementType val)
     return NULL;
 }
 
-int eq(ElementType a, ElementType b)
+void delete_list(List* list)
 {
-    if(1)
+    ListElement* element = list->head;
+    ListElement* element_aux = element;
+
+    while(element_aux != NULL)
     {
-        return 1;
+        element = element_aux;
+
+        free(element->val);
+        element_aux = element->next;
+        free(element);
     }
-    else
-    {
-        return 0;
-    }
+
+    free(list);
 }

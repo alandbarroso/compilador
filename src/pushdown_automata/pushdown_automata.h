@@ -10,7 +10,14 @@
 
 #include <stdio.h>
 
-#include "../lexical_analyser/lexical_analyser.h" 
+#include "../lexical_analyser/lexical_analyser.h"
+#include "../linked_list/linked_list.h" 
+
+/*
+* ------------------------------------------------------
+* Declarations
+* ------------------------------------------------------
+*/
 
 /*
 *	The state of the automata
@@ -24,30 +31,30 @@ typedef struct
 	int state_number;
 	int accepting;
 	List* transitions;
-	List* submachine_transition;
+	List* submachine_transitions;
 } AutomataState;
 
 /*
 *	The Pushdown Automata
 *	char* name: The name of the state
-*	Automata_State* states: The list of states of the automata
+*	Automata_State** states: The list of states of the automata
+*	int nb_states: The number of states in the automata
 */
 typedef struct
 {
 	char* name;
-	AutomataState* state;
+	AutomataState** states;
+	int nb_states;
 } PushdownAutomata;
 
 /*
 *	The simple transition of the automata
-*	TokenClass token_class: If submachine_transition equals false, this is the class of tokens acepted by the trasition
-*	char* value: If the transition requires a precise value, it contains the value required. Null if not
+*	Token token: The token to be received 
 *	Automata_State state: The result state of the transition
 */
 typedef struct
 {
-	TokenClass token_class;
-	TokenValue value;
+	Token* token;
 	AutomataState* state;
 } Transition;
 
@@ -58,8 +65,41 @@ typedef struct
 */
 typedef struct
 {
-	PushdownAutomata automata;
-	Automata_State* state;
+	PushdownAutomata* automata;
+	AutomataState* state;
 } SubmachineTransition;
+
+/*
+* ------------------------------------------------------
+* Functions
+* ------------------------------------------------------
+*/
+
+/*
+*	Initialize an empty automata
+*	char* name: The name of the new created automata
+*/
+PushdownAutomata* init_automata(char* name);
+
+/*
+*	Create the states and the transitions based on a file and the existing pushdown automatas
+*	PushdownAutomata automata: The initialized atomata to be created
+*	FILE* f: The file from wich the data will be extracted
+*	PushdownAutomata** automatas: The other automatas
+*	int nb_automatas: The total number of automatas
+*/
+void create_automata(PushdownAutomata* automata, FILE* f, PushdownAutomata** automatas, int nb_automatas);
+
+/*
+*	Deletes the automata
+*	PushdownAutomata* automata: The automata to be deleted
+*/
+void delete_automata(PushdownAutomata* automata);
+
+/*
+*	Prints the automata
+*	PushdownAutomata* automata: The automata to be printed
+*/
+void print_automata(PushdownAutomata* automata);
 
 #endif /* PUSHDOWN_AUTOMATA_H_ */

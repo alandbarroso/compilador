@@ -38,6 +38,8 @@ void append_char(char** str, char c);
  * ------------------------------------------------------
  */
 
+const char* LEX_INIT = "initialization_files/lex_machine";
+
 FILE* SOURCE_CODE;
 
 int LINE;
@@ -59,27 +61,21 @@ StateMachine* LEX_MACHINE;
  * ------------------------------------------------------
  */
 
-void init_lex(FILE *f)
+void init_lex(FILE* source_file, char* init_file_name)
 {
 	FILE* init_file;
 
-	init_file = fopen("lex_machine", "r");
+	init_file = fopen(init_file_name, "r");
 	LEX_MACHINE = initialize_state_machine(init_file);
 	fclose(init_file);
 
 	LINE = 0;
 	COLUMN = 0;
 
-	SOURCE_CODE = f;
+	SOURCE_CODE = source_file;
 	CURRENT_CHAR = fgetc(SOURCE_CODE);
 
 	FILE_ENDED = 0;
-
-	init_keyword();
-
-	init_var();
-
-	print_list_keywords(KEYWORDS_LIST);
 
 	printf("\n");
 }
@@ -216,12 +212,12 @@ TokenClass get_class(char* state_name, char* buffer)
 
 	if(class == IDN)
 	{
-
 		if(search_keyword(buffer))
 		{
 			class = KEY;
 		}
-		else{
+		else
+		{
 			class = VAR;
 
 			insert_var(buffer);

@@ -1,0 +1,78 @@
+13
+
+3
+3
+4
+9
+
+70
+0 OPR ! 1
+0 OPR - 1
+0 OPR ( 2
+0 INT NULL 3
+0 FLT NULL 3
+0 OPR true 3
+0 OPR false 3
+0 CHAR NULL 3
+0 IDN NULL 4
+1 OPR ( 2
+1 INT NULL 3
+1 FLT NULL 3
+1 OPR true 3
+1 OPR false 3
+1 CHAR NULL 3
+1 IDN NULL 4
+2 MAC expressao 8
+3 OPR - 0
+3 OPR ^ 0
+3 OPR * 0
+3 OPR / 0
+3 OPR + 0
+3 OPR == 0
+3 OPR != 0
+3 OPR < 0
+3 OPR > 0
+3 OPR <= 0
+3 OPR >= 0
+3 OPR and 0
+3 OPR or 0
+4 OPR - 0
+4 OPR ( 5
+4 OPR [ 6
+4 OPR . 7
+4 OPR ^ 0
+4 OPR * 0
+4 OPR / 0
+4 OPR + 0
+4 OPR == 0
+4 OPR != 0
+4 OPR < 0
+4 OPR > 0
+4 OPR <= 0
+4 OPR >= 0
+4 OPR and 0
+4 OPR or 0
+5 MAC expressao 11
+5 OPR ) 3
+6 MAC expressao 10
+7 IDN NULL 9
+8 OPR ) 3
+9 OPR - 0
+9 OPR [ 6
+9 OPR . 7
+9 OPR ^ 0
+9 OPR * 0
+9 OPR / 0
+9 OPR + 0
+9 OPR == 0
+9 OPR != 0
+9 OPR < 0
+9 OPR > 0
+9 OPR <= 0
+9 OPR >= 0
+9 OPR and 0
+9 OPR or 0
+10 OPR ] 9
+11 OPR ) 3
+11 OPR , 12
+12 MAC expressao 11

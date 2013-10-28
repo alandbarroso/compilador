@@ -32,6 +32,6 @@ ListElement* search_in_list(List* list, ElementType val);
 
 void print_list(List* list);
 
-int eq(ElementType a, ElementType b);
+void delete_list(List* list);
 
 #endif /* LINKED_LIST_H_ */

@@ -32,6 +32,8 @@ int equals_keyword (ElementType e1, ElementType e2);
  * ------------------------------------------------------
  */
 
+const char* KEY_INIT = "initialization_files/keywords";
+
 List* KEYWORDS_LIST;
 
 /*
@@ -44,12 +46,12 @@ List* KEYWORDS_LIST;
  * Reads keywords file and populates linked list
  * 
  */
-void init_keyword()
+void init_keyword(char* init_file_name)
 {
 	FILE* init_file;
 	char keyword_aux[32];
 
-	init_file = fopen("keywords", "r");
+	init_file = fopen(init_file_name, "r");
 
 	
 	KEYWORDS_LIST = create_list(&equals_keyword);
@@ -62,8 +64,8 @@ void init_keyword()
 		strcpy(keyword, keyword_aux);
 
 		add_to_list(KEYWORDS_LIST, keyword);
-	 }
-	
+	}
+
 	fclose(init_file);
 }
 

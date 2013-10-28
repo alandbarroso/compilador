@@ -1,5 +1,5 @@
 /*
- * main.c
+ * lexico.c
  *
  *  Created on: Sep 20, 2013
  *      Author: alan
@@ -12,13 +12,19 @@
 
 int main(int argc, char *argv[])
 {
-	FILE* f = fopen("ENTRADA.TXT", "r");
+	FILE* src_file = fopen("ENTRADA.TXT", "r");
 
-	if(f != NULL)
+	if(src_file != NULL)
 	{
-		init_lex(f);
+		init_lex(src_file, LEX_INIT);
 
 		printf("LEX initialized!\n");
+
+		init_var();
+
+		init_keyword(KEY_INIT);
+
+		print_list_keywords(KEYWORDS_LIST);
 
 		Token* t;
 
@@ -42,7 +48,7 @@ int main(int argc, char *argv[])
 		printf("Error opening file!");
 	}
 
-	fclose(f);
+	fclose(src_file);
 
 	print_list_vars(VARS_LIST);
 

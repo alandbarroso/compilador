@@ -11,6 +11,8 @@
 #include <stdio.h>
 #include "../state_machine/state_machine.h"
 
+extern const char* LEX_INIT;
+
 extern FILE* SOURCE_CODE; // Source to work
 
 extern int LINE; // Current line read
@@ -51,9 +53,8 @@ typedef struct{
 /*
  * Initialize the LEX_MACHINE with the contents of the file 'lex_machine'
  * and reads the first char of the file
- * Also initialize the keyword table
  */
-void init_lex(FILE *f);
+void init_lex(FILE* source_file, char* init_file_name);
 
 /*
  * Return a token using the initialized files

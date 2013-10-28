@@ -11,9 +11,11 @@
 #include <stdio.h>
 #include "../linked_list/linked_list.h"
 
+extern const char* KEY_INIT;
+
 extern List* KEYWORDS_LIST;
 
-void init_keyword();
+void init_keyword(char* init_file_name);
 
 int search_keyword(char* idn);
 
