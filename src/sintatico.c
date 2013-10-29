@@ -6,56 +6,29 @@
  */
 #include <stdio.h>
 
-#include "pushdown_automata/pushdown_automata.h"
-
-const char* PROGRAMA_INIT = "initialization_files/DFAs/programa";
-const char* PROGRAMA_NAME = "programa";
-
-const char* COMANDO_INIT = "initialization_files/DFAs/comando";
-const char* COMANDO_NAME = "comando";
-
-const char* EXPRESSAO_INIT = "initialization_files/DFAs/expressao";
-const char* EXPRESSAO_NAME = "expressao";
+#include "syntax_analyser/syntax_analyser.h"
+#include "lexical_analyser/lexical_analyser.h"
+#include "context_stack/keyword_analyser.h"
+#include "context_stack/symbol_table.h"
 
 int main(int argc, char *argv[])
 {
-	int nb_automatas = 3;
-	PushdownAutomata* automatas[nb_automatas]; // The collection of automatas
+	FILE* src_file = fopen("ENTRADA.TXT", "r");
 
-	automatas[0] = init_automata(PROGRAMA_NAME);
-	automatas[1] = init_automata(COMANDO_NAME);
-	automatas[2] = init_automata(EXPRESSAO_NAME);
-
-	FILE* f = fopen(PROGRAMA_INIT, "r"); // Initialization file for programa
-	if (f != NULL)
+	if(src_file != NULL)
 	{
-		create_automata(automatas[0], f, automatas, nb_automatas);
+		// We start by initializing everything
 
-		print_automata(automatas[0]);
-	}
-	fclose(f);
-	
-	f = fopen(COMANDO_INIT, "r"); // Initialization file for programa
-	if (f != NULL)
-	{
-		create_automata(automatas[1], f, automatas, nb_automatas);
+		init_lex(src_file);
 
-		print_automata(automatas[1]);
-	}
-	fclose(f);
+		init_var();
 
-	f = fopen(EXPRESSAO_INIT, "r"); // Initialization file for programa
-	if (f != NULL)
-	{
-		create_automata(automatas[2], f, automatas, nb_automatas);
+		init_keyword();
 
-		print_automata(automatas[2]);
-	}
-	fclose(f);
+		init_syntax();
 
-	for(nb_automatas = nb_automatas - 1; nb_automatas >= 0; nb_automatas--)
-	{
-		delete_automata(automatas[nb_automatas]);
+		// We the verify the syntax of the source code
+		verify_syntax();
 	}
 
 	return 0;

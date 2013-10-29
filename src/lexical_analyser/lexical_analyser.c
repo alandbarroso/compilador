@@ -61,11 +61,11 @@ StateMachine* LEX_MACHINE;
  * ------------------------------------------------------
  */
 
-void init_lex(FILE* source_file, char* init_file_name)
+void init_lex(FILE* source_file)
 {
 	FILE* init_file;
 
-	init_file = fopen(init_file_name, "r");
+	init_file = fopen(LEX_INIT, "r");
 	LEX_MACHINE = initialize_state_machine(init_file);
 	fclose(init_file);
 
@@ -153,6 +153,7 @@ Token* get_token()
 			FILE_ENDED = 1;
 
 			token->class = EOA;
+			token->value = NULL;
 		}
 		else
 		{

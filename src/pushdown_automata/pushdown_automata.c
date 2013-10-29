@@ -77,7 +77,6 @@ void create_automata(PushdownAutomata* automata, FILE* f, PushdownAutomata** aut
 	int aux_resulting_state; // The resulting state from the transistion
 
 	Transition* aux_transition; // Auxliar to create normal transitions
-	SubmachineTransition* aux_submachine_transition; // Auxiliar to create submachine transitions
 
 	int i;
 
@@ -118,17 +117,17 @@ void create_automata(PushdownAutomata* automata, FILE* f, PushdownAutomata** aut
 			{
 				if(!strcmp(aux_token_value, automatas[i]->name))
 				{
-					aux_submachine_transition = (SubmachineTransition*) malloc(sizeof(SubmachineTransition));
-					if(aux_submachine_transition == NULL)
+					aux_transition = (Transition*) malloc(sizeof(Transition));
+					if(aux_transition == NULL)
 					{
 						printf("Out of memory\n");
 						return;
 					}
 
-					aux_submachine_transition->automata = automatas[i];
-					aux_submachine_transition->state = automata->states[aux_resulting_state];
+					aux_transition->transition_value = automatas[i];
+					aux_transition->next_state = automata->states[aux_resulting_state];
 
-					add_to_list(automata->states[aux_state]->submachine_transitions, aux_submachine_transition);
+					add_to_list(automata->states[aux_state]->submachine_transitions, aux_transition);
 				}
 			}
 		}
@@ -142,12 +141,140 @@ void create_automata(PushdownAutomata* automata, FILE* f, PushdownAutomata** aut
 				return;
 			}
 
-			aux_transition->token = create_token(aux_token_class, aux_token_value);
-			aux_transition->state = automata->states[aux_resulting_state];
+			aux_transition->transition_value = create_token(aux_token_class, aux_token_value);
+			aux_transition->next_state = automata->states[aux_resulting_state];
 			
 			add_to_list(automata->states[aux_state]->transitions, aux_transition);
 		}
 	}
+}
+
+int recognize(PushdownAutomata* automata, Token** token)
+{
+	AutomataState* current_state = automata->states[0]; // The current state of the machine
+	AutomataState* next_state; // The next state of the automata
+
+	int finished_automata = 0; // Indicates if there is no more transitions to be made
+
+	ListElement* element;
+	Transition* t; // Auxiliar to the transitions
+
+	Token* transition_token; // The token used on the transition 
+	PushdownAutomata* transition_automata; // The auxiliar automata used on a transition
+
+	int result = 1; // The final result of the automata 
+
+	printf("-------------------------------------------------------\n");
+	printf("Started machine %s\n", automata->name);
+	printf("\n");
+
+	while((*token)->class != EOA && !finished_automata)
+	{
+		next_state = NULL; // Restart the transitions
+
+		// First we try using a token transition
+		element = current_state->transitions->head;
+		while(next_state == NULL && element != NULL)
+		{
+			t = (Transition*) element->val;
+
+			transition_token = (Token*) t->transition_value;
+
+			if(transition_token->class == (*token)->class)
+			{
+				// If no value is specified, we always get the next state
+				if(transition_token->value == NULL)
+				{
+					next_state = t->next_state;
+
+					printf("-----------------------------------\n");
+					printf("Transited from %d to %d using the token!\n", current_state->state_number, next_state->state_number);
+					printf("\n");
+				}
+				else // Else, we compare the values
+				{
+					if(!strcmp(transition_token->value, (*token)->value))
+					{
+						next_state = t->next_state;
+
+						printf("-----------------------------------\n");
+						printf("Transited from %d to %d using the token!\n", current_state->state_number, next_state->state_number);
+						printf("\n");
+					}
+				}
+			}
+			
+			element = element->next;
+		}
+
+		// If no state was transited from the token transitions, we try the machine transitions
+		if(next_state == NULL)
+		{
+			element = current_state->submachine_transitions->head;
+			while(next_state == NULL && element != NULL)
+			{
+				t = (Transition*) element->val;
+
+				transition_automata = (PushdownAutomata*) t->transition_value;
+
+				// If the submachine recognizes the transition, we go to the nex state
+				if(recognize(transition_automata, token))
+				{
+					next_state = t->next_state;
+
+					printf("-----------------------------------\n");
+					printf("Transited from %d to %d using the machine %s!\n", current_state->state_number, next_state->state_number, transition_automata->name);
+					printf("\n");
+				}
+				
+				element = element->next;
+			}
+
+			if(next_state == NULL) // All the possibilities were checked, automata has ended
+			{
+				finished_automata = 1;
+			}
+			else // We found a transition via Submachine
+			{
+				current_state = next_state;
+			}
+		}
+		else // Transition occourred via token, need to get a new one
+		{
+			current_state = next_state;
+
+			// We free the last token
+			free(*token);
+
+			// And get a new one
+			*token = get_token();
+
+			print_token((*token));
+
+			// Small check if the given token have an error
+			if((*token)->class == ERR)
+			{
+				return 0; // We return a error => We could not recognize the file
+			}
+		}
+	}
+	printf("-----------------------------------\n\n");
+
+	// We finally verify if the the last state to see if the we have accepted the language or not
+	if(current_state->accepting)
+	{
+		printf("Recognized source!\n\n");
+		result = 1;
+	}
+	else
+	{
+		printf("Source not recognized!\n\n");
+		result = 0;
+	}
+
+	printf("-------------------------------------------------------\n");
+
+	return result;
 }
 
 void delete_automata(PushdownAutomata* automata)
@@ -171,7 +298,9 @@ void print_automata(PushdownAutomata* automata)
 	ListElement* element;
 
 	Transition* t;
-	SubmachineTransition* st;
+
+	Token* token;
+	PushdownAutomata* aux_automata;
 
 	printf("-------------------------------\n");
 	printf("Automata %s:\n", automata->name);
@@ -184,18 +313,22 @@ void print_automata(PushdownAutomata* automata)
 		element = automata->states[i]->transitions->head;
 		while(element != NULL)
 		{
-			t = (Transition*) element-> val;
+			t = (Transition*) element->val;
 
-			printf("If %s %s - To %d\n", CLASS_NAME[t->token->class], t->token->value, t->state->state_number);
+			token = (Token*) t->transition_value;
+
+			printf("If %s %s - To %d\n", CLASS_NAME[token->class], token->value, t->next_state->state_number);
 			element = element->next;
 		}
 
 		element = automata->states[i]->submachine_transitions->head;
 		while(element != NULL)
 		{
-			st = (SubmachineTransition*) element-> val;
+			t = (Transition*) element->val;
 
-			printf("If machine %s - To %d\n", st->automata->name, st->state->state_number);
+			aux_automata = (PushdownAutomata*) t->transition_value;
+
+			printf("If machine %s - To %d\n", aux_automata->name, t->next_state->state_number);
 			element = element->next;
 		}
 	}

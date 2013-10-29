@@ -46,12 +46,12 @@ List* KEYWORDS_LIST;
  * Reads keywords file and populates linked list
  * 
  */
-void init_keyword(char* init_file_name)
+void init_keyword()
 {
 	FILE* init_file;
 	char keyword_aux[32];
 
-	init_file = fopen(init_file_name, "r");
+	init_file = fopen(KEY_INIT, "r");
 
 	
 	KEYWORDS_LIST = create_list(&equals_keyword);

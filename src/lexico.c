@@ -16,13 +16,13 @@ int main(int argc, char *argv[])
 
 	if(src_file != NULL)
 	{
-		init_lex(src_file, LEX_INIT);
+		init_lex(src_file);
 
 		printf("LEX initialized!\n");
 
 		init_var();
 
-		init_keyword(KEY_INIT);
+		init_keyword();
 
 		print_list_keywords(KEYWORDS_LIST);
 

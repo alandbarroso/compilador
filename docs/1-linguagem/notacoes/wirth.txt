@@ -1,6 +1,6 @@
-programa = {declaracao_constante} {definicao_tipo} {definicao_struct} {declaracao_var} {declaracao_func} "program" "begin" {declaracao_var} {comando} "end" "program".
+programa = [declaracao_constante] [definicao_tipo] {declaracao_struct} [declaracao_var] {declaracao_func} "program" "begin" [declaracao_var] {comando} "end" "program".
 
-declaracao_constante = "const" identificador "=" constante ";".
+declaracao_constante = "const" identificador "=" constante ";" {identificador "=" constante ";"} "end" "const".
 
 identificador = letra {letra_dig}.
 
@@ -12,13 +12,13 @@ booleano = "true" | "false".
 
 char = "'" (letra_dig | "\" letra_dig) "'".
 
-definicao_tipo = "typedef" identificador tipo ";".
+definicao_tipo = "typedef" identificador "=" tipo ";" {identificador "=" tipo ";"} "end" "typedef".
 
 tipo = "bool" | "int" | "char" | "float" | identificador.
 
-definicao_struct = "struct" identificador "begin" declaracao_var {declaracao_var} "end" "struct".
+declaracao_struct = "struct" identificador "begin" tipo vars ";" {tipo vars ";"} "end" "struct".
 
-declaracao_var = tipo vars ";".
+declaracao_var = "vars" tipo vars ";" {tipo vars ";"} "end" "vars".
 
 vars = declaracao_array {"," declaracao_array}.
 
@@ -26,7 +26,7 @@ declaracao_array = identificador {"[" inteiro "]"}.
 
 inteiro = digito {digito}.
 
-declaracao_func = "function" tipo_funcao identificador "(" [declaracoes_parametro] ")" "begin" {declaracao_var} {comando} "end" "function".
+declaracao_func = "function" tipo_funcao identificador "(" [declaracoes_parametro] ")" "begin" [declaracao_var] {comando} "end" "function".
 
 tipo_funcao = "void" | tipo.
 
@@ -35,13 +35,14 @@ declaracoes_parametro = declaracao_parametro {"," declaracao_parametro}.
 declaracao_parametro = tipo ["byref"] declaracao_array.
 
 comando = comando_atribuicao
+		| comando_chamada
 		| comando_condicional
 		| comando_iterativo
 		| comando_entrada
 		| comando_saida
 		| comando_retorno.
 
-comando_atribuicao = ((var operador_atribuicao expressao) | [expressao]) ";".
+comando_atribuicao = [var operador_atribuicao expressao] ";".
 
 operador_atribuicao = "=" | "+=" | "-=" | "*=" | "/=".
 
@@ -71,9 +72,11 @@ chamada_funcao = identificador "(" [parametros] ")".
 
 parametros = expressao {"," expressao}.
 
-comando_condicional = "if" "(" [expressao] ")" "then" {declaracao_var} {comando} ["else" {declaracao_var} {comando}] "end" "if".
+comando_chamada = "call" chamada_funcao ";".
 
-comando_iterativo = "while" "(" [expressao] ")" "do" {declaracao_var} {comando} "end" "while".
+comando_condicional = "if" "(" [expressao] ")" "then" {comando} ["else" {comando}] "end" "if".
+
+comando_iterativo = "while" "(" [expressao] ")" "do" {comando} "end" "while".
 
 comando_entrada = "scan" var {"," var} ";".
 

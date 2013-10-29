@@ -30,7 +30,7 @@ compilador: $(BIN)/sintatico.o $(BIN)/pushdown_automata.o $(BIN)/lexical_analyse
 lexico: $(BIN)/lexico.o $(BIN)/lexical_analyser.o $(BIN)/state_machine.o $(BIN)/linked_list.o $(BIN)/keyword_analyser.o $(BIN)/symbol_table.o
 	$(CC) $(LINKLFAGS) $? -o lexico
 
-sintatico: $(BIN)/sintatico.o $(BIN)/pushdown_automata.o $(BIN)/lexical_analyser.o $(BIN)/state_machine.o $(BIN)/linked_list.o $(BIN)/keyword_analyser.o $(BIN)/symbol_table.o
+sintatico: $(BIN)/sintatico.o $(BIN)/syntax_analyser.o $(BIN)/pushdown_automata.o $(BIN)/lexical_analyser.o $(BIN)/state_machine.o $(BIN)/linked_list.o $(BIN)/keyword_analyser.o $(BIN)/symbol_table.o
 	$(CC) $(LINKLFAGS) $? -o sintatico
 
 $(BIN)/lexico.o: lexico.c
@@ -38,6 +38,9 @@ $(BIN)/lexico.o: lexico.c
 
 $(BIN)/sintatico.o: sintatico.c
 	$(CC) $(CFLAGS) $? -o $(BIN)/sintatico.o
+
+$(BIN)/syntax_analyser.o: syntax_analyser/syntax_analyser.c
+	$(CC) $(CFLAGS) $? -o $(BIN)/syntax_analyser.o
 
 $(BIN)/pushdown_automata.o: pushdown_automata/pushdown_automata.c
 	$(CC) $(CFLAGS) $? -o $(BIN)/pushdown_automata.o

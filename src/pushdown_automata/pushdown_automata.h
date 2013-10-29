@@ -48,26 +48,15 @@ typedef struct
 } PushdownAutomata;
 
 /*
-*	The simple transition of the automata
-*	Token token: The token to be received 
-*	Automata_State state: The result state of the transition
+*	The transition of the automata
+*	void* transition_value: The value used to compare if the transition can occour 
+*	Automata_State next_state: The result state of the transition
 */
 typedef struct
 {
-	Token* token;
-	AutomataState* state;
+	void* transition_value;
+	AutomataState* next_state;
 } Transition;
-
-/*
-*	The submachine transition of the automata
-*	Pushdown_Automata automata: The submachine to be called in the transition 
-*	Automata_State state: The result state of the transition
-*/
-typedef struct
-{
-	PushdownAutomata* automata;
-	AutomataState* state;
-} SubmachineTransition;
 
 /*
 * ------------------------------------------------------
@@ -89,6 +78,13 @@ PushdownAutomata* init_automata(char* name);
 *	int nb_automatas: The total number of automatas
 */
 void create_automata(PushdownAutomata* automata, FILE* f, PushdownAutomata** automatas, int nb_automatas);
+
+/*
+*	Recognizes a language using an automata. If the text belongs to the language, return true, false if not
+*	PushdownAutomata* automata: The automata used to reconize.
+*	Token** token: The last token read by the lexical analyser
+*/
+int recognize(PushdownAutomata* automata, Token** token);
 
 /*
 *	Deletes the automata

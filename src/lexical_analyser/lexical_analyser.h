@@ -54,7 +54,7 @@ typedef struct{
  * Initialize the LEX_MACHINE with the contents of the file 'lex_machine'
  * and reads the first char of the file
  */
-void init_lex(FILE* source_file, char* init_file_name);
+void init_lex(FILE* source_file);
 
 /*
  * Return a token using the initialized files

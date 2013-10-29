@@ -15,7 +15,7 @@ extern const char* KEY_INIT;
 
 extern List* KEYWORDS_LIST;
 
-void init_keyword(char* init_file_name);
+void init_keyword();
 
 int search_keyword(char* idn);
 

@@ -23,3 +23,5 @@ scan
 print
 or
 and
+call
+vars

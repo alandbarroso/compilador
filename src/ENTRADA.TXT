@@ -1,40 +1,38 @@
-int main(int argc, char *argv[])
-{
-	FILE* f = fopen("src_file", "r");
+function int fatorial_recursivo(int n) begin
+	vars
+		int result;
+	end vars
 
-	if(f != NULL)
-	{
-		init_lex(f);
-
-		printf("LEX initialized!\n");
-
-		Token* t;
-
-		for(t = get_token(); t->class != EOA; t = get_token())
-		{
-			print_token(t);
-
-			if(t->class == ERR)
-			{
-				printf("Lexical error at: line %d, column %d\n", t->line, t->column);
-				printf("Exiting...\n");
-
-				return 1;
-			}
-		}
-
-		print_token(t);
-	}
+	if (n <=1)  then
+		result = 1;
 	else
-	{
-		printf("Error opening file!");
-	}
+		result = n * fatorial_recursivo(n - 1);
+	end if
 
-	fclose(f);
+	return result;
+end function
 
-	print_list_vars(VARS_LIST);
+function int fatorial_iterativo(int n) begin
+	vars
+		int fatorial;
+	end vars
 
-	printf("End of file\n");
-	'\k';
-	return 0;
-}
+	fatorial = 1;
+	while (n>0) do
+	    fatorial = fatorial * n;
+	    n = n - 1;
+	end while
+
+	return fatorial;
+end function
+
+program begin
+	vars
+		int  fatorial_10_recursivo;
+	end vars
+
+	fatorial_10_recursivo = fatorial_recursivo(10);
+
+	print fatorial_10_recursivo;
+	print fatorial_iterativo(10);
+end program
