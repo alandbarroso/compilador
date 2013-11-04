@@ -31,7 +31,6 @@
   <state id="13" name="q13">
   </state>
   <state id="14" name="q14">
-    <final/>
   </state>
   <state id="15" name="q15">
   </state>
@@ -62,6 +61,7 @@
   <state id="28" name="q28">
   </state>
   <state id="29" name="q29">
+    <final/>
   </state>
   <state id="30" name="q30">
   </state>
@@ -107,6 +107,32 @@
   </state>
   <state id="51" name="q51">
   </state>
+  <state id="52" name="q52">
+  </state>
+  <state id="53" name="q53">
+  </state>
+  <state id="54" name="q54">
+  </state>
+  <state id="55" name="q55">
+  </state>
+  <state id="56" name="q56">
+  </state>
+  <state id="57" name="q57">
+  </state>
+  <state id="58" name="q58">
+  </state>
+  <state id="59" name="q59">
+  </state>
+  <state id="60" name="q60">
+  </state>
+  <state id="61" name="q61">
+  </state>
+  <state id="62" name="q62">
+  </state>
+  <state id="63" name="q63">
+  </state>
+  <state id="64" name="q64">
+  </state>
   <transition>
     <from>0</from>
     <to>1</to>
@@ -115,37 +141,17 @@
   <transition>
     <from>0</from>
     <to>2</to>
-    <read>identificador</read>
-  </transition>
-  <transition>
-    <from>0</from>
-    <to>3</to>
     <read>"typedef"</read>
   </transition>
   <transition>
     <from>0</from>
-    <to>2</to>
-    <read>"bool"</read>
-  </transition>
-  <transition>
-    <from>0</from>
-    <to>2</to>
-    <read>"int"</read>
-  </transition>
-  <transition>
-    <from>0</from>
-    <to>2</to>
-    <read>"char"</read>
-  </transition>
-  <transition>
-    <from>0</from>
-    <to>2</to>
-    <read>"float"</read>
+    <to>3</to>
+    <read>"struct"</read>
   </transition>
   <transition>
     <from>0</from>
     <to>4</to>
-    <read>"struct"</read>
+    <read>"vars"</read>
   </transition>
   <transition>
     <from>0</from>
@@ -164,47 +170,67 @@
   </transition>
   <transition>
     <from>2</from>
-    <to>17</to>
+    <to>23</to>
     <read>identificador</read>
   </transition>
   <transition>
     <from>3</from>
-    <to>22</to>
+    <to>30</to>
     <read>identificador</read>
   </transition>
   <transition>
     <from>4</from>
-    <to>37</to>
+    <to>53</to>
     <read>identificador</read>
   </transition>
   <transition>
-    <from>5</from>
-    <to>24</to>
-    <read>identificador</read>
-  </transition>
-  <transition>
-    <from>5</from>
-    <to>24</to>
+    <from>4</from>
+    <to>53</to>
     <read>"bool"</read>
   </transition>
   <transition>
-    <from>5</from>
-    <to>24</to>
+    <from>4</from>
+    <to>53</to>
     <read>"int"</read>
   </transition>
   <transition>
-    <from>5</from>
-    <to>24</to>
+    <from>4</from>
+    <to>53</to>
     <read>"char"</read>
   </transition>
   <transition>
-    <from>5</from>
-    <to>24</to>
+    <from>4</from>
+    <to>53</to>
     <read>"float"</read>
   </transition>
   <transition>
     <from>5</from>
-    <to>24</to>
+    <to>31</to>
+    <read>identificador</read>
+  </transition>
+  <transition>
+    <from>5</from>
+    <to>31</to>
+    <read>"bool"</read>
+  </transition>
+  <transition>
+    <from>5</from>
+    <to>31</to>
+    <read>"int"</read>
+  </transition>
+  <transition>
+    <from>5</from>
+    <to>31</to>
+    <read>"char"</read>
+  </transition>
+  <transition>
+    <from>5</from>
+    <to>31</to>
+    <read>"float"</read>
+  </transition>
+  <transition>
+    <from>5</from>
+    <to>31</to>
     <read>"void"</read>
   </transition>
   <transition>
@@ -220,32 +246,12 @@
   <transition>
     <from>8</from>
     <to>10</to>
-    <read>identificador</read>
-  </transition>
-  <transition>
-    <from>8</from>
-    <to>10</to>
-    <read>"bool"</read>
-  </transition>
-  <transition>
-    <from>8</from>
-    <to>10</to>
-    <read>"int"</read>
-  </transition>
-  <transition>
-    <from>8</from>
-    <to>10</to>
-    <read>"char"</read>
-  </transition>
-  <transition>
-    <from>8</from>
-    <to>10</to>
-    <read>"float"</read>
+    <read>"end"</read>
   </transition>
   <transition>
     <from>8</from>
     <to>11</to>
-    <read>"end"</read>
+    <read>"vars"</read>
   </transition>
   <transition>
     <from>8</from>
@@ -255,7 +261,12 @@
   <transition>
     <from>9</from>
     <to>13</to>
-    <read>numero</read>
+    <read>inteiro</read>
+  </transition>
+  <transition>
+    <from>9</from>
+    <to>13</to>
+    <read>float</read>
   </transition>
   <transition>
     <from>9</from>
@@ -274,17 +285,37 @@
   </transition>
   <transition>
     <from>10</from>
+    <to>29</to>
+    <read>"program"</read>
+  </transition>
+  <transition>
+    <from>11</from>
     <to>15</to>
     <read>identificador</read>
   </transition>
   <transition>
     <from>11</from>
-    <to>14</to>
-    <read>"program"</read>
+    <to>15</to>
+    <read>"bool"</read>
+  </transition>
+  <transition>
+    <from>11</from>
+    <to>15</to>
+    <read>"int"</read>
+  </transition>
+  <transition>
+    <from>11</from>
+    <to>15</to>
+    <read>"char"</read>
+  </transition>
+  <transition>
+    <from>11</from>
+    <to>15</to>
+    <read>"float"</read>
   </transition>
   <transition>
     <from>12</from>
-    <to>11</to>
+    <to>10</to>
     <read>"end"</read>
   </transition>
   <transition>
@@ -294,68 +325,58 @@
   </transition>
   <transition>
     <from>13</from>
-    <to>0</to>
+    <to>14</to>
     <read>";"</read>
   </transition>
   <transition>
-    <from>15</from>
-    <to>8</to>
-    <read>";"</read>
+    <from>14</from>
+    <to>7</to>
+    <read>identificador</read>
   </transition>
   <transition>
-    <from>15</from>
+    <from>14</from>
     <to>16</to>
-    <read>"["</read>
+    <read>"end"</read>
   </transition>
   <transition>
     <from>15</from>
-    <to>10</to>
-    <read>","</read>
+    <to>17</to>
+    <read>identificador</read>
   </transition>
   <transition>
     <from>16</from>
-    <to>20</to>
-    <read>inteiro</read>
-  </transition>
-  <transition>
-    <from>17</from>
     <to>18</to>
-    <read>";"</read>
+    <read>"const"</read>
   </transition>
   <transition>
     <from>17</from>
     <to>19</to>
+    <read>";"</read>
+  </transition>
+  <transition>
+    <from>17</from>
+    <to>20</to>
     <read>"["</read>
   </transition>
   <transition>
     <from>17</from>
-    <to>2</to>
+    <to>15</to>
     <read>","</read>
   </transition>
   <transition>
     <from>18</from>
     <to>2</to>
-    <read>identificador</read>
+    <read>"typedef"</read>
   </transition>
   <transition>
     <from>18</from>
-    <to>2</to>
-    <read>"bool"</read>
+    <to>3</to>
+    <read>"struct"</read>
   </transition>
   <transition>
     <from>18</from>
-    <to>2</to>
-    <read>"int"</read>
-  </transition>
-  <transition>
-    <from>18</from>
-    <to>2</to>
-    <read>"char"</read>
-  </transition>
-  <transition>
-    <from>18</from>
-    <to>2</to>
-    <read>"float"</read>
+    <to>4</to>
+    <read>"vars"</read>
   </transition>
   <transition>
     <from>18</from>
@@ -369,13 +390,38 @@
   </transition>
   <transition>
     <from>19</from>
-    <to>21</to>
-    <read>inteiro</read>
+    <to>15</to>
+    <read>identificador</read>
+  </transition>
+  <transition>
+    <from>19</from>
+    <to>22</to>
+    <read>"end"</read>
+  </transition>
+  <transition>
+    <from>19</from>
+    <to>15</to>
+    <read>"bool"</read>
+  </transition>
+  <transition>
+    <from>19</from>
+    <to>15</to>
+    <read>"int"</read>
+  </transition>
+  <transition>
+    <from>19</from>
+    <to>15</to>
+    <read>"char"</read>
+  </transition>
+  <transition>
+    <from>19</from>
+    <to>15</to>
+    <read>"float"</read>
   </transition>
   <transition>
     <from>20</from>
-    <to>15</to>
-    <read>"]"</read>
+    <to>21</to>
+    <read>inteiro</read>
   </transition>
   <transition>
     <from>21</from>
@@ -384,412 +430,477 @@
   </transition>
   <transition>
     <from>22</from>
-    <to>23</to>
-    <read>identificador</read>
-  </transition>
-  <transition>
-    <from>22</from>
-    <to>23</to>
-    <read>"bool"</read>
-  </transition>
-  <transition>
-    <from>22</from>
-    <to>23</to>
-    <read>"int"</read>
-  </transition>
-  <transition>
-    <from>22</from>
-    <to>23</to>
-    <read>"char"</read>
-  </transition>
-  <transition>
-    <from>22</from>
-    <to>23</to>
-    <read>"float"</read>
+    <to>12</to>
+    <read>"vars"</read>
   </transition>
   <transition>
     <from>23</from>
-    <to>25</to>
-    <read>";"</read>
+    <to>24</to>
+    <read>"="</read>
   </transition>
   <transition>
     <from>24</from>
-    <to>26</to>
+    <to>25</to>
     <read>identificador</read>
   </transition>
   <transition>
-    <from>25</from>
-    <to>2</to>
-    <read>identificador</read>
-  </transition>
-  <transition>
-    <from>25</from>
-    <to>3</to>
-    <read>"typedef"</read>
-  </transition>
-  <transition>
-    <from>25</from>
-    <to>2</to>
+    <from>24</from>
+    <to>25</to>
     <read>"bool"</read>
   </transition>
   <transition>
-    <from>25</from>
-    <to>2</to>
+    <from>24</from>
+    <to>25</to>
     <read>"int"</read>
   </transition>
   <transition>
-    <from>25</from>
-    <to>2</to>
+    <from>24</from>
+    <to>25</to>
     <read>"char"</read>
   </transition>
   <transition>
-    <from>25</from>
-    <to>2</to>
+    <from>24</from>
+    <to>25</to>
     <read>"float"</read>
   </transition>
   <transition>
     <from>25</from>
-    <to>4</to>
-    <read>"struct"</read>
+    <to>26</to>
+    <read>";"</read>
   </transition>
   <transition>
-    <from>25</from>
-    <to>5</to>
-    <read>"function"</read>
-  </transition>
-  <transition>
-    <from>25</from>
-    <to>6</to>
-    <read>"program"</read>
+    <from>26</from>
+    <to>23</to>
+    <read>identificador</read>
   </transition>
   <transition>
     <from>26</from>
     <to>27</to>
-    <read>"("</read>
+    <read>"end"</read>
   </transition>
   <transition>
     <from>27</from>
     <to>28</to>
-    <read>identificador</read>
-  </transition>
-  <transition>
-    <from>27</from>
-    <to>28</to>
-    <read>"bool"</read>
-  </transition>
-  <transition>
-    <from>27</from>
-    <to>28</to>
-    <read>"int"</read>
-  </transition>
-  <transition>
-    <from>27</from>
-    <to>28</to>
-    <read>"char"</read>
-  </transition>
-  <transition>
-    <from>27</from>
-    <to>28</to>
-    <read>"float"</read>
-  </transition>
-  <transition>
-    <from>27</from>
-    <to>29</to>
-    <read>")"</read>
+    <read>"typedef"</read>
   </transition>
   <transition>
     <from>28</from>
-    <to>46</to>
-    <read>identificador</read>
+    <to>3</to>
+    <read>"struct"</read>
   </transition>
   <transition>
     <from>28</from>
-    <to>47</to>
-    <read>"byref"</read>
+    <to>4</to>
+    <read>"vars"</read>
   </transition>
   <transition>
-    <from>29</from>
-    <to>30</to>
-    <read>"begin"</read>
+    <from>28</from>
+    <to>5</to>
+    <read>"function"</read>
   </transition>
   <transition>
-    <from>30</from>
-    <to>31</to>
-    <read>identificador</read>
-  </transition>
-  <transition>
-    <from>30</from>
-    <to>31</to>
-    <read>"bool"</read>
-  </transition>
-  <transition>
-    <from>30</from>
-    <to>31</to>
-    <read>"int"</read>
-  </transition>
-  <transition>
-    <from>30</from>
-    <to>31</to>
-    <read>"char"</read>
-  </transition>
-  <transition>
-    <from>30</from>
-    <to>31</to>
-    <read>"float"</read>
+    <from>28</from>
+    <to>6</to>
+    <read>"program"</read>
   </transition>
   <transition>
     <from>30</from>
     <to>32</to>
-    <read>"end"</read>
-  </transition>
-  <transition>
-    <from>30</from>
-    <to>33</to>
-    <read>comando</read>
+    <read>"begin"</read>
   </transition>
   <transition>
     <from>31</from>
-    <to>35</to>
+    <to>33</to>
     <read>identificador</read>
   </transition>
   <transition>
     <from>32</from>
     <to>34</to>
-    <read>"function"</read>
+    <read>identificador</read>
+  </transition>
+  <transition>
+    <from>32</from>
+    <to>34</to>
+    <read>"bool"</read>
+  </transition>
+  <transition>
+    <from>32</from>
+    <to>34</to>
+    <read>"int"</read>
+  </transition>
+  <transition>
+    <from>32</from>
+    <to>34</to>
+    <read>"char"</read>
+  </transition>
+  <transition>
+    <from>32</from>
+    <to>34</to>
+    <read>"float"</read>
   </transition>
   <transition>
     <from>33</from>
-    <to>32</to>
-    <read>"end"</read>
-  </transition>
-  <transition>
-    <from>33</from>
-    <to>33</to>
-    <read>comando</read>
+    <to>35</to>
+    <read>"("</read>
   </transition>
   <transition>
     <from>34</from>
-    <to>5</to>
-    <read>"function"</read>
-  </transition>
-  <transition>
-    <from>34</from>
-    <to>6</to>
-    <read>"program"</read>
-  </transition>
-  <transition>
-    <from>35</from>
-    <to>30</to>
-    <read>";"</read>
-  </transition>
-  <transition>
-    <from>35</from>
     <to>36</to>
-    <read>"["</read>
+    <read>identificador</read>
   </transition>
   <transition>
     <from>35</from>
-    <to>31</to>
-    <read>","</read>
+    <to>37</to>
+    <read>identificador</read>
+  </transition>
+  <transition>
+    <from>35</from>
+    <to>37</to>
+    <read>"bool"</read>
+  </transition>
+  <transition>
+    <from>35</from>
+    <to>37</to>
+    <read>"int"</read>
+  </transition>
+  <transition>
+    <from>35</from>
+    <to>37</to>
+    <read>"char"</read>
+  </transition>
+  <transition>
+    <from>35</from>
+    <to>37</to>
+    <read>"float"</read>
+  </transition>
+  <transition>
+    <from>35</from>
+    <to>38</to>
+    <read>")"</read>
+  </transition>
+  <transition>
+    <from>36</from>
+    <to>39</to>
+    <read>";"</read>
   </transition>
   <transition>
     <from>36</from>
     <to>40</to>
-    <read>inteiro</read>
+    <read>"["</read>
+  </transition>
+  <transition>
+    <from>36</from>
+    <to>34</to>
+    <read>","</read>
   </transition>
   <transition>
     <from>37</from>
-    <to>38</to>
+    <to>59</to>
+    <read>identificador</read>
+  </transition>
+  <transition>
+    <from>37</from>
+    <to>60</to>
+    <read>"byref"</read>
+  </transition>
+  <transition>
+    <from>38</from>
+    <to>41</to>
     <read>"begin"</read>
   </transition>
   <transition>
-    <from>38</from>
-    <to>39</to>
+    <from>39</from>
+    <to>34</to>
     <read>identificador</read>
-  </transition>
-  <transition>
-    <from>38</from>
-    <to>39</to>
-    <read>"bool"</read>
-  </transition>
-  <transition>
-    <from>38</from>
-    <to>39</to>
-    <read>"int"</read>
-  </transition>
-  <transition>
-    <from>38</from>
-    <to>39</to>
-    <read>"char"</read>
-  </transition>
-  <transition>
-    <from>38</from>
-    <to>39</to>
-    <read>"float"</read>
   </transition>
   <transition>
     <from>39</from>
-    <to>41</to>
-    <read>identificador</read>
+    <to>51</to>
+    <read>"end"</read>
+  </transition>
+  <transition>
+    <from>39</from>
+    <to>34</to>
+    <read>"bool"</read>
+  </transition>
+  <transition>
+    <from>39</from>
+    <to>34</to>
+    <read>"int"</read>
+  </transition>
+  <transition>
+    <from>39</from>
+    <to>34</to>
+    <read>"char"</read>
+  </transition>
+  <transition>
+    <from>39</from>
+    <to>34</to>
+    <read>"float"</read>
   </transition>
   <transition>
     <from>40</from>
-    <to>35</to>
-    <read>"]"</read>
+    <to>45</to>
+    <read>inteiro</read>
   </transition>
   <transition>
     <from>41</from>
     <to>42</to>
-    <read>";"</read>
+    <read>"end"</read>
   </transition>
   <transition>
     <from>41</from>
     <to>43</to>
-    <read>"["</read>
+    <read>"vars"</read>
   </transition>
   <transition>
     <from>41</from>
-    <to>39</to>
-    <read>","</read>
+    <to>44</to>
+    <read>comando</read>
   </transition>
   <transition>
     <from>42</from>
-    <to>39</to>
-    <read>identificador</read>
-  </transition>
-  <transition>
-    <from>42</from>
-    <to>39</to>
-    <read>"bool"</read>
-  </transition>
-  <transition>
-    <from>42</from>
-    <to>39</to>
-    <read>"int"</read>
-  </transition>
-  <transition>
-    <from>42</from>
-    <to>39</to>
-    <read>"char"</read>
-  </transition>
-  <transition>
-    <from>42</from>
-    <to>39</to>
-    <read>"float"</read>
-  </transition>
-  <transition>
-    <from>42</from>
-    <to>45</to>
-    <read>"end"</read>
+    <to>58</to>
+    <read>"function"</read>
   </transition>
   <transition>
     <from>43</from>
-    <to>44</to>
-    <read>inteiro</read>
+    <to>46</to>
+    <read>identificador</read>
+  </transition>
+  <transition>
+    <from>43</from>
+    <to>46</to>
+    <read>"bool"</read>
+  </transition>
+  <transition>
+    <from>43</from>
+    <to>46</to>
+    <read>"int"</read>
+  </transition>
+  <transition>
+    <from>43</from>
+    <to>46</to>
+    <read>"char"</read>
+  </transition>
+  <transition>
+    <from>43</from>
+    <to>46</to>
+    <read>"float"</read>
   </transition>
   <transition>
     <from>44</from>
-    <to>41</to>
-    <read>"]"</read>
+    <to>42</to>
+    <read>"end"</read>
+  </transition>
+  <transition>
+    <from>44</from>
+    <to>44</to>
+    <read>comando</read>
   </transition>
   <transition>
     <from>45</from>
-    <to>48</to>
-    <read>"struct"</read>
+    <to>36</to>
+    <read>"]"</read>
   </transition>
   <transition>
     <from>46</from>
+    <to>47</to>
+    <read>identificador</read>
+  </transition>
+  <transition>
+    <from>47</from>
+    <to>48</to>
+    <read>";"</read>
+  </transition>
+  <transition>
+    <from>47</from>
     <to>49</to>
     <read>"["</read>
   </transition>
   <transition>
-    <from>46</from>
-    <to>50</to>
+    <from>47</from>
+    <to>46</to>
     <read>","</read>
   </transition>
   <transition>
-    <from>46</from>
-    <to>29</to>
-    <read>")"</read>
-  </transition>
-  <transition>
-    <from>47</from>
+    <from>48</from>
     <to>46</to>
     <read>identificador</read>
   </transition>
   <transition>
     <from>48</from>
-    <to>2</to>
-    <read>identificador</read>
+    <to>52</to>
+    <read>"end"</read>
   </transition>
   <transition>
     <from>48</from>
-    <to>2</to>
+    <to>46</to>
     <read>"bool"</read>
   </transition>
   <transition>
     <from>48</from>
-    <to>2</to>
+    <to>46</to>
     <read>"int"</read>
   </transition>
   <transition>
     <from>48</from>
-    <to>2</to>
+    <to>46</to>
     <read>"char"</read>
   </transition>
   <transition>
     <from>48</from>
-    <to>2</to>
+    <to>46</to>
     <read>"float"</read>
   </transition>
   <transition>
-    <from>48</from>
-    <to>4</to>
-    <read>"struct"</read>
-  </transition>
-  <transition>
-    <from>48</from>
-    <to>5</to>
-    <read>"function"</read>
-  </transition>
-  <transition>
-    <from>48</from>
-    <to>6</to>
-    <read>"program"</read>
-  </transition>
-  <transition>
     <from>49</from>
-    <to>51</to>
+    <to>50</to>
     <read>inteiro</read>
   </transition>
   <transition>
     <from>50</from>
-    <to>28</to>
-    <read>identificador</read>
-  </transition>
-  <transition>
-    <from>50</from>
-    <to>28</to>
-    <read>"bool"</read>
-  </transition>
-  <transition>
-    <from>50</from>
-    <to>28</to>
-    <read>"int"</read>
-  </transition>
-  <transition>
-    <from>50</from>
-    <to>28</to>
-    <read>"char"</read>
-  </transition>
-  <transition>
-    <from>50</from>
-    <to>28</to>
-    <read>"float"</read>
+    <to>47</to>
+    <read>"]"</read>
   </transition>
   <transition>
     <from>51</from>
-    <to>46</to>
+    <to>28</to>
+    <read>"struct"</read>
+  </transition>
+  <transition>
+    <from>52</from>
+    <to>44</to>
+    <read>"vars"</read>
+  </transition>
+  <transition>
+    <from>53</from>
+    <to>54</to>
+    <read>identificador</read>
+  </transition>
+  <transition>
+    <from>54</from>
+    <to>55</to>
+    <read>";"</read>
+  </transition>
+  <transition>
+    <from>54</from>
+    <to>56</to>
+    <read>"["</read>
+  </transition>
+  <transition>
+    <from>54</from>
+    <to>53</to>
+    <read>","</read>
+  </transition>
+  <transition>
+    <from>55</from>
+    <to>53</to>
+    <read>identificador</read>
+  </transition>
+  <transition>
+    <from>55</from>
+    <to>63</to>
+    <read>"end"</read>
+  </transition>
+  <transition>
+    <from>55</from>
+    <to>53</to>
+    <read>"bool"</read>
+  </transition>
+  <transition>
+    <from>55</from>
+    <to>53</to>
+    <read>"int"</read>
+  </transition>
+  <transition>
+    <from>55</from>
+    <to>53</to>
+    <read>"char"</read>
+  </transition>
+  <transition>
+    <from>55</from>
+    <to>53</to>
+    <read>"float"</read>
+  </transition>
+  <transition>
+    <from>56</from>
+    <to>57</to>
+    <read>inteiro</read>
+  </transition>
+  <transition>
+    <from>57</from>
+    <to>54</to>
+    <read>"]"</read>
+  </transition>
+  <transition>
+    <from>58</from>
+    <to>5</to>
+    <read>"function"</read>
+  </transition>
+  <transition>
+    <from>58</from>
+    <to>6</to>
+    <read>"program"</read>
+  </transition>
+  <transition>
+    <from>59</from>
+    <to>61</to>
+    <read>"["</read>
+  </transition>
+  <transition>
+    <from>59</from>
+    <to>62</to>
+    <read>","</read>
+  </transition>
+  <transition>
+    <from>59</from>
+    <to>38</to>
+    <read>")"</read>
+  </transition>
+  <transition>
+    <from>60</from>
+    <to>59</to>
+    <read>identificador</read>
+  </transition>
+  <transition>
+    <from>61</from>
+    <to>64</to>
+    <read>inteiro</read>
+  </transition>
+  <transition>
+    <from>62</from>
+    <to>37</to>
+    <read>identificador</read>
+  </transition>
+  <transition>
+    <from>62</from>
+    <to>37</to>
+    <read>"bool"</read>
+  </transition>
+  <transition>
+    <from>62</from>
+    <to>37</to>
+    <read>"int"</read>
+  </transition>
+  <transition>
+    <from>62</from>
+    <to>37</to>
+    <read>"char"</read>
+  </transition>
+  <transition>
+    <from>62</from>
+    <to>37</to>
+    <read>"float"</read>
+  </transition>
+  <transition>
+    <from>63</from>
+    <to>58</to>
+    <read>"vars"</read>
+  </transition>
+  <transition>
+    <from>64</from>
+    <to>59</to>
     <read>"]"</read>
   </transition>
 </structure>
