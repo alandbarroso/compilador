@@ -282,12 +282,10 @@ int recognize(PushdownAutomata* automata, Token** token)
 	// We finally verify if the the last state to see if the we have accepted the language or not
 	if(current_state->accepting)
 	{
-		printf("Recognized source!\n\n");
 		result = 1;
 	}
 	else
 	{
-		printf("Source not recognized!\n\n");
 		result = 0;
 	}
 
