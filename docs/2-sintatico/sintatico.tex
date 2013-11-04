@@ -148,15 +148,15 @@
     Na primeira etapa para a criação do APE, foram utilizadas as expressões fundamentais criadas a partir da descrição reduzida em notação de Wirth. A definição das expressões seguiu o critério dos não-terminais com recursividade central, sendo possível concluir que as máquinas finais tratariam a sequência de comandos, as expressões e o programa principal.
 
 
-    Assim, a linguagem representada pela notação de Wirth reduzida pode ser expressada da seguinte maneira:
+    Assim, a linguagem representada pela notação de Wirth reduzida pode ser encontrada no arquivo "wirth\_reduzido.txt" que acompanha esse documento.
     
 
-    \lstinputlisting{../1-linguagem/notacoes/wirth_reduzido.txt}
+    %\lstinputlisting{../1-linguagem/notacoes/wirth_reduzido.txt}
 
   \section{Lista de submáquinas do APE}
     \subsection{Lista de transições}
 
-      A partir da linguagem representada em notação de Wirth reduzida, utilizamos o programa do site indicado (http://radiant-fire-72.heroku.com/) para gerar automaticamente a tabela de transições as quais as submáquinas deveriam executar de forma a caracterizar a linguagem.
+      A partir da linguagem representada em notação de Wirth reduzida, utilizamos o programa do site indicado \footnote{http://radiant-fire-72.heroku.com/} para gerar automaticamente a tabela de transições as quais as submáquinas deveriam executar de forma a caracterizar a linguagem.
 
 
       O programa gera diversas tipos de saídas. Cuida lembrar que somente consideramos a saída que é uma tabela de transição reduzida, de forma a otimizar o processamento do compilador e facilitar a leitura e boa compreensão da representação dos autômatos, seja ela na forma tabular ou gráfica.
@@ -224,7 +224,7 @@
   O módulo sintático, portanto, começa suas atividades com a premissa que as três máquinas de estados já estejam criadas e inicializadas. Pressupõe-se que essa inicialização seja executada no programa principal (função main) do compilador.Essa inicialização ocorre de forma análoga ao que realizamos no módulo léxico e é baseada em tabelas de transições, as quais encontram-se descritas em arquivos externos, facilitando futuras modificações.
 
   
-  Utiliza-se a subrotina verify_syntax(), a qual já capaz de dizer se o compilador reconhece a linguagem. Mais detalhadamente, essa verificação tem como principal atividade o lançamento da função recognize(), utilizando a máquina que representa "programa`' e o primeiro token lido pelo analisador léxico como parâmetros.
+  Utiliza-se a subrotina verify\_syntax(), a qual já capaz de dizer se o compilador reconhece a linguagem. Mais detalhadamente, essa verificação tem como principal atividade o lançamento da função recognize(), utilizando a máquina que representa "programa`' e o primeiro token lido pelo analisador léxico como parâmetros.
 
 
   Grosso modo, o que esta função realiza é, dado o token passado via parâmetro, consulta-se sua tabela de transições internas e verifica-se se há alguma transição possível. Se sim, a transição é realizada, o estado do autômato é atualizado e um novo token é lido. 
@@ -248,6 +248,6 @@
   A próxima ação, então, inicializa o módulo sintático, o que consiste basicamente na criação das máquinas de estados que representam as expressões de Wirth a partir dos arquivos externos, como descrito na seção anterior.
 
  
- Finalmente, chama-se a subrotina verify_syntax(), a qual foi explicada anteriormente e é capaz de decidir se o código-fonte pertence ou não à lingugagem definida pela gramática.
+ Finalmente, chama-se a subrotina verify\_syntax(), a qual foi explicada anteriormente e é capaz de decidir se o código-fonte pertence ou não à lingugagem definida pela gramática.
 
 \end{document}
