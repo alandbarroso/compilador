@@ -2,3 +2,5 @@
 
 src/bin/*
 src/lexico
+src/sintatico
+src/compilador

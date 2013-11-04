@@ -34,6 +34,11 @@ AutomataState* init_automata_state(int state_number);
 Token* create_token(char* token_class, char* token_value);
 
 /*
+*	Semantic function to be done
+*/
+void semantico_tdb();
+
+/*
 * ------------------------------------------------------
 * Variables
 * ------------------------------------------------------
@@ -126,6 +131,7 @@ void create_automata(PushdownAutomata* automata, FILE* f, PushdownAutomata** aut
 
 					aux_transition->transition_value = automatas[i];
 					aux_transition->next_state = automata->states[aux_resulting_state];
+					aux_transition->semantic_action = &semantico_tdb;
 
 					add_to_list(automata->states[aux_state]->submachine_transitions, aux_transition);
 				}
@@ -143,6 +149,7 @@ void create_automata(PushdownAutomata* automata, FILE* f, PushdownAutomata** aut
 
 			aux_transition->transition_value = create_token(aux_token_class, aux_token_value);
 			aux_transition->next_state = automata->states[aux_resulting_state];
+			aux_transition->semantic_action = &semantico_tdb;
 			
 			add_to_list(automata->states[aux_state]->transitions, aux_transition);
 		}
@@ -190,6 +197,10 @@ int recognize(PushdownAutomata* automata, Token** token)
 					printf("-----------------------------------\n");
 					printf("Transited from %d to %d using the token!\n", current_state->state_number, next_state->state_number);
 					printf("\n");
+
+					printf("Semantic action:\n");
+					(*(t->semantic_action))();
+					printf("\n");
 				}
 				else // Else, we compare the values
 				{
@@ -199,6 +210,10 @@ int recognize(PushdownAutomata* automata, Token** token)
 
 						printf("-----------------------------------\n");
 						printf("Transited from %d to %d using the token!\n", current_state->state_number, next_state->state_number);
+						printf("\n");
+
+						printf("Semantic action:\n");
+						(*(t->semantic_action))();
 						printf("\n");
 					}
 				}
@@ -224,6 +239,10 @@ int recognize(PushdownAutomata* automata, Token** token)
 
 					printf("-----------------------------------\n");
 					printf("Transited from %d to %d using the machine %s!\n", current_state->state_number, next_state->state_number, transition_automata->name);
+					printf("\n");
+
+					printf("Semantic action:\n");
+					(*(t->semantic_action))();
 					printf("\n");
 				}
 				
@@ -397,4 +416,9 @@ Token* create_token(char* token_class, char* token_value)
 	}
 
 	return token;
+}
+
+void semantico_tdb()
+{
+	printf("TODO\n");
 }

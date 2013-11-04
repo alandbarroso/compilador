@@ -56,6 +56,7 @@ typedef struct
 {
 	void* transition_value;
 	AutomataState* next_state;
+	void (*semantic_action)();
 } Transition;
 
 /*
