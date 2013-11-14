@@ -1,0 +1,216 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;; FUNCOES INPUT/OUTPUT ;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+2000 0000 ; "READ>"		;	READ >
+201a 0000 ; "PRINT>"		;	PRINT >
+
+				;	& /0000
+;=======================================================;
+;======================== READ =========================;
+;=======================================================;
+8000 0000		;	READ JP /000
+8002 d000		;	GD /000
+a004 9120		;	MM exptemp 		; 1 byte para decimal e um para unidade (DD UU)
+a006 70f8		;	/ CTEH100		; (00 DD)
+a008 a03a		;	SC ASCII_TO_HEX ; transforma o ascii da dezena em hexa (00 0D)
+a00a 60f2		;	* CTEH10		; (00D0)
+a00c 9122		;	MM dezenatemp	
+a00e 8120		;	LD exptemp		; (DD UU)
+a010 60f8		;	* CTEH100		; (UU 00)
+a012 70f8		;	/ CTEH100		; (00 UU)
+a014 a03a		;	SC ASCII_TO_HEX ; transforma o ascii da unidade em hexa (00 0U)
+a016 4122		;	+ dezenatemp	; (00 DU)
+a018 b000		;	RS READ
+
+;=======================================================;
+;======================= PRINT =========================;
+;=======================================================;
+801a 0000		;	PRINT JP /000
+a01c 9120		;	MM exptemp		; (00 DU)
+a01e 70f2		;	/ CTEH10		; (00 0D)
+a020 a0a8		;	SC HEX_TO_ASCII	; transforma a dezena em ascii(00 DD)
+a022 60f8		;	* CTEH100		; (DD 00)
+a024 9122		;	MM dezenatemp
+a026 8120		;	LD exptemp		; (00 DU)
+a028 70f2		;	/ CTEH10		; (00 0D)
+a02a 60f2		;	* CTEH10		; (00 D0)
+a02c 9124		;	MM temp			
+a02e 8120		;	LD exptemp		; (00 DU)
+a030 5124		;	- temp			; (00 0U)
+a032 a0a8		;	SC HEX_TO_ASCII	; transforma a unidade em ascii(00 UU)
+a034 4122		;	+ dezenatemp	; (DD UU)
+8036 e100		;	PD /100
+a038 b01a		;	RS PRINT
+
+;=======================================================;
+;===================== ASCII_TO_HEX ====================;
+;=======================================================;
+803a 0000		;	ASCII_TO_HEX JP /000
+a03c 911e		;	MM ascii
+; Se é de 30 a 39 => é decimal
+a03e 50f6		;	- CTEH40
+a040 208a		;	JN DECIMAL
+; Se é A ou a
+a042 811e		;	LD ascii
+a044 50fa		;	- CTE_ASCII_A
+a046 1090		;	JZ HEX_A
+a048 811e		;	LD ascii
+a04a 50fc		;	- CTE_ASCII_a
+a04c 1090		;	JZ HEX_A
+; Se é B ou b
+a04e 811e		;	LD ascii
+a050 50fe		;	- CTE_ASCII_B
+a052 1094		;	JZ HEX_B
+a054 811e		;	LD ascii
+a056 5100		;	- CTE_ASCII_b
+a058 1094		;	JZ HEX_B
+; Se é C ou c
+a05a 811e		;	LD ascii
+a05c 5102		;	- CTE_ASCII_C
+a05e 1098		;	JZ HEX_C
+a060 811e		;	LD ascii
+a062 5104		;	- CTE_ASCII_c
+a064 1098		;	JZ HEX_C
+; Se é D ou d
+a066 811e		;	LD ascii
+a068 5106		;	- CTE_ASCII_D
+a06a 109c		;	JZ HEX_D
+a06c 811e		;	LD ascii
+a06e 5108		;	- CTE_ASCII_d
+a070 109c		;	JZ HEX_D
+; Se é E ou e
+a072 811e		;	LD ascii
+a074 510a		;	- CTE_ASCII_E
+a076 10a0		;	JZ HEX_E
+a078 811e		;	LD ascii
+a07a 510c		;	- CTE_ASCII_e
+a07c 10a0		;	JZ HEX_E
+; Se é F ou f
+a07e 811e		;	LD ascii
+a080 510e		;	- CTE_ASCII_F
+a082 10a4		;	JZ HEX_F
+a084 811e		;	LD ascii
+a086 5110		;	- CTE_ASCII_f
+a088 10a4		;	JZ HEX_F
+
+; Número decimal
+a08a 811e		;	DECIMAL LD ascii
+a08c 50f4		;	- CTEH30
+a08e b03a		;	RS ASCII_TO_HEX ; retornando
+; A
+8090 300a		;	HEX_A LV /000A
+a092 b03a		;	RS ASCII_TO_HEX ; retornando
+; B
+8094 300b		;	HEX_B LV /000B
+a096 b03a		;	RS ASCII_TO_HEX ; retornando
+; C
+8098 300c		;	HEX_C LV /000C
+a09a b03a		;	RS ASCII_TO_HEX ; retornando
+; D
+809c 300d		;	HEX_D LV /000D
+a09e b03a		;	RS ASCII_TO_HEX ; retornando
+; E
+80a0 300e		;	HEX_E LV /000E
+a0a2 b03a		;	RS ASCII_TO_HEX ; retornando
+; F
+80a4 300f		;	HEX_F LV /000F
+a0a6 b03a		;	RS ASCII_TO_HEX ; retornando
+
+;=======================================================;
+;===================== HEX_TO_ASCII ====================;
+;=======================================================;
+80a8 0000		;	HEX_TO_ASCII JP /000
+a0aa 9126		;	MM hex
+; Se é de 0 a 9 => é decimal
+a0ac 5112		;	- CTE_HEX_A
+a0ae 20d4		;	JN ASCII_DECIMAL
+; Se é A
+a0b0 8126		;	LD hex
+a0b2 5112		;	- CTE_HEX_A
+a0b4 10da		;	JZ ASCII_A
+; Se é B
+a0b6 8126		;	LD hex
+a0b8 5114		;	- CTE_HEX_B
+a0ba 10de		;	JZ ASCII_B
+; Se é C
+a0bc 8126		;	LD hex
+a0be 5116		;	- CTE_HEX_C
+a0c0 10e2		;	JZ ASCII_C
+; Se é D
+a0c2 8126		;	LD hex
+a0c4 5118		;	- CTE_HEX_D
+a0c6 10e6		;	JZ ASCII_D
+; Se é E
+a0c8 8126		;	LD hex
+a0ca 511a		;	- CTE_HEX_E
+a0cc 10ea		;	JZ ASCII_E
+; Se é F
+a0ce 8126		;	LD hex
+a0d0 511c		;	- CTE_HEX_F
+a0d2 10ee		;	JZ ASCII_F
+
+; de 0 a 9
+a0d4 8126		;	ASCII_DECIMAL LD hex
+a0d6 40f4		;	+ CTEH30
+a0d8 b0a8		;	RS HEX_TO_ASCII
+; A
+a0da 80fa		;	ASCII_A LD CTE_ASCII_A
+a0dc b0a8		;	RS HEX_TO_ASCII
+; B
+a0de 80fe		;	ASCII_B LD CTE_ASCII_B
+a0e0 b0a8		;	RS HEX_TO_ASCII
+; C
+a0e2 8102		;	ASCII_C LD CTE_ASCII_C
+a0e4 b0a8		;	RS HEX_TO_ASCII
+; D
+a0e6 8106		;	ASCII_D LD CTE_ASCII_D
+a0e8 b0a8		;	RS HEX_TO_ASCII
+; E
+a0ea 810a		;	ASCII_E LD CTE_ASCII_E
+a0ec b0a8		;	RS HEX_TO_ASCII
+; F
+a0ee 810e		;	ASCII_F LD CTE_ASCII_F
+a0f0 b0a8		;	RS HEX_TO_ASCII
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;; CONSTANTES ;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+80f2 0010		;	CTEH10 K /10
+80f4 0030		;	CTEH30 K /30
+80f6 0040		;	CTEH40 K /40
+80f8 0100		;	CTEH100 K /100
+80fa 0041		;	CTE_ASCII_A K /41
+80fc 0061		;	CTE_ASCII_a K /61
+80fe 0042		;	CTE_ASCII_B K /42
+8100 0062		;	CTE_ASCII_b K /62
+8102 0043		;	CTE_ASCII_C K /43
+8104 0063		;	CTE_ASCII_c K /63
+8106 0044		;	CTE_ASCII_D K /44
+8108 0064		;	CTE_ASCII_d K /64
+810a 0045		;	CTE_ASCII_E K /45
+810c 0065		;	CTE_ASCII_e K /65
+810e 0046		;	CTE_ASCII_F K /46
+8110 0066		;	CTE_ASCII_f K /66
+8112 000a		;	CTE_HEX_A K /A
+8114 000b		;	CTE_HEX_B K /B
+8116 000c		;	CTE_HEX_C K /C
+8118 000d		;	CTE_HEX_D K /D
+811a 000e		;	CTE_HEX_E K /E
+811c 000f		;	CTE_HEX_F K /F
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;; VARIAVEIS ;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+811e 0000		;	ascii K /0000
+8120 0000		;	exptemp K /0000
+8122 0000		;	dezenatemp K /0000
+8124 0000		;	temp K /0000
+8126 0000		;	hex K /0000
+
