@@ -1,0 +1,174 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;; REGISTRO DE ATIVACAO ;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+2012 0000 ; "EMPILHA>"		;	EMPILHA > ; Funçao de empilhar
+; PARAMETROS DA FUNCAO EMPILHA
+2002 0000 ; "END_INICIAL>"		;	END_INICIAL > ; Endereço inicial do bloco a ser empilhado
+2004 0000 ; "TAMANHO>"		;	TAMANHO > ; Tamanho do bloco a ser copado
+
+
+207e 0000 ; "DESEMPILHA>"		;	DESEMPILHA > ; Funcao de desempilhar
+
+2000 0000 ; "TOPO>"		;	TOPO > ; Guarda o endereco do topo da pilha
+
+				;	& /0000
+
+8000 0000		;	TOPO K /0000
+
+;=======================================================;
+;====================== EMPILHA ========================;
+;=======================================================;
+
+; Parametros
+8002 0000		;	END_INICIAL K /0000
+8004 0000		;	TAMANHO K /0000
+
+; Variaveis auxiliares
+8006 0000		;	TAMANHO_MVN K /0000
+8008 0000		;	TOPO_AUX K /0000
+800a 0000		;	OLD_TOPO K /0000
+
+; Constantes
+800c 0002		;	CTE_TAMANHO K =2
+800e f000		;	END K /F000
+8010 0010		;	DESLOCA1 K /0010
+
+8012 0000		;	EMPILHA JP /000
+	; Multiplica o tamanho por 2
+a014 8004		;		LD TAMANHO
+a016 600c		;		* CTE_TAMANHO
+a018 9006		;		MM TAMANHO_MVN
+
+	; Calcula a nova posicao do topo
+a01a 8000		;		LD TOPO
+a01c 900a		;		MM OLD_TOPO
+
+	; Verifica se o antigo topo nao é igual a zero
+a01e 1028		;		JZ LOAD_TOPO 
+a020 5006		;			- TAMANHO_MVN
+a022 9000		;			MM TOPO
+a024 9008		;			MM TOPO_AUX
+
+a026 0032		;			JP INIT_COPIA
+a028 5006		;		LOAD_TOPO - TAMANHO_MVN 
+a02a 6010		;			* DESLOCA1 ; move pra esquerda pra tirar um F
+a02c 7010		;			/ DESLOCA1 ; depois pra direita pra consertar o end
+		
+a02e 9000		;			MM TOPO
+a030 9008		;			MM TOPO_AUX
+
+	; Copiando os arquivos
+a032 8006		;		INIT_COPIA LD TAMANHO_MVN
+a034 1054		;		LOOP_COPIA JZ FIM_COPIA
+a036 8002		;			LD END_INICIAL
+a038 9062		;			MM END_ORIGEM
+
+a03a 8008		;			LD TOPO_AUX
+a03c 9064		;			MM END_ALVO
+
+a03e a06a		;			SC COPIA ; Chama a funçao de copia
+
+		; Adiciona 2 aos endereços inicial e ao topo aux
+a040 8002		;			LD END_INICIAL
+a042 400c		;			+ CTE_TAMANHO
+a044 9002		;			MM END_INICIAL
+
+a046 8008		;			LD TOPO_AUX
+a048 400c		;			+ CTE_TAMANHO
+a04a 9008		;			MM TOPO_AUX
+
+		; Diminui tamanho
+a04c 8006		;			LD TAMANHO_MVN
+a04e 500c		;			- CTE_TAMANHO
+a050 9006		;			MM TAMANHO_MVN
+
+a052 0034		;		JP LOOP_COPIA
+a054 8000		;		FIM_COPIA LD TOPO
+a056 400c		;		+ CTE_TAMANHO
+a058 9064		;		MM END_ALVO
+
+a05a 800a		;		LD OLD_TOPO
+a05c 909a		;		MM VALOR
+
+a05e a09c		;		SC GRAVA
+a060 b012		;	RS EMPILHA
+
+;===============================
+; COPIA
+;===============================
+
+; Parametros
+8062 0000		;	END_ORIGEM K /0000
+8064 0000		;	END_ALVO K /0000
+
+; Auxiliares
+8066 8000		;	OP_LOAD LD /000
+8068 9000		;	OP_MOVE MM /000
+
+806a 0000		;	COPIA JP /000
+	; Carrega o valor a ser copiado
+a06c 8066		;		LD OP_LOAD
+a06e 4062		;		+ END_ORIGEM
+a070 9078		;		MM CARREGA
+
+	; Seta o endereço alvo
+a072 8068		;		LD OP_MOVE
+a074 4064		;		+ END_ALVO
+a076 907a		;		MM COPEIA
+
+	; Carrega no acumulador o valor da origem
+8078 0000		;		CARREGA JP /000 ; Don't care
+
+	; Copia o valor ao endereço alvo
+807a 0000		;		COPEIA JP /000 ; Don't care
+a07c b06a		;	RS COPIA
+
+;=======================================================;
+;===================== DESEMPILHA ======================;
+;=======================================================;
+
+807e 0000		;	DESEMPILHA JP /000
+a080 8000		;		LD TOPO
+a082 400c		;		+ CTE_TAMANHO
+a084 4066		;		+ OP_LOAD
+a086 9088		;		MM CG_OLD_TOPO
+
+8088 0000		;		CG_OLD_TOPO JP /000 ; Don't care
+
+a08a 9000		;		MM TOPO
+a08c b07e		;	RS DESEMPILHA
+
+;=======================================================;
+;======================= ACESSA ========================;
+;=======================================================;
+
+808e 0000		;	ACESSA JP /000
+a090 8066		;		LD OP_LOAD
+a092 4062		;		+ END_ORIGEM
+a094 9096		;		MM JOGA_ACM
+
+	; Joga pro acumulador o valor localizado no ponteiro do endereço de origem
+8096 0000		;		JOGA_ACM JP /000 ; Don't care
+a098 b08e		;	RS ACESSA
+
+;=======================================================;
+;======================= GRAVA =========================;
+;=======================================================;
+
+809a 0000		;	VALOR K /0000 ; Valor a ser copiado
+
+809c 0000		;	GRAVA JP /000
+	; Seta o endereço alvo
+a09e 8068		;		LD OP_MOVE
+a0a0 4064		;		+ END_ALVO
+a0a2 90a6		;		MM COPY_VALOR
+
+a0a4 809a		;		LD VALOR
+
+	; Copia o valor ao endereço alvo
+80a6 0000		;		COPY_VALOR JP /000 ; Don't care
+a0a8 b09c		;	RS GRAVA
+
