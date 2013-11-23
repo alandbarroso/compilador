@@ -61,32 +61,18 @@ EMPILHA JP /000
 		MM TOPO_AUX
 
 	; Copiando os arquivos
-	INIT_COPIA LD TAMANHO_MVN
-	LOOP_COPIA JZ FIM_COPIA
-		LD END_INICIAL
-		MM END_ORIGEM
+	INIT_COPIA LD END_INICIAL
+	MM END_BLOCO_ORIGEM
 
-		LD TOPO_AUX
-		MM END_ALVO
+	LD TOPO
+	MM END_BLOCO_ALVO
 
-		SC COPIA ; Chama a funçao de copia
+	LD TAMANHO
+	MM TAMANHO_BLOCO
 
-		; Adiciona 2 aos endereços inicial e ao topo aux
-		LD END_INICIAL
-		+ CTE_TAMANHO
-		MM END_INICIAL
+	SC COPIA_BLOCO
 
-		LD TOPO_AUX
-		+ CTE_TAMANHO
-		MM TOPO_AUX
-
-		; Diminui tamanho
-		LD TAMANHO_MVN
-		- CTE_TAMANHO
-		MM TAMANHO_MVN
-
-	JP LOOP_COPIA
-	FIM_COPIA LD TOPO
+	LD TOPO
 	+ CTE_TAMANHO
 	MM END_ALVO
 
@@ -125,6 +111,54 @@ COPIA JP /000
 	; Copia o valor ao endereço alvo
 	COPEIA JP /000 ; Don't care
 RS COPIA
+
+;===============================
+; COPIA-BLOCO
+;===============================
+
+; Parametros
+END_BLOCO_ORIGEM K /0000
+END_BLOCO_ALVO K /0000
+
+TAMANHO_BLOCO K /0000
+
+;Variaveis Auxiliares
+TAMANHO_BLOCO_MVN K /0000
+
+COPIA_BLOCO JP /000
+
+	; Multiplica o tamanho por 2
+	LD TAMANHO_BLOCO
+	* CTE_TAMANHO
+	MM TAMANHO_BLOCO_MVN
+
+	; Copiando os arquivos
+	LD TAMANHO_BLOCO_MVN
+	LOOP_COPIA_BLOCO JZ FIM_COPIA_BLOCO
+		LD END_BLOCO_ORIGEM
+		MM END_ORIGEM
+
+		LD END_BLOCO_ALVO
+		MM END_ALVO
+
+		SC COPIA ; Chama a funçao de copia
+
+		; Adiciona 2 aos endereços inicial e ao topo aux
+		LD END_BLOCO_ORIGEM
+		+ CTE_TAMANHO
+		MM END_BLOCO_ORIGEM
+
+		LD END_BLOCO_ALVO
+		+ CTE_TAMANHO
+		MM END_BLOCO_ALVO
+
+		; Diminui tamanho
+		LD TAMANHO_BLOCO_MVN
+		- CTE_TAMANHO
+		MM TAMANHO_BLOCO_MVN
+
+		JP LOOP_COPIA_BLOCO
+	FIM_COPIA_BLOCO RS COPIA_BLOCO
 
 ;=======================================================;
 ;===================== DESEMPILHA ======================;
