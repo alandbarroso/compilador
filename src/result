@@ -1,0 +1,977 @@
+
+-------------------------------
+Token
+Class: KEY
+Value: const
+Position: line 0, column 0
+-------------------------------
+
+-------------------------------------------------------
+Started machine programa
+
+-----------------------------------
+Transited from 0 to 1 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: VAR
+Value: N
+Position: line 1, column 1
+-------------------------------
+
+-----------------------------------
+Transited from 1 to 7 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: OPR
+Value: =
+Position: line 1, column 3
+-------------------------------
+
+-----------------------------------
+Transited from 7 to 9 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: CHR
+Value: 't'
+Position: line 1, column 5
+-------------------------------
+
+-----------------------------------
+Transited from 9 to 13 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: OPR
+Value: ;
+Position: line 1, column 8
+-------------------------------
+
+-----------------------------------
+Transited from 13 to 14 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: VAR
+Value: J
+Position: line 2, column 1
+-------------------------------
+
+-----------------------------------
+Transited from 14 to 16 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: OPR
+Value: =
+Position: line 2, column 3
+-------------------------------
+
+-----------------------------------
+Transited from 16 to 22 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: INT
+Value: 55
+Position: line 2, column 5
+-------------------------------
+
+-----------------------------------
+Transited from 22 to 13 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: OPR
+Value: ;
+Position: line 2, column 7
+-------------------------------
+
+-----------------------------------
+Transited from 13 to 14 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: KEY
+Value: end
+Position: line 3, column 0
+-------------------------------
+
+-----------------------------------
+Transited from 14 to 17 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: KEY
+Value: const
+Position: line 3, column 4
+-------------------------------
+
+-----------------------------------
+Transited from 17 to 19 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: KEY
+Value: typedef
+Position: line 5, column 0
+-------------------------------
+
+-----------------------------------
+Transited from 19 to 2 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: VAR
+Value: caracter
+Position: line 6, column 1
+-------------------------------
+
+-----------------------------------
+Transited from 2 to 25 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: OPR
+Value: =
+Position: line 6, column 10
+-------------------------------
+
+-----------------------------------
+Transited from 25 to 26 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: KEY
+Value: char
+Position: line 6, column 12
+-------------------------------
+
+-----------------------------------
+Transited from 26 to 27 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: OPR
+Value: ;
+Position: line 6, column 16
+-------------------------------
+
+-----------------------------------
+Transited from 27 to 28 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: KEY
+Value: end
+Position: line 7, column 0
+-------------------------------
+
+-----------------------------------
+Transited from 28 to 29 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: KEY
+Value: typedef
+Position: line 7, column 4
+-------------------------------
+
+-----------------------------------
+Transited from 29 to 30 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: KEY
+Value: struct
+Position: line 9, column 0
+-------------------------------
+
+-----------------------------------
+Transited from 30 to 3 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: VAR
+Value: MyStruct
+Position: line 9, column 7
+-------------------------------
+
+-----------------------------------
+Transited from 3 to 32 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: KEY
+Value: begin
+Position: line 9, column 16
+-------------------------------
+
+-----------------------------------
+Transited from 32 to 33 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: KEY
+Value: int
+Position: line 10, column 1
+-------------------------------
+
+-----------------------------------
+Transited from 33 to 35 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: VAR
+Value: x
+Position: line 10, column 5
+-------------------------------
+
+-----------------------------------
+Transited from 35 to 37 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: OPR
+Value: ,
+Position: line 10, column 6
+-------------------------------
+
+-----------------------------------
+Transited from 37 to 35 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: VAR
+Value: y
+Position: line 10, column 8
+-------------------------------
+
+-----------------------------------
+Transited from 35 to 37 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: OPR
+Value: ;
+Position: line 10, column 9
+-------------------------------
+
+-----------------------------------
+Transited from 37 to 39 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: KEY
+Value: char
+Position: line 11, column 1
+-------------------------------
+
+-----------------------------------
+Transited from 39 to 35 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: VAR
+Value: name
+Position: line 11, column 6
+-------------------------------
+
+-----------------------------------
+Transited from 35 to 37 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: OPR
+Value: [
+Position: line 11, column 10
+-------------------------------
+
+-----------------------------------
+Transited from 37 to 40 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: INT
+Value: 4
+Position: line 11, column 11
+-------------------------------
+
+-----------------------------------
+Transited from 40 to 47 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: OPR
+Value: ]
+Position: line 11, column 12
+-------------------------------
+
+-----------------------------------
+Transited from 47 to 37 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: OPR
+Value: [
+Position: line 11, column 13
+-------------------------------
+
+-----------------------------------
+Transited from 37 to 40 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: INT
+Value: 10
+Position: line 11, column 14
+-------------------------------
+
+-----------------------------------
+Transited from 40 to 47 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: OPR
+Value: ]
+Position: line 11, column 16
+-------------------------------
+
+-----------------------------------
+Transited from 47 to 37 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: OPR
+Value: ;
+Position: line 11, column 17
+-------------------------------
+
+-----------------------------------
+Transited from 37 to 39 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: KEY
+Value: end
+Position: line 12, column 0
+-------------------------------
+
+-----------------------------------
+Transited from 39 to 52 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: KEY
+Value: struct
+Position: line 12, column 4
+-------------------------------
+
+-----------------------------------
+Transited from 52 to 30 using the token!
+
+Semantic action:
+
+ -------Printing Var List ------- 
+
+ [x] - init:1 
+
+ [y] - init:1 
+
+ [name] - init:1 
+
+ -------Printing List End------- 
+
+ -------Printing Var List ------- 
+
+ [N] - init:1 
+
+ [J] - init:1 
+
+ [caracter] - init:1 
+
+ [MyStruct] - init:1 
+
+ -------Printing List End------- 
+Size of MyStruct: 42
+
+-------------------------------
+Token
+Class: KEY
+Value: struct
+Position: line 14, column 0
+-------------------------------
+
+-----------------------------------
+Transited from 30 to 3 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: VAR
+Value: MyStruct2
+Position: line 14, column 7
+-------------------------------
+
+-----------------------------------
+Transited from 3 to 32 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: KEY
+Value: begin
+Position: line 14, column 17
+-------------------------------
+
+-----------------------------------
+Transited from 32 to 33 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: KEY
+Value: int
+Position: line 15, column 1
+-------------------------------
+
+-----------------------------------
+Transited from 33 to 35 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: VAR
+Value: z
+Position: line 15, column 5
+-------------------------------
+
+-----------------------------------
+Transited from 35 to 37 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: OPR
+Value: ;
+Position: line 15, column 6
+-------------------------------
+
+-----------------------------------
+Transited from 37 to 39 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: KEY
+Value: char
+Position: line 16, column 1
+-------------------------------
+
+-----------------------------------
+Transited from 39 to 35 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: VAR
+Value: o
+Position: line 16, column 6
+-------------------------------
+
+-----------------------------------
+Transited from 35 to 37 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: OPR
+Value: [
+Position: line 16, column 7
+-------------------------------
+
+-----------------------------------
+Transited from 37 to 40 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: INT
+Value: 25
+Position: line 16, column 8
+-------------------------------
+
+-----------------------------------
+Transited from 40 to 47 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: OPR
+Value: ]
+Position: line 16, column 10
+-------------------------------
+
+-----------------------------------
+Transited from 47 to 37 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: OPR
+Value: ;
+Position: line 16, column 11
+-------------------------------
+
+-----------------------------------
+Transited from 37 to 39 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: KEY
+Value: end
+Position: line 17, column 0
+-------------------------------
+
+-----------------------------------
+Transited from 39 to 52 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: KEY
+Value: struct
+Position: line 17, column 4
+-------------------------------
+
+-----------------------------------
+Transited from 52 to 30 using the token!
+
+Semantic action:
+
+ -------Printing Var List ------- 
+
+ [z] - init:1 
+
+ [o] - init:1 
+
+ -------Printing List End------- 
+
+ -------Printing Var List ------- 
+
+ [N] - init:1 
+
+ [J] - init:1 
+
+ [caracter] - init:1 
+
+ [MyStruct] - init:1 
+
+ [MyStruct2] - init:1 
+
+ -------Printing List End------- 
+Size of MyStruct2: 26
+
+-------------------------------
+Token
+Class: KEY
+Value: vars
+Position: line 19, column 0
+-------------------------------
+
+-----------------------------------
+Transited from 30 to 4 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: VAR
+Value: MyStruct
+Position: line 20, column 1
+-------------------------------
+
+-----------------------------------
+Transited from 4 to 55 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: VAR
+Value: m
+Position: line 20, column 10
+-------------------------------
+
+-----------------------------------
+Transited from 55 to 56 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: OPR
+Value: ;
+Position: line 20, column 11
+-------------------------------
+
+-----------------------------------
+Transited from 56 to 57 using the token!
+
+Semantic action:
+New var: m: type:MyStruct size:42
+
+-------------------------------
+Token
+Class: KEY
+Value: int
+Position: line 21, column 1
+-------------------------------
+
+-----------------------------------
+Transited from 57 to 55 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: VAR
+Value: result
+Position: line 21, column 5
+-------------------------------
+
+-----------------------------------
+Transited from 55 to 56 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: OPR
+Value: ;
+Position: line 21, column 11
+-------------------------------
+
+-----------------------------------
+Transited from 56 to 57 using the token!
+
+Semantic action:
+New var: result: type:int size:1
+
+-------------------------------
+Token
+Class: KEY
+Value: end
+Position: line 22, column 0
+-------------------------------
+
+-----------------------------------
+Transited from 57 to 65 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: KEY
+Value: vars
+Position: line 22, column 4
+-------------------------------
+
+-----------------------------------
+Transited from 65 to 60 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: KEY
+Value: function
+Position: line 24, column 0
+-------------------------------
+
+-----------------------------------
+Transited from 60 to 5 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: KEY
+Value: int
+Position: line 24, column 9
+-------------------------------
+
+-----------------------------------
+Transited from 5 to 34 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: VAR
+Value: fatorial_recursivo
+Position: line 24, column 13
+-------------------------------
+
+-----------------------------------
+Transited from 34 to 36 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: OPR
+Value: (
+Position: line 24, column 31
+-------------------------------
+
+-----------------------------------
+Transited from 36 to 38 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: KEY
+Value: int
+Position: line 24, column 32
+-------------------------------
+
+-----------------------------------
+Transited from 38 to 41 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: VAR
+Value: n
+Position: line 24, column 36
+-------------------------------
+
+-----------------------------------
+Transited from 41 to 61 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: OPR
+Value: )
+Position: line 24, column 37
+-------------------------------
+
+-----------------------------------
+Transited from 61 to 42 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: KEY
+Value: begin
+Position: line 24, column 39
+-------------------------------
+
+-----------------------------------
+Transited from 42 to 43 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: KEY
+Value: vars
+Position: line 25, column 1
+-------------------------------
+
+-----------------------------------
+Transited from 43 to 45 using the token!
+
+Semantic action:
+TODO
+
+-------------------------------
+Token
+Class: KEY
+Value: int
+Position: line 26, column 2
+-------------------------------
+
+-----------------------------------
+Transited from 45 to 48 using the token!
+
+Semantic action:
+
+-------------------------------
+Token
+Class: VAR
+Value: result
+Position: line 26, column 6
+-------------------------------
+
+-----------------------------------
+Transited from 48 to 49 using the token!
+
+Semantic action:
+Error!
+Error: double definition of result.
+
+-------------------------------
+Token
+Class: OPR
+Value: ;
+Position: line 26, column 12
+-------------------------------
+
+-----------------------------------
+
+-------------------------------------------------------
+Syntax error at line 26, column 12
+
+
+
+EMPILHA >  
+END_INICIAL > 
+TAMANHO > 
+DESEMPILHA > 
+COPIA_BLOCO > 
+END_BLOCO_ORIGEM > 
+END_BLOCO_ALVO > 
+TAMANHO_BLOCO > 
+ACESSA > 
+END_ORIGEM > 
+GRAVA > 
+VALOR > 
+END_ALVO > 
+TOPO > 
+@ /000
+JP MAIN
+AUX_RETURN K /0000
+CONST_N K =116
+CONST_J K =55
+GLOBAL_m $ =42
+GLOBAL_result $ =1

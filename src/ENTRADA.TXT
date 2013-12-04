@@ -1,5 +1,6 @@
 const
-	N = 10;
+	N = 't';
+	J = 55;
 end const
 
 typedef
@@ -8,11 +9,17 @@ end typedef
 
 struct MyStruct begin
 	int x, y;
-	char name[20];
+	char name[4][10];
+end struct
+
+struct MyStruct2 begin
+	int z;
+	char o[25];
 end struct
 
 vars
 	MyStruct m;
+	int result;
 end vars
 
 function int fatorial_recursivo(int n) begin

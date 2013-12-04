@@ -4,61 +4,61 @@
 2
 
 58
-0 VAR NULL 1
-0 OPR ; 2
-0 KEY call 3
-0 KEY if 4
-0 KEY while 5
-0 KEY scan 6
-0 KEY print 7
-0 KEY return 8
-1 OPR [ 9
-1 OPR . 10
-1 OPR = 11
-1 OPR += 11
-1 OPR -= 11
-1 OPR *= 11
-1 OPR /= 11
-3 VAR NULL 18
-4 OPR ( 22
-5 OPR ( 28
-6 VAR NULL 14
-7 MAC expressao 13
-8 MAC expressao 12
-8 OPR ; 2
-9 MAC expressao 15
-10 VAR NULL 1
-11 MAC expressao 12
-12 OPR ; 2
-13 OPR ; 2
-13 OPR , 7
-14 OPR [ 16
-14 OPR . 6
-14 OPR ; 2
-14 OPR , 6
-15 OPR ] 1
-16 MAC expressao 17
-17 OPR ] 14
-18 OPR ( 19
-19 MAC expressao 20
-19 OPR ) 12
-20 OPR , 21
-20 OPR ) 12
-21 MAC expressao 20
-22 MAC expressao 23
-22 OPR ) 24
-23 OPR ) 24
-24 KEY then 25
-25 MAC comando 25
-25 KEY else 26
-25 KEY end 27
-26 MAC comando 26
-26 KEY end 27
-27 KEY if 2
-28 MAC expressao 29
-28 OPR ) 30
-29 OPR ) 30
-30 KEY do 31
-31 MAC comando 31
-31 KEY end 32
-32 KEY while 2
+0 VAR NULL 1 0
+0 OPR ; 2 0
+0 KEY call 3 0
+0 KEY if 4 0
+0 KEY while 5 0
+0 KEY scan 6 0
+0 KEY print 7 0
+0 KEY return 8 0
+1 OPR [ 9 0
+1 OPR . 10 0
+1 OPR = 11 0
+1 OPR += 11 0
+1 OPR -= 11 0
+1 OPR *= 11 0
+1 OPR /= 11 0
+3 VAR NULL 18 0
+4 OPR ( 22 0
+5 OPR ( 28 0
+6 VAR NULL 14 0
+7 MAC expressao 13 0
+8 MAC expressao 12 0
+8 OPR ; 2 0
+9 MAC expressao 15 0
+10 VAR NULL 1 0
+11 MAC expressao 12 0
+12 OPR ; 2 0
+13 OPR ; 2 0
+13 OPR , 7 0
+14 OPR [ 16 0
+14 OPR . 6 0
+14 OPR ; 2 0
+14 OPR , 6 0
+15 OPR ] 1 0
+16 MAC expressao 17 0
+17 OPR ] 14 0
+18 OPR ( 19 0
+19 MAC expressao 20 0
+19 OPR ) 12 0
+20 OPR , 21 0
+20 OPR ) 12 0
+21 MAC expressao 20 0
+22 MAC expressao 23 0
+22 OPR ) 24 0
+23 OPR ) 24 0
+24 KEY then 25 0
+25 MAC comando 25 0
+25 KEY else 26 0
+25 KEY end 27 0
+26 MAC comando 26 0
+26 KEY end 27 0
+27 KEY if 2 0
+28 MAC expressao 29 0
+28 OPR ) 30 0
+29 OPR ) 30 0
+30 KEY do 31 0
+31 MAC comando 31 0
+31 KEY end 32 0
+32 KEY while 2 0

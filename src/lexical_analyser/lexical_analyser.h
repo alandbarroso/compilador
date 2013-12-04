@@ -41,7 +41,7 @@ typedef enum{
 	EOA
 } TokenClass;
 
-typedef char* TokenValue;
+typedef void* TokenValue;
 
 typedef struct{
 	TokenClass class; // Token class

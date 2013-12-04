@@ -13,6 +13,9 @@ typedef void* ElementType;
 typedef struct list_element
 {
     ElementType val;
+
+    int index;
+    
     struct list_element *next;
 } ListElement;
 
@@ -21,12 +24,16 @@ typedef struct
     ListElement* head;
     ListElement* tail;
 
+    int size;
+
     int (*equals)(ElementType, ElementType);
 } List;
 
 List* create_list(int (*equals_function)(ElementType, ElementType));
 
 void add_to_list(List* list, ElementType val);
+
+void add_to_list_at(List* list, int index, ElementType val);
 
 ListElement* search_in_list(List* list, ElementType val);
 

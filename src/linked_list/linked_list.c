@@ -20,6 +20,7 @@ List* create_list(int (*equals_function)(ElementType, ElementType))
 
     list->head = NULL;
     list->tail = NULL;
+    list->size = 0;
     list->equals = equals_function;
 
     return list;
@@ -53,6 +54,73 @@ void add_to_list(List* list, ElementType val)
             {
                 list->tail->next = element;
                 list->tail = element;
+            }
+
+            element->index = list->size;
+
+            list->size++;
+        }
+    }
+}
+
+void add_to_list_at(List* list, int index, ElementType val)
+{
+    if(list == NULL)
+    {
+        printf("\n Node creation failed \n");
+    }
+    else
+    {
+        if(index >= list->size)
+        {
+            printf("\n Node creation failed \n");
+        }
+        else
+        {
+            ListElement *new_element = (ListElement*) malloc(sizeof(ListElement));
+            ListElement *element = list->head;
+            
+            if(new_element == NULL)
+            {
+                printf("\n Node creation failed \n");
+            }
+            else
+            {
+                new_element->val = val;
+                new_element->index = index;
+                new_element->next = NULL;
+                
+                if(index == 0)
+                {
+                    new_element->next = element;
+                    list->head = new_element;
+                }
+                else
+                {
+                    int i;
+
+                    for(i = 0; i < index - 1; i++)
+                    {
+                        element = element->next;
+                    }
+
+                    new_element->next = element->next;
+                    element->next = new_element;
+                }
+
+                if(new_element->next == NULL)
+                {
+                    list->tail = new_element;
+                }
+                else   
+                {
+                    for(element = new_element->next; element != NULL; element = element->next)
+                    {
+                        element->index++;
+                    }
+                }
+
+                list->size++;
             }
         }
     }

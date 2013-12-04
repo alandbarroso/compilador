@@ -4,163 +4,163 @@
 31
 
 160
-0 KEY const 1
-0 KEY typedef 2
-0 KEY struct 3
-0 KEY vars 4
-0 KEY function 5
-0 KEY program 6
-1 VAR NULL 7
-2 VAR NULL 25
-3 VAR NULL 32
-4 VAR NULL 55
-4 KEY bool 55
-4 KEY int 55
-4 KEY char 55
-4 KEY float 55
-5 VAR NULL 34
-5 KEY bool 34
-5 KEY int 34
-5 KEY char 34
-5 KEY float 34
-5 KEY void 34
-6 KEY begin 8
-7 OPR = 9
-8 KEY end 10
-8 KEY vars 11
-8 MAC comando 12
-9 INT NULL 13
-9 FLT NULL 13
-9 KEY true 13
-9 KEY false 13
-9 CHR NULL 13
-10 KEY program 31
-11 VAR NULL 15
-11 KEY bool 15
-11 KEY int 15
-11 KEY char 15
-11 KEY float 15
-12 KEY end 10
-12 MAC comando 12
-13 OPR ; 14
-14 VAR NULL 16
-14 KEY end 17
-15 VAR NULL 18
-16 OPR = 22
-17 KEY const 19
-18 OPR ; 20
-18 OPR [ 21
-18 OPR , 15
-19 KEY typedef 2
-19 KEY struct 3
-19 KEY vars 4
-19 KEY function 5
-19 KEY program 6
-20 VAR NULL 15
-20 KEY end 24
-20 KEY bool 15
-20 KEY int 15
-20 KEY char 15
-20 KEY float 15
-21 INT NULL 23
-22 INT NULL 13
-22 FLT NULL 13
-22 CHR NULL 13
-22 KEY true 13
-22 KEY false 13
-23 OPR ] 18
-24 KEY vars 12
-25 OPR = 26
-26 VAR NULL 27
-26 KEY bool 27
-26 KEY int 27
-26 KEY char 27
-26 KEY float 27
-27 OPR ; 28
-28 VAR NULL 25
-28 KEY end 29
-29 KEY typedef 30
-30 KEY struct 3
-30 KEY vars 4
-30 KEY function 5
-30 KEY program 6
-32 KEY begin 33
-33 VAR NULL 35
-33 KEY bool 35
-33 KEY int 35
-33 KEY char 35
-33 KEY float 35
-34 VAR NULL 36
-35 VAR NULL 37
-36 OPR ( 38
-37 OPR ; 39
-37 OPR [ 40
-37 OPR , 35
-38 VAR NULL 41
-38 KEY bool 41
-38 KEY int 41
-38 KEY char 41
-38 KEY float 41
-38 OPR ) 42
-39 VAR NULL 35
-39 KEY end 52
-39 KEY bool 35
-39 KEY int 35
-39 KEY char 35
-39 KEY float 35
-40 INT NULL 47
-41 VAR NULL 61
-41 KEY byref 62
-42 KEY begin 43
-43 KEY end 44
-43 KEY vars 45
-43 MAC comando 46
-44 KEY function 60
-45 VAR NULL 48
-45 KEY bool 48
-45 KEY int 48
-45 KEY char 48
-45 KEY float 48
-46 KEY end 44
-46 MAC comando 46
-47 OPR ] 37
-48 VAR NULL 49
-49 OPR ; 50
-49 OPR [ 51
-49 OPR , 48
-50 VAR NULL 48
-50 KEY end 54
-50 KEY bool 48
-50 KEY int 48
-50 KEY char 48
-50 KEY float 48
-51 INT NULL 53
-52 KEY struct 30
-53 OPR ] 49
-54 KEY vars 46
-55 VAR NULL 56
-56 OPR ; 57
-56 OPR [ 58
-56 OPR , 55
-57 VAR NULL 55
-57 KEY end 65
-57 KEY bool 55
-57 KEY int 55
-57 KEY char 55
-57 KEY float 55
-58 INT NULL 59
-59 OPR ] 56
-60 KEY function 5
-60 KEY program 6
-61 OPR [ 63
-61 OPR , 64
-61 OPR ) 42
-62 VAR NULL 61
-63 INT NULL 66
-64 VAR NULL 41
-64 KEY bool 41
-64 KEY int 41
-64 KEY char 41
-64 KEY float 41
-65 KEY vars 60
-66 OPR ] 61
+0 KEY const 1 0
+0 KEY typedef 2 0
+0 KEY struct 3 0
+0 KEY vars 4 0
+0 KEY function 5 0
+0 KEY program 6 0
+1 VAR NULL 7 1
+2 VAR NULL 25 3
+3 VAR NULL 32 5
+4 VAR NULL 55 6
+4 KEY bool 55 6
+4 KEY int 55 6
+4 KEY char 55 6
+4 KEY float 55 6
+5 VAR NULL 34 6
+5 KEY bool 34 6
+5 KEY int 34 6
+5 KEY char 34 6
+5 KEY float 34 6
+5 KEY void 34 6
+6 KEY begin 8 0
+7 OPR = 9 0
+8 KEY end 10 0
+8 KEY vars 11 0
+8 MAC comando 12 0
+9 INT NULL 13 2
+9 FLT NULL 13 2
+9 KEY true 13 2
+9 KEY false 13 2
+9 CHR NULL 13 2
+10 KEY program 31 0
+11 VAR NULL 15 6
+11 KEY bool 15 6
+11 KEY int 15 6
+11 KEY char 15 6
+11 KEY float 15 6
+12 KEY end 10 0
+12 MAC comando 12 0
+13 OPR ; 14 0
+14 VAR NULL 16 1
+14 KEY end 17 0
+15 VAR NULL 18 7
+16 OPR = 22 0
+17 KEY const 19 0
+18 OPR ; 20 11
+18 OPR [ 21 0
+18 OPR , 15 11
+19 KEY typedef 2 0
+19 KEY struct 3 0
+19 KEY vars 4 0
+19 KEY function 5 0
+19 KEY program 6 0
+20 VAR NULL 15 0
+20 KEY end 24 0
+20 KEY bool 15 0
+20 KEY int 15 0
+20 KEY char 15 0
+20 KEY float 15 0
+21 INT NULL 23 8
+22 INT NULL 13 2
+22 FLT NULL 13 2
+22 CHR NULL 13 2
+22 KEY true 13 2
+22 KEY false 13 2
+23 OPR ] 18 0
+24 KEY vars 12 0
+25 OPR = 26 0
+26 VAR NULL 27 4
+26 KEY bool 27 4
+26 KEY int 27 4
+26 KEY char 27 4
+26 KEY float 27 4
+27 OPR ; 28 0
+28 VAR NULL 25 3
+28 KEY end 29 0
+29 KEY typedef 30 0
+30 KEY struct 3 0
+30 KEY vars 4 0
+30 KEY function 5 0
+30 KEY program 6 0
+32 KEY begin 33 0
+33 VAR NULL 35 6
+33 KEY bool 35 6
+33 KEY int 35 6
+33 KEY char 35 6
+33 KEY float 35 6
+34 VAR NULL 36 12
+35 VAR NULL 37 7
+36 OPR ( 38 0
+37 OPR ; 39 9
+37 OPR [ 40 0
+37 OPR , 35 9
+38 VAR NULL 41 0
+38 KEY bool 41 0
+38 KEY int 41 0
+38 KEY char 41 0
+38 KEY float 41 0
+38 OPR ) 42 0
+39 VAR NULL 35 6
+39 KEY end 52 0
+39 KEY bool 35 6
+39 KEY int 35 6
+39 KEY char 35 6
+39 KEY float 35 6
+40 INT NULL 47 8
+41 VAR NULL 61 0
+41 KEY byref 62 0
+42 KEY begin 43 0
+43 KEY end 44 0
+43 KEY vars 45 0
+43 MAC comando 46 0
+44 KEY function 60 0
+45 VAR NULL 48 6
+45 KEY bool 48 6
+45 KEY int 48 6
+45 KEY char 48 6
+45 KEY float 48 6
+46 KEY end 44 0
+46 MAC comando 46 0
+47 OPR ] 37 0
+48 VAR NULL 49 7
+49 OPR ; 50 11
+49 OPR [ 51 0
+49 OPR , 48 11
+50 VAR NULL 48 0
+50 KEY end 54 0
+50 KEY bool 48 0
+50 KEY int 48 0
+50 KEY char 48 0
+50 KEY float 48 0
+51 INT NULL 53 8
+52 KEY struct 30 10
+53 OPR ] 49 0
+54 KEY vars 46 0
+55 VAR NULL 56 7
+56 OPR ; 57 11
+56 OPR [ 58 0
+56 OPR , 55 11
+57 VAR NULL 55 6
+57 KEY end 65 0
+57 KEY bool 55 6
+57 KEY int 55 6
+57 KEY char 55 6
+57 KEY float 55 6
+58 INT NULL 59 8
+59 OPR ] 56 0
+60 KEY function 5 0
+60 KEY program 6 0
+61 OPR [ 63 0
+61 OPR , 64 0
+61 OPR ) 42 0
+62 VAR NULL 61 0
+63 INT NULL 66 0
+64 VAR NULL 41 0
+64 KEY bool 41 0
+64 KEY int 41 0
+64 KEY char 41 0
+64 KEY float 41 0
+65 KEY vars 60 0
+66 OPR ] 61 0

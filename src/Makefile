@@ -33,6 +33,9 @@ lexico: $(BIN)/lexico.o $(BIN)/lexical_analyser.o $(BIN)/state_machine.o $(BIN)/
 sintatico: $(BIN)/sintatico.o $(BIN)/syntax_analyser.o $(BIN)/pushdown_automata.o $(BIN)/lexical_analyser.o $(BIN)/state_machine.o $(BIN)/linked_list.o $(BIN)/keyword_analyser.o $(BIN)/symbol_table.o
 	$(CC) $(LINKLFAGS) $? -o sintatico
 
+semantico: $(BIN)/semantic.o $(BIN)/sintatico.o $(BIN)/mvn_command.o $(BIN)/syntax_analyser.o $(BIN)/pushdown_automata.o $(BIN)/lexical_analyser.o $(BIN)/state_machine.o $(BIN)/linked_list.o $(BIN)/keyword_analyser.o $(BIN)/symbol_table.o
+	$(CC) $(LINKLFAGS) $? -o semantico
+
 $(BIN)/lexico.o: lexico.c
 	$(CC) $(CFLAGS) $? -o $(BIN)/lexico.o
 
@@ -59,3 +62,9 @@ $(BIN)/keyword_analyser.o: context_stack/keyword_analyser.c
 
 $(BIN)/symbol_table.o: context_stack/symbol_table.c
 	$(CC) $(CFLAGS) $? -o $(BIN)/symbol_table.o
+
+$(BIN)/mvn_command.o: semantic/mvn_command.c
+	$(CC) $(CFLAGS) $? -o $(BIN)/mvn_command.o
+
+$(BIN)/semantic.o: semantic/semantic.c
+	$(CC) $(CFLAGS) $? -o $(BIN)/semantic.o

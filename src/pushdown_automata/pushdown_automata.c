@@ -11,6 +11,7 @@
 
 #include "pushdown_automata.h"
 #include "../linked_list/linked_list.h"
+#include "../semantic/semantic.h"
 
 /*
 * ------------------------------------------------------
@@ -32,11 +33,6 @@ AutomataState* init_automata_state(int state_number);
 *	Create token given class and value of the token
 */
 Token* create_token(char* token_class, char* token_value);
-
-/*
-*	Semantic function to be done
-*/
-void semantico_tdb();
 
 /*
 * ------------------------------------------------------
@@ -80,6 +76,7 @@ void create_automata(PushdownAutomata* automata, FILE* f, PushdownAutomata** aut
 	char aux_token_class[4]; // The class od the token read in the file
 	char aux_token_value[256]; // The value of the token
 	int aux_resulting_state; // The resulting state from the transistion
+	int aux_semantic_func; // The semantic function that should be called
 
 	Transition* aux_transition; // Auxliar to create normal transitions
 
@@ -114,6 +111,7 @@ void create_automata(PushdownAutomata* automata, FILE* f, PushdownAutomata** aut
 		fscanf(f, "%s", aux_token_class);
 		fscanf(f, "%s", aux_token_value);
 		fscanf(f, "%d", &aux_resulting_state);
+		fscanf(f, "%d", &aux_semantic_func);
 
 		// We check if the token class equals a machine to be called
 		if(!strcmp(aux_token_class, "MAC"))
@@ -131,7 +129,7 @@ void create_automata(PushdownAutomata* automata, FILE* f, PushdownAutomata** aut
 
 					aux_transition->transition_value = automatas[i];
 					aux_transition->next_state = automata->states[aux_resulting_state];
-					aux_transition->semantic_action = &semantico_tdb;
+					aux_transition->semantic_action = get_semantic_function(aux_semantic_func);
 
 					add_to_list(automata->states[aux_state]->submachine_transitions, aux_transition);
 				}
@@ -149,7 +147,7 @@ void create_automata(PushdownAutomata* automata, FILE* f, PushdownAutomata** aut
 
 			aux_transition->transition_value = create_token(aux_token_class, aux_token_value);
 			aux_transition->next_state = automata->states[aux_resulting_state];
-			aux_transition->semantic_action = &semantico_tdb;
+			aux_transition->semantic_action = get_semantic_function(aux_semantic_func);
 			
 			add_to_list(automata->states[aux_state]->transitions, aux_transition);
 		}
@@ -171,11 +169,13 @@ int recognize(PushdownAutomata* automata, Token** token)
 
 	int result = 1; // The final result of the automata 
 
+	int semantic_result = 1; //
+
 	printf("-------------------------------------------------------\n");
 	printf("Started machine %s\n", automata->name);
 	printf("\n");
 
-	while((*token)->class != EOA && !finished_automata)
+	while((*token)->class != EOA && !finished_automata && semantic_result)
 	{
 		next_state = NULL; // Restart the transitions
 
@@ -199,7 +199,7 @@ int recognize(PushdownAutomata* automata, Token** token)
 					printf("\n");
 
 					printf("Semantic action:\n");
-					(*(t->semantic_action))();
+					semantic_result = (*(t->semantic_action))(*token);
 					printf("\n");
 				}
 				else // Else, we compare the values
@@ -213,7 +213,7 @@ int recognize(PushdownAutomata* automata, Token** token)
 						printf("\n");
 
 						printf("Semantic action:\n");
-						(*(t->semantic_action))();
+						semantic_result = (*(t->semantic_action))(*token);
 						printf("\n");
 					}
 				}
@@ -242,7 +242,7 @@ int recognize(PushdownAutomata* automata, Token** token)
 					printf("\n");
 
 					printf("Semantic action:\n");
-					(*(t->semantic_action))();
+					semantic_result = (*(t->semantic_action))(*token);
 					printf("\n");
 				}
 				
@@ -280,9 +280,16 @@ int recognize(PushdownAutomata* automata, Token** token)
 	printf("-----------------------------------\n\n");
 
 	// We finally verify if the the last state to see if the we have accepted the language or not
-	if(current_state->accepting)
+	if(semantic_result)
 	{
-		result = 1;
+		if(current_state->accepting)
+		{
+			result = 1;
+		}
+		else
+		{
+			result = 0;
+		}
 	}
 	else
 	{
@@ -414,9 +421,4 @@ Token* create_token(char* token_class, char* token_value)
 	}
 
 	return token;
-}
-
-void semantico_tdb()
-{
-	printf("TODO\n");
 }

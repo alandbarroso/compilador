@@ -25,16 +25,13 @@
  */
 int equals_var (ElementType e1, ElementType e2);
 
-Symbol* init_symbol(char *idn);
-
-
 /*
  * ------------------------------------------------------
  * Variables
  * ------------------------------------------------------
  */
 
-List* VARS_LIST;
+Scope* CURRENT_SCOPE;
 
 /*
  * ------------------------------------------------------
@@ -43,35 +40,58 @@ List* VARS_LIST;
  */
 
 void init_var(){
-	VARS_LIST = create_list(&equals_var);
+	CURRENT_SCOPE = init_scope(NULL);
+
+	CURRENT_SCOPE->number = 0;
+
+	CURRENT_SCOPE->name = (char*) malloc((strlen("GLOBAL") + 1)*sizeof(char));
+	strcpy(CURRENT_SCOPE->name, "GLOBAL");
 }
 
-int search_var(char* idn)
+ListElement* search_var(Scope* scope, char* idn)
 {
 	Symbol *symbol = init_symbol(idn);
+	ListElement* element = NULL;
 
-	if(search_in_list(VARS_LIST, symbol) == NULL)
+	if(scope != NULL)
 	{
-		return 0;
+		element = search_in_list(scope->var_list, symbol);
+
+		if(element == NULL)
+		{
+			element = search_var(scope->parent, symbol->id);
+		}
 	}
-	else
-	{
-		return 1;
-	}
+
+	return element;
 }
 
-void insert_var(char *idn)
+Symbol* insert_var(char *idn)
 {
 	Symbol *symbol = init_symbol(idn);
+	ListElement* element = search_var(CURRENT_SCOPE ,idn); 
 
-	if(!search_var(idn))
+	if(element == NULL)
 	{
-		add_to_list(VARS_LIST, symbol);
+		add_to_list(CURRENT_SCOPE->var_list, symbol);
+
+		return symbol;
 	}
 	else
 	{
 		free(symbol);
+
+		return (Symbol*) element->val;
 	}
+}
+
+Scope* init_scope(Scope* parent)
+{
+	Scope* s = (Scope*) malloc(sizeof(Scope));
+
+	s->number = 0;
+	s->var_list = create_list(&equals_var);
+	s->parent = parent;
 }
 
 void print_list_vars(List* list)
@@ -82,7 +102,7 @@ void print_list_vars(List* list)
         ListElement* element = list->head;
         while(element != NULL)
         {
-            printf("\n [%s] \n",((Symbol*) element->val)->id);
+            printf("\n [%s] - init:%d \n",((Symbol*) element->val)->id, ((Symbol*) element->val)->has_init);
             element = element->next;
         }
     }
@@ -113,8 +133,30 @@ Symbol* init_symbol(char *idn)
 	s->id = (char*) malloc((strlen(idn) + 1) * sizeof(char));
 	strcpy(s->id, idn);
 
-	s->value = 0;
-	s->type = 0;
+	s->type = NULL;
+
+	s->has_init = 0;
+
+	s->is_const = 0;
+
+	s->is_type = 0;
+	s->type_size = 0;
+
+	s->is_struct = 0;
+	
+	s->child_scope = NULL;
+
+	s->is_array = 0;
+
+	s->is_function = NULL;
+	s->param_list = NULL;
+	s->size_of_vars = 0;
+
+	s->ref_symbol = NULL;
+
+	s->ref_name = NULL;
+
+	s->size = 0;
 
 	return s;
 }

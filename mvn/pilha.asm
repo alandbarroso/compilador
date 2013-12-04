@@ -9,8 +9,32 @@ EMPILHA > ; Funçao de empilhar
 END_INICIAL > ; Endereço inicial do bloco a ser empilhado
 TAMANHO > ; Tamanho do bloco a ser copado
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 DESEMPILHA > ; Funcao de desempilhar
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+COPIA_BLOCO > ; Funcao de copiar bloco
+
+END_BLOCO_ORIGEM > ; Endereco de origem do bloco
+END_BLOCO_ALVO > ; Endereco alvo de copia do bloco
+TAMANHO_BLOCO > ; Tamanho a ser copiado do bloco
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+ACESSA > ; Funcao de acesso dado um ponteiro
+
+END_ORIGEM > ; Endereco a ser acessado
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+GRAVA > ; Funcao de gravar valor em endereco
+
+VALOR > ; Valor a ser gravado
+END_ALVO > ; Endereco onde gravar
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 TOPO > ; Guarda o endereco do topo da pilha
 
@@ -112,9 +136,9 @@ COPIA JP /000
 	COPEIA JP /000 ; Don't care
 RS COPIA
 
-;===============================
-; COPIA-BLOCO
-;===============================
+;=======================================================;
+;===================== COPIA_BLOCO =====================;
+;=======================================================;
 
 ; Parametros
 END_BLOCO_ORIGEM K /0000

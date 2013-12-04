@@ -25,7 +25,7 @@ void update_line_column();
 /*
  * Get the class, based in the string returned
  */
-TokenClass get_class(char* state_name, char* buffer);
+void set_token_class_value(Token* t, char* state_name, char* buffer);
 
 /*
  * Append a char to a string
@@ -141,10 +141,7 @@ Token* get_token()
 	// We complete the token using the information from the state where we are
 	if(current_state != NULL && !(current_state->ignoring)) // If the current state is not null and not a ignoring state
 	{
-		token->class = get_class(current_state->name, buffer);
-
-		token->value = (char*) malloc((strlen(buffer) + 1) * sizeof(char));
-		strcpy(token->value, buffer);
+		set_token_class_value(token, current_state->name, buffer);
 	}
 	else
 	{
@@ -175,7 +172,10 @@ void print_token(Token* t)
 	printf("-------------------------------\n");
 	printf("Token\n");
 	printf("Class: %s\n", CLASS_NAME[t->class]);
-	printf("Value: %s\n", t->value);
+	if(t->class == VAR)
+		printf("Value: %s\n", ((Symbol *) t->value)->id);
+	else
+		printf("Value: %s\n", t->value);
 	printf("Position: line %d, column %d\n", t->line, t->column);
 	printf("-------------------------------\n\n");
 }
@@ -193,39 +193,45 @@ void update_line_column()
 	}
 }
 
-TokenClass get_class(char* state_name, char* buffer)
+void set_token_class_value(Token* t, char* state_name, char* buffer)
 {
-	TokenClass class = -1;
+	t->class = -1;
 	int i;
+	Symbol* s;
 
 	for(i = 0; i < NB_CLASS_NAME; i++)
 	{
 		if(!strcmp(CLASS_NAME[i], state_name))
 		{
-			class = i;
+			t->class = i;
 		}
 	}
 
-	if(class == -1)
+	if(t->class == -1)
 	{
-		class = ERR;
+		t->class = ERR;
 	}
 
-	if(class == IDN)
+	if(t->class == IDN)
 	{
 		if(search_keyword(buffer))
 		{
-			class = KEY;
+			t->class = KEY;
 		}
 		else
 		{
-			class = VAR;
+			t->class = VAR;
 
-			insert_var(buffer);
+			s = insert_var(buffer);
+
+			t->value = s;
+
+			return;
 		}
 	}
 
-	return class;
+	t->value = (char*) malloc((strlen(buffer) + 1) * sizeof(char));
+	strcpy(t->value, buffer);
 }
 
 void append_char(char** str, char c)
