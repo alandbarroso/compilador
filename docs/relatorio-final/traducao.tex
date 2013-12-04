@@ -1,0 +1,310 @@
+% !TEX encoding = UTF-8 Unicode
+\definecolor{light-gray}{gray}{0.95}
+\definecolor{non-photoblue}{rgb}{0.64, 0.87, 0.93}
+
+\subsection{Tradução dos comandos imperativos}
+
+\textbf{Nota}: <expressao> trata-se de um abuso de linguagem, pois na realidade precisamos guardar o valor calculado - que está no acumulador - em uma variável temporária e depois utilizá-la sempre qquando utilizamos <expressao> diretamente.
+
+\begin{table}[H]
+	\rowcolors{1}{light-gray}{white}
+
+	\begin{tabular}{ | p{3cm} | p{5cm} | p{5cm}|}
+	\rowcolor{non-photoblue}
+	\textbf{Comando} & \textbf{Linguagem} & \textbf{MVN Simbólica} \\
+	
+	\hline
+	
+	Declaração de variável escalar simples & int x; & x K /0000 \\
+
+	Declaração de variável vetorial simples & int x[n]; & x \$ =n \\
+
+	Declaração de estrutura simples & struct s begin\newline int p1;\newline int p2;\newline int p3[n];\newline end struct\newline\newline s x; & x K /0000\newline K /0000\newline \$ =n \\
+
+	\hline
+	\end{tabular}
+	\caption{Tradução dos comandos principais para a MVN: Parte I}
+\end{table}
+
+
+\begin{table}[H]
+	\rowcolors{1}{light-gray}{white}
+
+	\begin{tabular}{ | p{3cm} | p{5cm} | p{5cm}|}
+	\rowcolor{non-photoblue}
+	\textbf{Comando} & \textbf{Linguagem} & \textbf{MVN Simbólica} \\
+	
+	\hline
+
+	Atribuição de variável escalar ou de estrutura & x = <expressao>; &  LV x\newline + n ; n > 0 para struct\newline\ MM END\_ALVO\newline\newline <expressao>\newline\newline LD <expressao>\newline MM VALOR\newline\newline SC GRAVA \\
+
+	Atribuição de variável vetorial & x[<expressao>] = <expressao>; & <expressao>\newline\newline LV x\newline + <expressao>\newline MM END\_ALVO\newline\newline <expressao>\newline\newline LD <expressao>\newline MM VALOR\newline\newline SC GRAVA \\
+
+	Acesso à variável vetorial & x[<expressao>] & <expressao>\newline\newline LV x \newline + <expressao>\newline MM END\_ORIGEM\newline SC ACESSA \\
+
+	\hline
+	\end{tabular}
+	\caption{Tradução dos comandos principais para a MVN: Parte II}
+\end{table}
+
+\begin{table}
+	\rowcolors{1}{light-gray}{white}
+
+	\begin{tabular}{ | p{3cm} | p{5cm} | p{5cm}|}
+	\rowcolor{non-photoblue}
+	\textbf{Comando} & \textbf{Linguagem} & \textbf{MVN Simbólica} \\
+	
+	\hline
+
+	Declaração de função & function int func(int p1, char p2) begin\newline\newline<comandos>\newline\newline end function & func\_end\_retorno K /0000\newline K /0000\newline func\_p1 K /0000\newline func\_p2 K /0000\newline\newline TMP1 K /0000\newline TMP2 K /0000\newline...\newline func JP /000\newline <comandos>\newline RS func \\
+
+	Chamada de função & func(<expressao>, <expressao>) & LD parent\newline MM parent\_end\_retorno\newline\newline LV parent\_end\_retorno\newline MM END\_INICIAL\newline\newline LV parent\_tamanho\newline MM TAMANHO\newline\newline SC EMPILHA\newline\newline <expressao>\newline LD <expressao>\newline MM func\_p1\newline\newline <expressao>\newline LD <expressao>\newline MM func\_p2\newline\newline SC func \newline\newline MM TMP\_RETURN\newline\newline LD TOPO \newline MM END\_BLOCO\_ORIGEM\newline\newline LD parent\_end\_retorno\newline MM END\_BLOCO\_ALVO\newline\newline LV parent\_tamanho\newline MM TAMANHO\_BLOCO\newline  SC COPIA\_BLOCO\newline\newline LD TMP\_RETURN \\
+
+	\hline
+	\end{tabular}
+	\caption{Tradução dos comandos principais para a MVN: Parte III}
+\end{table}
+
+\begin{table}[H]
+	\rowcolors{1}{light-gray}{white}
+
+	\begin{tabular}{ | p{3cm} | p{5cm} | p{5cm}|}
+	\rowcolor{non-photoblue}
+	\textbf{Comando} & \textbf{Linguagem} & \textbf{MVN Simbólica} \\
+	
+	\hline
+
+	Leitura (entrada) & scan x, y, z; & LV x\newline MM END\_ALVO\newline\newline SC SCAN\_INT\newline\newline LV y\newline MM END\_ALVO\newline\newline SC SCAN\_INT\newline\newline LV z\newline MM END\_ALVO\newline\newline SC SCAN\_CHAR \\
+
+	Impressão (saída) & print x, y, z; & LV x\newline MM END\_ORIGEM\newline\newline SC ACESSA\newline MM VAR\newline\newline SC PRINT\_INT\newline\newline LV y\newline MM END\_ORIGEM\newline\newline SC ACESSA\newline MM VAR\newline\newline SC PRINT\_INT\newline\newline LV z\newline MM END\_ORIGEM\newline\newline SC ACESSA\newline MM VAR\newline\newline SC PRINT\_CHAR \\
+
+	\hline
+	\end{tabular}
+	\caption{Tradução dos comandos principais para a MVN: Parte IV}
+\end{table}
+
+\subsection{Tradução de estruturas de controle de fluxo}
+
+\begin{table}[H]
+	\rowcolors{1}{light-gray}{white}
+
+	\begin{tabular}{ | p{3cm} | p{5cm} | p{5cm}|}
+	\rowcolor{non-photoblue}
+	\textbf{Comando} & \textbf{Linguagem} & \textbf{MVN Simbólica} \\
+	
+	\hline
+
+	If-then & if (<expressao>) then \newline <comandos> \newline end if & TMP K /0001 \newline\newline <expressao>\newline LD <expressao>\newline MM TMP\newline\newline LD TMP\newline JZ ENDIF\newline\newline<comandos>\newline\newline ENDIF \\
+
+	If-then-else & if (<expressao>) then \newline <comandos> \newline else \newline <comandos> \newline end if & TMP K /0001\newline\newline <expressao>\newline LD <expressao>\newline MM TMP\newline LD TMP\newline\newline JZ ELSE\newline<comandos>\newline JP ENDIF\newline\newline ELSE \newline<comandos>\newline ENDIF \\
+
+	While & while (<expressao>) do\newline <comandos>\newline end while & TMP K /0001\newline\newline WHILE\newline\newline<expressao>\newline LD <expressao>\newline MM TMP\newline LD TMP\newline\newline JZ ENDWHILE\newline<comandos>\newline JP WHILE\newline\newline ENDWHILE \\
+
+	\hline
+	\end{tabular}
+	\caption{Tradução dos comandos principais para a MVN: Parte V}
+\end{table}
+
+\subsection{Funções auxiliares}
+
+\subsubsection{Biblioteca auxiliar}
+
+Criamos uma biblioteca auxiliar que permite gerar o código MVN das tabelas anteriores. Ela é carregada em todos os programas compilados pelo compilador que estamos desenvolvendo.
+
+
+Todas as variáveis auxiliares às quais tivemos de atribuir um valor como VALOR, TAMANHO, END\_ALVO etc. são parâmetros das funções auxiliares.
+
+
+As principais funções existentes na biblioteca referem-se à implementação de uma pilha (no nosso caso, uma abstração do registro de ativação). Assim, além das tradicionais EMPILHA e DESEMPILHA, temos algumas funções auxiliares que ajudam a implementá-las:
+
+\begin{itemize}
+	\item \textbf{COPIA\_BLOCO}: permite copiar o conteúdo de um bloco de código para outro. A cópia se dá de maneira conveniente para o registro de ativação, quer dizer, respeitando a estrutura convencionada.
+	\item \textbf{ACESSA}: Coloca no acumulador o valor localizado no ponteiro do endereco de origem.
+	\item \textbf{GRAVA}:  Grava no enedereço alvo o valor do parâmetro VALOR.
+	\item \textbf{SCAN\_*}: Realiza a leitura do dispotivo de entrada.
+	\item \textbf{PRINT\_*}: Imprime sobre o dispositivo de entreda.
+\end{itemize}
+
+\textbf{Nota}: Grande parte das manipulações da biblioteca auxiliar usam a noção de ponteiros. Para maiores informações, consultar o código enviado em anexo, o qual encontra-se comentado.
+
+\subsubsection{Cálculo de <expressao>}
+
+Para a geração de código em linguagem MVN, será necessário uma pilha, uma lista,  um contador para variáveis temporárias e um para endereços de desvio para auxílio (label). 
+
+
+Note que uma expressão pode ser tanto aritmética quanto booleana em nossa linguagem e a ordem de precedência dos operadores é: operações unárias (! ou -), multiplicação/divisão, adição/subtração, comparações lógicas (>, <, >=, <=, ==, !=), operação lógica E, operação lógica OU. 
+
+\begin{enumerate}
+	\item Empilha os átomos assim que são lidos para o analisador sintático até encontrar um “)”. 
+	
+	\item Quando encontrar o “)”, desempilha e coloque na lista auxiliar até encontrar o “(“. Se não houver “)”, vá para o passo 6.
+
+	\item Resolve-se os operadores unários "!" e "-".
+
+	\begin{table}[H]
+			\rowcolors{1}{light-gray}{white}
+
+			\begin{tabular}{| p{7cm} | p{8cm}|}
+			\rowcolor{non-photoblue}
+			\textbf{Linguagem} & \textbf{MVN Simbólica} \\
+			
+			\hline
+
+			! NUM/ID anterior & LV =NUM ; ou LD ID anterior\newline JZ JUMP\_EXPBOOL<contador>\newline LV =0\newline MM temp<contador de variável temporária>\newline JP FIM\_EXPBOOL<contador>\newline JUMP\_EXPBOOL<contador> LV =1\newline MM temp<contador de variável temporária>\newline FIM\_EXPBOOL<contador> \\
+
+			- NUM/ID anterior & LV =NUM ; ou LD ID anterior\newline MM temp<contador de variável temporária>\newline LV =0\newline - temp<contador de variável temporária>\newline MM temp<contador de variável temporária> \\
+
+			\hline
+			\end{tabular}
+			\caption{Tradução dos comandos principais para a MVN: multiplicação e divisão}
+		\end{table}
+
+	Após a geração do código, deve-se substituir na lista o átomo pela variável temporária criada.
+
+	\item Resolve-se os operadores “*” e “/” percorrendo a lista procurando-os.
+
+		\begin{table}[H]
+			\rowcolors{1}{light-gray}{white}
+
+			\begin{tabular}{| p{7cm} | p{8cm}|}
+			\rowcolor{non-photoblue}
+			\textbf{Linguagem} & \textbf{MVN Simbólica} \\
+			
+			\hline
+
+			NUM/ID posterior *\_/ NUM/ID anterior & LV  =NUM ; ou LD ID posterior\newline\newline *\_/  <NUM/ID anterior>\newline\newline MM temp<contador de variável temporária> \\
+
+			\hline
+			\end{tabular}
+			\caption{Tradução dos comandos principais para a MVN: multiplicação e divisão}
+		\end{table}
+
+
+		Após a geração do código, deve-se substituir na lista os três átomos pela variável temporária criada.
+
+	\item Resolve-se os operadores “+” e “-” da mesma forma que no passo 4.
+
+	\begin{table}[H]
+			\rowcolors{1}{light-gray}{white}
+
+			\begin{tabular}{| p{7cm} | p{8cm}|}
+			\rowcolor{non-photoblue}
+			\textbf{Linguagem} & \textbf{MVN Simbólica} \\
+			
+			\hline
+
+			NUM/ID posterior +\_- NUM/ID anterior & LV  =NUM ; ou LD ID posterior\newline\newline +\_-  <NUM/ID anterior>\newline\newline MM temp<contador de variável temporária> \\
+
+			\hline
+			\end{tabular}
+			\caption{Tradução dos comandos principais para a MVN: adição e subtração}
+	\end{table}
+
+
+	Após a geração do código, deve-se substituir na lista os três átomos pela variável temporária criada.
+
+	\item Resolve-se os operadores de comparação lógica da mesma forma que no passo 4.
+
+	\begin{table}[H]
+			\rowcolors{1}{light-gray}{white}
+
+			\begin{tabular}{| p{7cm} | p{8cm}|}
+			\rowcolor{non-photoblue}
+			\textbf{Linguagem} & \textbf{MVN Simbólica} \\
+			
+			\hline
+
+			NUM/ID posterior > NUM/ID anterior & LV =NUM ; ou LD ID posterior\newline - <NUM ou ID anterior>\newline JN JUMP\_EXPBOOL<contador>\newline LV =1\newline MM temp<contador de variável temporária>\newline JP FIM\_EXPBOOL<contador>\newline JUMP\_EXPBOOL<contador> LV =0\newline MM temp<contador de variável temporária>\newline FIM\_EXPBOOL<contador>\newline \\
+
+			NUM/ID posterior < NUM/ID anterior & LV =NUM ; ou LD ID posterior\newline - <NUM ou ID anterior>\newline JN JUMP\_EXPBOOL<contador>\newline LV =0\newline MM temp<contador de variável temporária>\newline JP FIM\_EXPBOOL<contador>\newline JUMP\_EXPBOOL<contador> LV =1\newline MM temp<contador de variável temporária>\newline FIM\_EXPBOOL<contador>\newline \\
+			\hline
+			\end{tabular}
+			\caption{Tradução dos comandos principais para a MVN: comparação lógica}
+	\end{table}
+
+	\begin{table}[H]
+			\rowcolors{1}{light-gray}{white}
+
+			\begin{tabular}{| p{7cm} | p{8cm}|}
+			\rowcolor{non-photoblue}
+			\textbf{Linguagem} & \textbf{MVN Simbólica} \\
+			
+			\hline
+
+			NUM/ID posterior >= NUM/ID anterior & LV =NUM ; ou LD ID posterior\newline - <NUM ou ID anterior>\newline JN JUMP\_EXPBOOL<contador>\newline JZ JUMP\_EXPBOOL<contador>\newline LV =1\newline MM temp<contador de variável temporária>\newline JP FIM\_EXPBOOL<contador>\newline JUMP\_EXPBOOL<contador> LV =0\newline MM temp<contador de variável temporária>\newline FIM\_EXPBOOL<contador>\newline \\
+
+			NUM/ID posterior <= NUM/ID anterior & LV =NUM ; ou LD ID posterior\newline - <NUM ou ID anterior>\newline JN JUMP\_EXPBOOL<contador>\newline JZ JUMP\_EXPBOOL<contador>\newline LV =0\newline MM temp<contador de variável temporária>\newline JP FIM\_EXPBOOL<contador>\newline JUMP\_EXPBOOL<contador> LV =1\newline MM temp<contador de variável temporária>\newline FIM\_EXPBOOL<contador>\newline \\
+			\hline
+			\end{tabular}
+			\caption{Tradução dos comandos principais para a MVN: comparação lógica II}
+	\end{table}
+
+	\begin{table}[H]
+			\rowcolors{1}{light-gray}{white}
+
+			\begin{tabular}{| p{7cm} | p{8cm}|}
+			\rowcolor{non-photoblue}
+			\textbf{Linguagem} & \textbf{MVN Simbólica} \\
+			
+			\hline
+
+			NUM/ID posterior == NUM/ID anterior & LV =NUM ; ou LD ID posterior\newline - <NUM ou ID anterior>\newline JZ JUMP\_EXPBOOL<contador>\newline LV =0\newline MM temp<contador de variável temporária>\newline JP FIM\_EXPBOOL<contador>\newline JUMP\_EXPBOOL<contador> LV =1\newline MM temp<contador de variável temporária>\newline FIM\_EXPBOOL<contador>\newline \\
+
+			NUM/ID posterior != NUM/ID anterior & LV =NUM ; ou LD ID posterior\newline - <NUM ou ID anterior>\newline JZ JUMP\_EXPBOOL<contador>\newline LV =1\newline MM temp<contador de variável temporária>\newline JP FIM\_EXPBOOL<contador>\newline JUMP\_EXPBOOL<contador> LV =0\newline MM temp<contador de variável temporária>\newline FIM\_EXPBOOL<contador>\newline \\
+
+			\hline
+			\end{tabular}
+			\caption{Tradução dos comandos principais para a MVN: comparação lógica III}
+	\end{table}
+
+	Após a geração do código, deve-se substituir na lista os três átomos pela variável temporária criada.
+
+	\item Resolve-se a operação lógica E.
+
+	\begin{table}[H]
+			\rowcolors{1}{light-gray}{white}
+
+			\begin{tabular}{| p{7cm} | p{8cm}|}
+			\rowcolor{non-photoblue}
+			\textbf{Linguagem} & \textbf{MVN Simbólica} \\
+			
+			\hline
+
+			NUM/ID posterior and NUM/ID anterior & LV =NUM ; ou LD ID posterior\newline * NUM ; ou ID anterior\newline MM temp<contador de variável temporária> \\
+
+			\hline
+			\end{tabular}
+			\caption{Tradução dos comandos principais para a MVN: operação lógica E}
+	\end{table}
+
+	Após a geração do código, deve-se substituir na lista os três átomos pela variável temporária criada.
+
+	\item Resolve-se a operação lógica OU.
+
+	\begin{table}[H]
+			\rowcolors{1}{light-gray}{white}
+
+			\begin{tabular}{| p{7cm} | p{8cm}|}
+			\rowcolor{non-photoblue}
+			\textbf{Linguagem} & \textbf{MVN Simbólica} \\
+			
+			\hline
+
+			NUM/ID posterior or NUM/ID anterior & LV =NUM ; ou LD ID posterior\newline + NUM ; ou ID anterior\newline JZ JUMP\_EXPBOOL<contador>\newline LV =1\newline MM temp<contador de variável temporária>\newline JP FIM\_EXPBOOL<contador>\newline JUMP\_EXPBOOL<contador> LV =0\newline MM temp<contador de variável temporária>\newline FIM\_EXPBOOL<contador> \\
+
+			\hline
+			\end{tabular}
+			\caption{Tradução dos comandos principais para a MVN: operação lógica OU}
+	\end{table}
+
+	Após a geração do código, deve-se substituir na lista os três átomos pela variável temporária criada.
+
+	\item Quando a lista contiver apenas um item, insira-o na pilha e volte para o passo 1, cujo intuito é o de eliminar mais parênteses.
+
+	\item Nesse passo, a pilha encontra-se com toda a expressão sem parênteses. Com isso, pode-se jogar todo o conteúdo da pilha na lista e resolvê-la com os passos 3 a 8.
+
+	\item Após resolver todos os operadores, a lista estará apenas com um átomo, sendo o resultado da expressão e o código já foi gerado.
+	
+	LV =NUM ; ou LD ID
+
+\end{enumerate}
