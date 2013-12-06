@@ -1,0 +1,250 @@
+if (<expressao>) then 
+	<comandos>
+end if
+
+TMP K /0001
+
+<exp>
+LD <exp>
+MM TMP
+
+LD TMP
+JZ ENDIF
+
+<comandos>
+
+ENDIF 
+
+--------------------------------------------------------
+
+if (<expressao>) then 
+	<comandos>
+else
+	<comandos>
+end if
+
+TMP K /0001
+
+<exp>
+LD <exp>
+MM TMP
+
+LD TMP
+JZ ELSE
+
+<comandos>
+
+JP ENDIF
+ELSE 
+
+<comandos>
+
+ENDIF
+
+--------------------------------------------------------
+
+while (<expressao>) do 
+	<comandos>
+end while
+
+TMP K /0001
+
+WHILE
+
+<exp>
+LD <exp>
+MM TMP
+
+LD TMP
+JZ ENDWHILE
+
+<comandos>
+
+JP WHILE
+ENDWHILE
+
+--------------------------------------------------------
+
+int x
+
+x K /0000
+
+--------------------------------------------------------
+
+int x[n];
+
+x $ =n
+
+--------------------------------------------------------
+
+struct s begin
+	int p1;
+	int p2;
+	int p3[n];
+end struct
+
+s x;
+
+x K /0000
+K /0000
+$ =n
+
+--------------------------------------------------------
+
+x = <expressao>
+
+LV x
++ n
+MM END_ALVO
+
+<expressao>
+LD <expressao>
+MM VALOR
+
+SC GRAVA
+
+--------------------------------------------------------
+
+x[<expressao>] = <expressao>
+
+<expressao>
+
+LV x
++ <expressao>
+MM END_ALVO
+
+<expressao>
+LD <expressao>
+MM VALOR
+
+SC GRAVA
+
+--------------------------------------------------------
+
+x[<expressao>]
+
+TMP K /0000
+
+<expressao>
+
+LV x
++ <expressao>
+MM END_ORIGEM
+
+SC ACESSA
+
+MM 
+
+--------------------------------------------------------
+
+print x, y, z
+
+LV x
+MM END_ORIGEM
+
+SC ACESSA
+MM VAR
+
+SC PRINT_INT
+
+LV y
+MM END_ORIGEM
+
+SC ACESSA
+MM VAR
+
+SC PRINT_INT
+
+LV z
+MM END_ORIGEM
+
+SC ACESSA
+MM VAR
+
+SC PRINT_CHAR
+
+--------------------------------------------------------
+
+scan x, y, z
+
+LV x
+MM END_ALVO
+
+SC SCAN_INT
+
+LV y
+MM END_ALVO
+
+SC SCAN_INT
+
+LV z
+MM END_ALVO
+
+SC SCAN_CHAR
+
+--------------------------------------------------------
+
+function int func(int p1, char p2) begin
+	<comandos>
+end function
+
+func_end_retorno K /0000
+
+K /000
+
+func_p1 K /0000
+func_p2 K /0000
+
+TMP1 K /0000
+TMP2 K /0000
+.
+.
+.
+
+func JP /000
+
+<comandos>
+
+RS func
+
+--------------------------------------------------------
+
+func(<expressao>, <expressao>)
+
+LD parent
+MM parent_end_retorno
+
+LV parent_end_retorno
+MM END_INICIAL
+
+LV parent_tamanho
+MM TAMANHO
+
+SC EMPILHA
+
+<expressao>
+
+LD <expressao>
+MM func_p1
+
+<expressao>
+
+LD <expressao>
+MM func_p2
+
+SC func
+
+MM TMP_RETURN
+
+LD TOPO 
+MM END_BLOCO_ORIGEM
+
+LD parent_end_retorno
+MM END_BLOCO_ALVO
+
+LV parent_tamanho
+MM TAMANHO_BLOCO 
+
+SC COPIA_BLOCO
+
+LD TMP_RETURN

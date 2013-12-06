@@ -1,0 +1,181 @@
+function int fatorial_recursivo(int n) begin
+	int result;
+
+	if (n <=1)  then
+		result = 1;
+	else
+		result = n * fatorial_recursivo(n - 1);
+	end if
+
+	return result;
+end funcion
+
+fatorial_recursivo_end_retorno K /0000
+
+K /000
+
+n K /0000
+
+TMP1 K /0000
+TMP2 K /0000
+TMP3 K /0000
+TMP4 K /0000
+TMP5 K /0000
+
+fatorial_recursivo JP /000
+
+result K /0000
+
+; n <= 1
+LV =1
+- n
+JZ JUMP_EXPBOOL1
+JN JUMP_EXPBOOL1
+LV =0
+MM TMP2
+JP FIM_EXPBOOL1
+JUMP_EXPBOOL1 LV =1
+MM TMP2
+FIM_EXPBOOL1
+
+LD TMP2
+MM TMP3
+
+; IF
+LD TMP3
+JZ ELSE1
+
+; result = 1
+LV result
+MM END_ALVO
+
+LV =1
+MM TMP4
+LD TMP4
+MM VALOR
+
+SC GRAVA
+
+JP ENDIF1
+ELSE1
+
+; result = n * fatorial_recursivo(n - 1)
+LV result
+MM END_ALVO
+
+; chamada de funcao
+LD parent
+MM parent_end_retorno
+
+LV parent_end_retorno
+MM END_INICIAL
+
+LV parent_tamanho
+MM TAMANHO
+
+SC EMPILHA
+
+LV =1
+- n 
+MM TMP5
+
+LD TMP5
+MM n ; vai dar pau
+
+SC fatorial_recursivo
+
+MM fatorial_recursivo_end_retorno
+
+LD TOPO 
+MM END_BLOCO_ORIGEM
+
+LD parent_end_retorno
+MM END_BLOCO_ALVO
+
+LV parent_tamanho
+MM TAMANHO_BLOCO 
+
+SC COPIA_BLOCO
+
+LD fatorial_recursivo_end_retorno
+MM TMP6
+
+LD TMP6
+* n
+MM TMP7
+
+MM TMP7
+LD TMP7
+MM VALOR
+
+SC GRAVA ; result
+
+ENDIF1
+
+	return result;
+
+RS fatorial_recursivo
+
+
+
+function int fatorial_iterativo(int n) begin
+	int fatorial;
+
+	fatorial = 1;
+	while (n>0) do
+	    fatorial = fatorial * n;
+	    n = n - 1;
+	end while
+
+	return fatorial;
+end function
+
+
+
+
+fatorial_iterativo_end_retorno K /0000
+
+K /000
+
+n1 K /0000
+
+TMP1 K /0000
+TMP2 K /0000
+
+fatorial_iterativo JP /000
+
+fatorial K /0000
+
+; fatorial = 1
+LV fatorial
+MM END_ALVO
+
+LV =1
+MM TMP
+LD TMP
+MM VALOR
+
+SC GRAVA
+
+WHILE LV =0
+- n
+JN JUMP_EXPBOOL2
+LV =1
+MM TMP
+JP FIM_EXPBOOL2
+JUMP_EXPBOOL2 LV =0
+MM TMP
+FIM_EXPBOOL2
+
+LD <exp>
+MM TMP
+
+LD TMP
+JZ ENDWHILE
+
+<comandos>
+
+JP WHILE
+ENDWHILE
+
+RS fatorial_iterativo
