@@ -134,6 +134,13 @@ Para a geração de código em linguagem MVN, será necessário uma pilha, uma l
 
 Note que uma expressão pode ser tanto aritmética quanto booleana em nossa linguagem e a ordem de precedência dos operadores é: operações unárias (! ou -), multiplicação/divisão, adição/subtração, comparações lógicas (>, <, >=, <=, ==, !=), operação lógica E, operação lógica OU. 
 
+\textbf{Nota} : Onde houver - NUM/ID anterior/posterior ou LV =NUM - pode haver também a possibilidade de o operando ser o resultado de uma chamada de função. Nete caso, deve-se primeiro resolver a chamada de função (mostrado anteriormente). Em seguida:
+
+\begin{itemize}
+	\item MM TMP ; mover o resultado para uma variável temporária
+	\item LD TMP ; comando equivalente a NUM/ID anterior/posterior ou LV =NUM para chamadas de função
+\end{itemize}
+
 \begin{enumerate}
 	\item Empilha os átomos assim que são lidos para o analisador sintático até encontrar um “)”. 
 	

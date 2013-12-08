@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.12.10)  5 DEC 2013 21:42
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.12.10)  5 DEC 2013 22:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -981,7 +981,11 @@ Sidefootvsep and sidefootheight: 14.5pt and 590.14995pt
 \openout4 = `main.idx'.
 
 Writing index file main.idx 
-No file main.aux.
+(./main.aux
+
+LaTeX Warning: Label `chap:in_out' multiply defined.
+
+)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 117.
@@ -999,7 +1003,7 @@ LaTeX Font Info:    ... okay on input line 117.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 117.
 LaTeX Font Info:    ... okay on input line 117.
 LaTeX Font Info:    Try loading font information for T1+lmr on input line 117.
-(/usr/local/texlive/2012/texmf-dist/tex/latex/lm/t1lmr.fd
+ (/usr/local/texlive/2012/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 \AtBeginShipoutBox=\box36
@@ -1588,27 +1592,27 @@ Overfull \vbox (28.7922pt too high) has occurred while \output is active []
                                                   \fi \fi 
 l.107 
       ] [22]
-Overfull \hbox (82.9913pt too wide) in paragraph at lines 147--159
+Overfull \hbox (82.9913pt too wide) in paragraph at lines 154--166
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 175--176
+Underfull \hbox (badness 10000) in paragraph at lines 182--183
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 175--176
+Underfull \hbox (badness 10000) in paragraph at lines 182--183
 
  []
 
 
-Underfull \hbox (badness 2635) in paragraph at lines 175--176
+Underfull \hbox (badness 2635) in paragraph at lines 182--183
 \T1/lmr/m/n/12 MM temp<contador de va-riá-vel tem-po-
  []
 
 
-Overfull \hbox (82.9913pt too wide) in paragraph at lines 169--179
+Overfull \hbox (82.9913pt too wide) in paragraph at lines 176--186
 [][]
  []
 
@@ -1617,46 +1621,46 @@ Overfull \hbox (82.9913pt too wide) in paragraph at lines 169--179
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.184 
-      pdfTeX warning (ext4): destination with the same identifier (name{table.1
-.7}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.184 
+l.188 
       ]
-Underfull \hbox (badness 10000) in paragraph at lines 196--197
+Underfull \hbox (badness 10000) in paragraph at lines 203--204
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 196--197
+Underfull \hbox (badness 10000) in paragraph at lines 203--204
 
  []
 
 
-Underfull \hbox (badness 2635) in paragraph at lines 196--197
+Underfull \hbox (badness 2635) in paragraph at lines 203--204
 \T1/lmr/m/n/12 MM temp<contador de va-riá-vel tem-po-
  []
 
 
-Overfull \hbox (82.9913pt too wide) in paragraph at lines 190--200
+Overfull \hbox (82.9913pt too wide) in paragraph at lines 197--207
 [][]
  []
 
 
-Overfull \hbox (82.9913pt too wide) in paragraph at lines 211--222
+Overfull \hbox (82.9913pt too wide) in paragraph at lines 218--229
 [][]
  []
 
-[24pdfTeX warning (ext4): destination with the same identifier (name{table.1.8}
+[24pdfTeX warning (ext4): destination with the same identifier (name{table.1.7}
 ) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.224 
+l.231 
+      pdfTeX warning (ext4): destination with the same identifier (name{table.1
+.8}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.231 
       ]
-Overfull \hbox (82.9913pt too wide) in paragraph at lines 228--239
+Overfull \hbox (82.9913pt too wide) in paragraph at lines 235--246
 [][]
  []
 
@@ -1665,9 +1669,9 @@ Overfull \hbox (82.9913pt too wide) in paragraph at lines 228--239
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.241 
+l.248 
       ]
-Overfull \hbox (82.9913pt too wide) in paragraph at lines 245--257
+Overfull \hbox (82.9913pt too wide) in paragraph at lines 252--264
 [][]
  []
 
@@ -1676,14 +1680,14 @@ Overfull \hbox (82.9913pt too wide) in paragraph at lines 245--257
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.259 
+l.266 
       ]
-Overfull \hbox (82.9913pt too wide) in paragraph at lines 267--277
+Overfull \hbox (82.9913pt too wide) in paragraph at lines 274--284
 [][]
  []
 
 
-Overfull \hbox (82.9913pt too wide) in paragraph at lines 287--297
+Overfull \hbox (82.9913pt too wide) in paragraph at lines 294--304
 [][]
  []
 
@@ -1692,18 +1696,14 @@ Overfull \hbox (82.9913pt too wide) in paragraph at lines 287--297
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.298 	\end{table}
+l.305 	\end{table}
                   pdfTeX warning (ext4): destination with the same identifier (
 name{table.1.12}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.298 	\end{table}
-                  ]))
-
-Package lastpage Warning: Rerun to get the references right on input line 131.
-
-
+l.305 	\end{table}
+                  ])) 
 AED: lastpage setting LastPage
 [28pdfTeX warning (ext4): destination with the same identifier (name{table.1.13
 }) has been already used, duplicate ignored
@@ -1719,14 +1719,14 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 131.
 Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 131.
 
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: There were multiply-defined labels.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 131.
  ) 
 Here is how much of TeX's memory you used:
- 13231 strings out of 493488
- 189574 string characters out of 3141325
- 324056 words of memory out of 3000000
+ 13233 strings out of 493488
+ 189592 string characters out of 3141325
+ 325864 words of memory out of 3000000
  16223 multiletter control sequences out of 15000+200000
  48958 words of font info for 38 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
@@ -1740,7 +1740,7 @@ ype1/public/lm/lmr12.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public
 .pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/lm/lmss17.pfb></usr
 /local/texlive/2012/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></usr/local/t
 exlive/2012/texmf-dist/fonts/type1/public/lm/lmsy10.pfb>
-Output written on main.pdf (28 pages, 427828 bytes).
+Output written on main.pdf (28 pages, 428192 bytes).
 PDF statistics:
  315 PDF objects out of 1000 (max. 8388607)
  256 compressed objects within 3 object streams
