@@ -1,134 +1,10 @@
-% verso e anverso:
-% \documentclass[12pt,openright,twoside,a4paper,english]{abntex2}
-% apenas verso: 
-\documentclass[12pt,oneside,a4paper,english]{abntex2}
 
-
-\usepackage{cmap}				% Mapear caracteres especiais no PDF
-\usepackage{lmodern}			% Usa a fonte Latin Modern			
-\usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
-\usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
-\usepackage{lastpage}			% Usado pela Ficha catalográfica
-\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
-\usepackage{color}				% Controle das cores
-\usepackage{graphicx}			% Inclusão de gráficos
-\usepackage{pdfpages}
-\usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
-\usepackage[alf]{abntex2cite}	% Citações padrão ABNT
-
-\usepackage{listings}
-\usepackage{color}
-\usepackage{float}
-
-\definecolor{mygreen}{rgb}{0,0.6,0}
-\definecolor{mygray}{rgb}{0.5,0.5,0.5}
-\definecolor{mymauve}{rgb}{0.58,0,0.82}
-
-\lstdefinelanguage{rock}
-{
-  morekeywords ={const, typedef, tipo, struct, begin, end, inteiro, function, program, if, then, else, while, do, scan, print, int, float, void, char, bool},
-  sensitive = true,
-  morecomment = [s]{\%}{\%},
-  morestring = [b]",
-}
-
-\lstset{ %
-  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
-  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
-  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
-  breaklines=true,                 % sets automatic line breaking
-  captionpos=b,                    % sets the caption-position to bottom
-  commentstyle=\color{mygreen},    % comment style
-  deletekeywords={...},            % if you want to delete keywords from the given language
-  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
-  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
-  frame=single,                    % adds a frame around the code
-  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
-  keywordstyle=\color{blue},       % keyword style
-  language=rock,
-  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
-  numbersep=5pt,                   % how far the line-numbers are from the code
-  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
-  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
-  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
-  showstringspaces=false,          % underline spaces within strings only
-  showtabs=false,                  % show tabs within strings adding particular underscores
-  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
-  stringstyle=\color{mymauve},     % string literal style
-  tabsize=2,                       % sets default tabsize to 2 spaces
-  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
-}
-
-% Configurações do pacote backref
-% Usado sem a opção hyperpageref de backref
-\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
-% Texto padrão antes do número das páginas
-\renewcommand{\backref}{}
-% Define os textos da citação
-\renewcommand*{\backrefalt}[4]{
-	\ifcase #1 %
-		Nenhuma citação no texto.%
-	\or
-		Citado na página #2.%
-	\else
-		Citado #1 vezes nas páginas #2.%
-	\fi}%
-
-\definecolor{blue}{RGB}{41,5,195} % alterando o aspecto da cor azul
-
-\makeatletter
-\hypersetup{
-     	%pagebackref=true,
-		pdftitle={\@title}, 
-		pdfauthor={\@author},
-    	pdfsubject={\@title},
-		pdfkeywords={Compiladores}, 
-		colorlinks=true,       		% false: boxed links; true: colored links
-    	linkcolor=blue,          	% color of internal links
-    	citecolor=blue,        		% color of links to bibliography
-    	filecolor=magenta,      		% color of file links
-		urlcolor=blue,
-		bookmarksdepth=4
-}
-\makeatother
-
-\autor{Alan D. Barroso, Kenji Sakata Jr}
-\title{Anlisador Sintático}
-\orientador[]{Linguagens e Compiladores \\ PCS2056}
-\instituicao{%
-	Universidade de São Paulo
-	\par
-	Escola Politécnica}
-\local{São Paulo}
-\data{2013}
-
-\setlrmarginsandblock{4cm}{4cm}{*}
-\setulmarginsandblock{4cm}{4cm}{*}
-\checkandfixthelayout
-
-\setlength{\parindent}{1.3cm} % O tamanho do parágrafo
-\setlength{\parskip}{0.2cm}  % Controle do espaçamento entre um parágrafo e outro
-
-\SingleSpacing
-
-\makeindex
-
-\begin{document}
-
-\frenchspacing % Retira espaço extra obsoleto entre as frases.
-
-\imprimirfolhaderosto
-
-\clearpage
-
-\textual
-
-\chapter{Introdução}
+\section{Introdução}
 
   O analisador sintático é o responsável por reconhecer a estrutura da linguagem, formada a partir da gramática. Sua ação começa uma vez que o módulo léxico já reconheceu todas as partículas átomicas que compõem o código-fonte.
 
 
-  Na realidade, é o analisador sintático quem invoca a ação do módulo léxico em um primeiro momento a fim de identificar as partículas do texto. Em seguida, ele, o analisador sintático, faz uma segunda leitura do código-fonte, mas, desta vez, ele tenta descrever como essas partículas estão estruturadas e organizadas no texto. A estrutura que é composta por esta segunda leitura é chamada de árvore de sintaxe e consiste unicamente em uma forma alternativa de representar o código-fonte, mas a qual é compreensível pelo compilador.
+  Na realidade, é o analisador sintático quem invoca a ação do módulo léxico em um primeiro momento a fim de identificar as partículas do texto. A medida que os tokens são lidos e repassados ao analisador sintático, ele, o analisador sintático, tenta descrever como essas partículas estão estruturadas e organizadas no texto. A estrutura é chamada de árvore de sintaxe e consiste unicamente em uma forma alternativa de representar o código-fonte, mas a qual é compreensível pelo compilador.
 
 
   Em seguida, quando da análise semântica, é novamente o módulo sintático quem será o responsável por invocar o analisador semântico, o qual traduzirá a árvore de sintaxe em ações concretas, executáveis pelo computador.
@@ -142,8 +18,8 @@
         
   Assim, após definir a linguagem e desenvolver o analisador léxico, tratamos de construir o módulo de análise sintática, cujo método de reconhecimento foi baseado em autômato de pilha estruturado (APE). 
 
-\chapter{Geração Automática dos Autômatos}
-  \section{Notação de Wirth Reduzida}
+\section{Geração Automática dos Autômatos}
+  \subsection{Notação de Wirth Reduzida}
 
     Na primeira etapa para a criação do APE, foram utilizadas as expressões fundamentais criadas a partir da descrição reduzida em notação de Wirth. A definição das expressões seguiu o critério dos não-terminais com recursividade central, sendo possível concluir que as máquinas finais tratariam a sequência de comandos, as expressões e o programa principal.
 
@@ -153,8 +29,8 @@
 
     %\lstinputlisting{../1-linguagem/notacoes/wirth_reduzido.txt}
 
-  \section{Lista de submáquinas do APE}
-    \subsection{Lista de transições}
+  \subsection{Lista de submáquinas do APE}
+    \subsubsection{Lista de transições}
 
       A partir da linguagem representada em notação de Wirth reduzida, utilizamos o programa do site indicado \footnote{http://radiant-fire-72.heroku.com/} para gerar automaticamente a tabela de transições as quais as submáquinas deveriam executar de forma a caracterizar a linguagem.
 
@@ -186,7 +62,7 @@
 
       \lstinputlisting{../1-linguagem/notacoes/JFLAP/expressao/expressao.txt}
 
-    \subsection{Lista dos autômatos}
+    \subsubsection{Lista dos autômatos}
 
       Nesta seção listaremos simplesmente os autômatos resultantes representados de uma maneira gráfica a partir das tabelas de transições da seção anterior.
 
@@ -213,9 +89,9 @@
           \includegraphics[width=0.7\textwidth]{../1-linguagem/notacoes/JFLAP/expressao/expressao.png}
       \end{figure}
 
-\chapter{Comentários sobre a implementação}
+\section{Comentários sobre a implementação}
 
-  \section{Desenvolvimento do módulo sintático}
+  \subsection{Desenvolvimento do módulo sintático}
 
 
   Partindo do modelo da notação de Wirth reduzida, nosso analisador sintático baseia-se na interação entre três máquinas de estados, representando as regras finais, que podem se chamar mutuamente, o que é previsto por estarmos trabalhando com um Autômato de Pilha Estruturado (APE).
@@ -236,7 +112,7 @@
   Por outro lado, se não houver transição possível na tabela para um dado token, a função verifica se a máquina encontra-se em estado de aceitação, retornando verdadeiro, ou não, retornando falso. O valor falso traduz o caso em que houve um erro sintático na estrutura do código-fonte e o erro é rapidamento propagado para as máquinas de estados que a chamaram, parando a execução do módulo. Já o valor verdadeiro, faz com que a máquina que a chamou continue sua execução a partir do próximo estado previsto pela tabela em que o autômato estava a esperar (resincronização); se o autômato é a raiz ("programa`') e já não há mais tokens a serem lidos, o compilador reconhece a sintaxe da linguagem.
 
 
-  \section{Integração com o compilador}
+  \subsection{Integração com o compilador}
 
 
   Devido à alta modularização configurada pela arquitetura escolhida, o programa principal que representa o compilador possui uma estrutura bastante simples. 
@@ -249,5 +125,3 @@
 
  
  Finalmente, chama-se a subrotina verify\_syntax(), a qual foi explicada anteriormente e é capaz de decidir se o código-fonte pertence ou não à lingugagem definida pela gramática.
-
-\end{document}
