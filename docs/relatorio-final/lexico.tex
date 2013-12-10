@@ -1,21 +1,23 @@
 % !TEX encoding = UTF-8 Unicode
 
-\section{Questão 1}
+\section{Introdução}
 
-\textbf{Quais são as funções do analisador léxico nos compiladores/interpretadores?}
+O primeiro módulo do compilador a ser desenvolvido foi o Analisador Léxico.
 
-Ele gera os tokens que são recebidos pelo analisador sintático.
+
+A sua principal função consiste em gerar os tokens que são recebidos pelo analisador sintático.
+
 
 Cada token deve possuir uma classe  - número, identificador, palavra reservada e símbolos especiais - e um valor.
 
-O analisador léxico é o responsável por criar a Tabela de Símbolos, a qual será utilizada pelo analisador sintático e o semântico. A tabela é preenchida graças a geração de tokens.
 
-O analisador léxico também deve permitir identificar a posição (Linha x Coluna) dos tokens na estrutura do texto. Note que comentários, espaços, <tab>s e <CR>s normalmente são ignorados pelo analisador léxico.
+O analisador léxico também é o responsável por criar a Tabela de Símbolos, a qual será utilizada pelo analisador sintático e o semântico. A tabela é preenchida graças a geração de tokens.
+
+
+Além disso, ele deve permitir identificar a posição (Linha x Coluna) dos tokens na estrutura do texto. Note que comentários, espaços, <tab>s e <CR>s normalmente são ignorados pelo analisador léxico.
+
  
-\section{Questão 2}           
-\textbf{Quais as vantagens e desvantagens da implementação do analisador léxico como uma fase separada do processamento da linguagem de programação em relação à sua implementação como sub-rotina que vai extraindo um átomo a cada chamada?}
-
-O módulo do analisador léxico é chamado inúmeras vezes durante o processo de compilação: para cada átomo (token). Assim, ele se torna o gargalo do compilador em relação ao tempo de compilação e ao de execução.
+Como é chamado inúmeras vezes durante o processo de compilação: para cada átomo (token), ele se torna o gargalo do compilador em relação ao tempo de compilação e ao de execução.
 
 Vantagens:
 \begin{itemize}
@@ -31,14 +33,12 @@ Desvantagens:
 \end{itemize}
 
 
-\section{Questão 3}
+\section{Geração do Autômato}
 
-\textbf{Defina formalmente, através de expressões regulares sobre o conjunto de caracteres ASCII, a sintaxe de cada um dos tipos de átomos a serem extraídos do texto-fonte pelo analisador léxico, bem como de cada um dos espaçadores e comentários}
+Começamos a geração do autômato, definindo as seguintes expressões regulares, as quais serão interpretadas como tokens pelo compilador.
 
 \begin{itemize}
 	\item \textbf{Inteiro}: [0-9]+
-
-	\item \textbf{Real}: [0-9]*'.'[0-9]+
 
 	\item \textbf{Identificador}: ([a-zA-Z] | [\_][a-zA-Z])[a-zA-Z0-9]*
 
@@ -52,11 +52,10 @@ Desvantagens:
 
 	\item \textbf{Comentários}: \% .* \%
 
-	\item Caracteres ignorados: \textbackslash s \textbackslash t \textbackslash n
+	\item \textbf{Caracteres ignorados}: \textbackslash s \textbackslash t \textbackslash n
 \end{itemize}
 
-\section{Questão 4}
-\textbf{Converta cada uma das expressões regulares, assim obtidas, em autômatos finitos equivalentes que reconheçam as correspondentes linguagens por elas definidas}
+Em seguida, convertemos cada uma das expressões regulares em autômatos finitos equivalentes que reconheçam as correspondentes linguagens por elas definidas.
 
 \begin{figure}[H]
   \caption{Automato que reconhece um inteiro}
@@ -106,21 +105,13 @@ Desvantagens:
     \includegraphics[width=0.7\textwidth]{../0-lexico/automatos/non-used}
 \end{figure}
 
-\section{Questão 5}
-
-\textbf{Crie um autômato único que aceite todas essas linguagens a partir de um mesmo estado inicial, mas que apresente um estado final diferenciado para cada uma delas}
+Finalmente, obtemos um autômato único, o qual aceita todas essas linguagens a partir de um mesmo estado inicial, mas que apresenta um estado final diferenciado para cada uma delas. Para obter o transdutor, basta acrescentar $\epsilon$-transições partindo dos estados de aceitação, dando como saída o token, e tendo como destino o estado inicial da máquina S0.
 
 \begin{figure}[H]
   \caption{Automato completo}
   \centering
     \includegraphics[width=\textwidth]{../0-lexico/automatos/completo}
 \end{figure}
-
-\section{Questão 6}
-
-\textbf{Transforme o autômato assim obtido em um transdutor, que emita como saída o átomo encontrado ao abandonar cada um dos estados finais para iniciar o reconhecimento de mais um átomo do texto}
-
-Idem ao item anterior. A diferença é que haverá $\epsilon$-transições adicionais partindo dos estados de aceitação, dando como saída o token, e tendo como destino o estado inicial da máquina S0.
 
 \section{Funcionamento do Módulo de Análise Léxica}
 
@@ -198,24 +189,4 @@ O módulo de leitura de expressões regulares é o módulo central que integra e
 	\item get\_token: lê o código fonte e usa a máquina de estados inicializada anteriormente para tentar encontrar uma das expressões regulares definidas pela gramática. Quando a máquina pára, é realizada a leitura do buffer para gerar um token (classe, valor e posição no arquivo fonte). Caso a máquina tenha parado no estado que indica a expressão regular de um identificador, fazemos uma consulta à Tabela de Palavras Reservadas. E se for o caso deste ser uma palavra reservada, mudamos sua classe de identificador para palavra reservada (KEY). Caso contrário, inserimos o identificador na Tabela de Símbolos e o consideramos como sendo da classe de variáreis (VAR).
 \end{itemize}
 
-\subsection{Programa Principal}
-
-O programa principal chama repetidamente a sub-rotina get\_token() do analisador léxico sobre um arquivo do tipo texto contendo o texto-fonte a ser analisado. Após cada chamada, esse programa principal imprimi o conteúdo do token. O programa termina ao receber um token especial (EOA), o qual indica o fim do arquivo; ou ao receber um token de erro. 
-
-
-\section{Descrição dos testes realizados e das saídas obtidas}
-
-O teste foi realizado, utilizando o próprio código em cópia do arquivo fonte do analisador léxico (ENTRADA.txt), mais especificamente a função main.
-Na saída deste teste (SAIDA.txt), obtemos:
-A Tabela de Palavras Reservadas
-Os tokens retornados pela chamada recorrente da subrotina get\_token()
-Finalmente a Tabela de Símbolos resultante da leitura da entrada (somente os nomes dos identificadores) 
-
-A saída efetiva foi igual à saída esperada.
-
-\section{Questão 10}
-\textbf{Explique como enriquecer esse analisador léxico com um expansor de macros do tipo \#DEFINE, não paramétrico nem recursivo, mas que permita a qualquer macro chamar outras macros, de forma não cíclica. (O expansor de macros não precisa ser implementado)} 
-
-Baseando-se na método de como C implementa macros, o analisador léxico poderia usar de um pré-compilador que gera um código intermediário com as macros expandidas. O pré-compilador percorreria o código original, procurando a existência de macros e expandiria essas macros, salvando o resultado em um código intermediário. O pré-compilador continuaria a iterar o código intermediário na busca de macros, as expandindo, até que não exista mais macros no código. Código intermediário resultante seria então passado para o léxico para ser feita a análise léxica.
-
-Implementando as macros dentro do próprio léxico, o analisador poderia usar uma pilha de buffers. Ao encontrar uma macro, o léxico carregaria a macro em um buffer, pararia a execução do arquivo/buffer que ele está lendo atualmente e empilharia o novo buffer na pilha. Esse novo buffer seria a nova fonte de dados para léxico, até que o buffer fosse terminado. Ele é então desempilhado, e o próximo topo da pilha será a nova fonte.
+O reconhecedor sintático chama repetidamente a sub-rotina get\_token() do analisador léxico sobre um arquivo do tipo texto contendo o texto-fonte a ser analisado. O programa termina ao receber um token especial (EOA), o qual indica o fim do arquivo; ou ao receber um token de erro. 
